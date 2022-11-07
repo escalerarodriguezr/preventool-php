@@ -1,3 +1,6 @@
-controllers:
-    resource: ../src/Controller/
-    type: attribute
+#Demo
+get_demo:
+  path: /api/v1/demo
+  controller: App\Controller\Demo\GetDemoController
+  methods: [GET]
+
