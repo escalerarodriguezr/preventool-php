@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace App\Controller\Demo;
 
+use Preventool\Infrastructure\Ui\Http\Request\DTO\CreateDemoRequest;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class GetDemoController
@@ -17,8 +19,10 @@ class GetDemoController
     {
     }
 
-    public function __invoke():Response
+    public function __invoke(CreateDemoRequest $createDemoRequest):Response
     {
+
+        dd($createDemoRequest);
         $this->logger->error("hola...");
 
         return new JsonResponse(null,200);
