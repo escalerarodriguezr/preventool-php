@@ -27,24 +27,24 @@ class GetDemoController
 
     public function __invoke(CreateDemoRequest $createDemoRequest):Response
     {
-
-        $query = new GetDemoByIdQuery(
-            'rafa'
-        );
-
-        $response = $this->queryBus->handle($query);
-
-        dd($response);
-
-
-
-//        $command = new CreateDemoCommand(
-//            $createDemoRequest->getName(),
-//            $createDemoRequest->getWidth(),
-//            $createDemoRequest->getHeight()
+//
+//        $query = new GetDemoByIdQuery(
+//            'rafa'
 //        );
 //
-//        $this->commandBus->dispatch($command);
+//        $response = $this->queryBus->handle($query);
+//
+//        dd($response);
+
+
+
+        $command = new CreateDemoCommand(
+            $createDemoRequest->getName(),
+            $createDemoRequest->getWidth(),
+            $createDemoRequest->getHeight()
+        );
+
+        $this->commandBus->dispatch($command);
 
 
 

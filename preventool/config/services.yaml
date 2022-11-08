@@ -34,6 +34,11 @@ services:
         Preventool\Domain\Shared\Bus\Command\CommandHandler:
             tags:
                 - { name: messenger.message_handler, bus: command.bus }
+
         Preventool\Domain\Shared\Bus\Query\QueryHandler:
             tags:
                 - { name: messenger.message_handler, bus: query.bus }
+
+        Preventool\Domain\Shared\Bus\DomainEvent\DomainEventHandler:
+            tags:
+                - { name: messenger.message_handler, bus: domain.event.bus }
