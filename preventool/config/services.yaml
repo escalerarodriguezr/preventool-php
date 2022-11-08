@@ -27,3 +27,13 @@ services:
     Preventool\Infrastructure\Ui\Http\Listener\Shared\JsonTransformerExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 100 }
+
+    #Domain
+    #Bus
+    _instanceof:
+        Preventool\Domain\Shared\Bus\Command\CommandHandler:
+            tags:
+                - { name: messenger.message_handler, bus: command.bus }
+#        Witrac\Domain\Shared\Bus\Query\QueryHandler:
+#            tags:
+#                - { name: messenger.message_handler, bus: query.bus }

@@ -50,7 +50,7 @@ class JsonTransformerExceptionListener
             $data['code'] = $exception->getStatusCode();
         }
 
-        
+
         $event->setResponse($this->prepareResponse($data));
 
     }

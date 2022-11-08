@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Demo;
 
+use Preventool\Application\Demo\CreateDemo\CreateDemoCommand;
+use Preventool\Domain\Shared\Bus\Command\CommandBus;
 use Preventool\Infrastructure\Ui\Http\Request\DTO\CreateDemoRequest;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,7 +16,8 @@ class GetDemoController
 
 
     public function __construct(
-        private LoggerInterface $logger
+        private LoggerInterface $logger,
+        private readonly CommandBus $commandBus
     )
     {
     }
@@ -22,8 +25,17 @@ class GetDemoController
     public function __invoke(CreateDemoRequest $createDemoRequest):Response
     {
 
-        dd($createDemoRequest);
-        $this->logger->error("hola...");
+
+
+        $command = new CreateDemoCommand(
+            $createDemoRequest->getName(),
+            $createDemoRequest->getWidth(),
+            $createDemoRequest->getHeight()
+        );
+
+        $this->commandBus->dispatch($command);
+
+
 
         return new JsonResponse(null,200);
     }
