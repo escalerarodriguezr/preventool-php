@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace App\Controller\Demo;
 
 use Preventool\Application\Demo\CreateDemo\CreateDemoCommand;
+use Preventool\Application\Demo\GetUserById\GetDemoByIdQuery;
 use Preventool\Domain\Shared\Bus\Command\CommandBus;
+use Preventool\Domain\Shared\Bus\Query\QueryBus;
 use Preventool\Infrastructure\Ui\Http\Request\DTO\CreateDemoRequest;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,8 +18,9 @@ class GetDemoController
 
 
     public function __construct(
-        private LoggerInterface $logger,
-        private readonly CommandBus $commandBus
+        private readonly LoggerInterface $logger,
+        private readonly CommandBus $commandBus,
+        private readonly QueryBus $queryBus
     )
     {
     }
@@ -25,15 +28,23 @@ class GetDemoController
     public function __invoke(CreateDemoRequest $createDemoRequest):Response
     {
 
-
-
-        $command = new CreateDemoCommand(
-            $createDemoRequest->getName(),
-            $createDemoRequest->getWidth(),
-            $createDemoRequest->getHeight()
+        $query = new GetDemoByIdQuery(
+            'rafa'
         );
 
-        $this->commandBus->dispatch($command);
+        $response = $this->queryBus->handle($query);
+
+        dd($response);
+
+
+
+//        $command = new CreateDemoCommand(
+//            $createDemoRequest->getName(),
+//            $createDemoRequest->getWidth(),
+//            $createDemoRequest->getHeight()
+//        );
+//
+//        $this->commandBus->dispatch($command);
 
 
 

@@ -7,7 +7,7 @@ use Preventool\Domain\Shared\Bus\Command\Command;
 use Preventool\Domain\Shared\Bus\Command\CommandBus;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class MessengerCommandBus implements CommandBus
+final class MessengerCommandBus implements CommandBus
 {
 
     public function __construct(
