@@ -1,6 +1,6 @@
 <?php
 
-namespace Preventool\Application\Demo\DomainEvent;
+namespace Preventool\Domain\Demo\DomainEvent;
 
 use Preventool\Domain\Shared\Bus\DomainEvent\DomainEvent;
 
