@@ -7,6 +7,7 @@ use Preventool\Application\Demo\CreateDemo\CreateDemoCommand;
 use Preventool\Application\Demo\GetUserById\GetDemoByIdQuery;
 use Preventool\Domain\Shared\Bus\Command\CommandBus;
 use Preventool\Domain\Shared\Bus\Query\QueryBus;
+use Preventool\Domain\Shared\Model\IdentityValidator;
 use Preventool\Infrastructure\Ui\Http\Request\DTO\CreateDemoRequest;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,13 +21,16 @@ class GetDemoController
     public function __construct(
         private readonly LoggerInterface $logger,
         private readonly CommandBus $commandBus,
-        private readonly QueryBus $queryBus
+        private readonly QueryBus $queryBus,
+        private readonly IdentityValidator $identityValidator
     )
     {
     }
 
     public function __invoke(CreateDemoRequest $createDemoRequest):Response
     {
+
+        $this->identityValidator->validate("rafa");
 //
 //        $query = new GetDemoByIdQuery(
 //            'rafa'
