@@ -9,12 +9,14 @@ use Preventool\Domain\Demo\Model\Demo;
 use Preventool\Domain\Demo\Repository\DemoRepository;
 use Preventool\Domain\Shared\Bus\Command\CommandHandler;
 use Preventool\Domain\Shared\Bus\DomainEvent\DomainEventBus;
+use Preventool\Domain\Shared\Model\IdentityGenerator;
 
 class CreateDemoCommandHandler implements CommandHandler
 {
     public function __construct(
         private readonly DomainEventBus $domainEventBus,
-        private readonly DemoRepository $demoRepository
+        private readonly DemoRepository $demoRepository,
+        private readonly IdentityGenerator $identityGenerator
     )
     {
     }
@@ -29,15 +31,15 @@ class CreateDemoCommandHandler implements CommandHandler
 //            $command
 //        );
 
-//        $demo = new Demo(
-//            'id_1',
-//            'Alejandro de la Escalera'
-//        );
-//        $this->demoRepository->save($demo);
+        $demo = new Demo(
+            $this->identityGenerator->generateId(),
+            'Alejandro de la Escalera'
+        );
+        $this->demoRepository->save($demo);
 
-        $demo = $this->demoRepository->findById('id_1');
-
-       $this->demoRepository->remove($demo);
+//        $demo = $this->demoRepository->findById('id_1');
+//
+//       $this->demoRepository->remove($demo);
 
         $event = new DemoCreated(
             $demo->getId()
