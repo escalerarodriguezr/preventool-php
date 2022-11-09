@@ -13,6 +13,7 @@ class Demo extends AggregateRoot
         private string $name
     )
     {
+        parent::__construct();
     }
 
     public function getId(): string
