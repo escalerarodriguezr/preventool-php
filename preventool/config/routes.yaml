@@ -1,3 +1,6 @@
+api_login_check:
+  path: /api/login_check
+
 #Demo
 get_demo:
   path: /api/v1/demo

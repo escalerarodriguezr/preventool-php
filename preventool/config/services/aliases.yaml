@@ -4,9 +4,8 @@ services:
   Preventool\Domain\Shared\Model\IdentityGenerator: '@Preventool\Infrastructure\Persistence\IdentityGenerator\UuidIdentityGenerator'
 
   # Repositories
-  Preventool\Infrastructure\Persistence\Doctrine\Repository\Demo\DoctrineBaseRepository: ~
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\Demo\DoctrineDemoRepository: ~
   Preventool\Domain\Demo\Repository\DemoRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Demo\DoctrineDemoRepository'
 
-
-#  App\Domain\User\Repository\UserRepository: '@App\Infrastructure\Persistence\Doctrine\Repository\User\MysqlDoctrineUserRepository'
-#  App\Domain\Admin\Repository\AdminRepository: '@App\Infrastructure\Persistence\Doctrine\Repository\Admin\MysqlDoctrineAdminRepository'
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\User\DoctrineUserRepository: ~
+  Preventool\Domain\User\Repository\UserRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\User\DoctrineUserRepository'

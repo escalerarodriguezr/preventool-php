@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Preventool\Infrastructure\Ui\Http\Listener\Shared;
 
+use Preventool\Domain\User\Exception\UserNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -67,7 +68,7 @@ class JsonTransformerExceptionListener
     private function getNotFoundExceptions(): array
     {
         return [
-//            UserNotFoundException::class
+            UserNotFoundException::class
         ];
     }
 
