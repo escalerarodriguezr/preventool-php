@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Preventool\Domain\User\Model;
 
 use Preventool\Domain\Shared\Model\AggregateRoot;
+use Preventool\Domain\Shared\Model\Value\Email;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
@@ -12,14 +13,24 @@ class User extends AggregateRoot implements UserInterface, PasswordAuthenticated
 
     const ROLE_ROOT = 'ROOT';
 
+    private string $id;
+    private string $email;
+    private string $role;
+    private ?string $password;
+
     public function __construct(
-        private string $id,
-        private string $email,
-        private string $role,
-        private ?string $password=null
+        string $id,
+        Email $email,
+        string $role,
     )
     {
         parent::__construct();
+
+        $this->id = $id;
+        $this->email = $email->value;
+        $this->role = $role;
+        $this->password = null;
+
     }
 
     public function getRoles(): array
@@ -43,9 +54,9 @@ class User extends AggregateRoot implements UserInterface, PasswordAuthenticated
         return $this->id;
     }
 
-    public function getEmail(): string
+    public function getEmail(): Email
     {
-        return $this->email;
+        return new Email($this->email);
     }
 
     public function getRole(): string
@@ -59,9 +70,9 @@ class User extends AggregateRoot implements UserInterface, PasswordAuthenticated
         return $this->password;
     }
 
-    public function setEmail(string $email): void
+    public function setEmail(Email $email): void
     {
-        $this->email = $email;
+        $this->email = $email->value;
     }
 
     public function setRole(string $role): void

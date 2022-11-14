@@ -3,6 +3,7 @@
 namespace Preventool\Infrastructure\Ui\Console\User;
 
 use Preventool\Domain\Shared\Model\IdentityGenerator;
+use Preventool\Domain\Shared\Model\Value\Email;
 use Preventool\Domain\User\Model\User;
 use Preventool\Domain\User\Repository\UserRepository;
 use Symfony\Component\Console\Command\Command;
@@ -44,9 +45,6 @@ class CreateRootUserCommand extends Command
 
         $question = new Question('Please enter the email ', 'root@root.com');
         $email = $helper->ask($input, $output, $question);
-        if (!filter_var($email, \FILTER_VALIDATE_EMAIL)) {
-            throw new \DomainException('Invalid email');
-        }
 
         $passwordQuestion = new Question('Please enter the password ', 'qwertyuiop');
         $password = $helper->ask($input, $output, $passwordQuestion);
@@ -57,9 +55,8 @@ class CreateRootUserCommand extends Command
 
         $rootUser = new User(
             $this->identityGenerator->generateId(),
-            $email,
-            User::ROLE_ROOT,
-            $password
+            new Email($email),
+            User::ROLE_ROOT
         );
 
         $hashedPassword = $this->passwordHasher->hashPassword(
