@@ -43,13 +43,20 @@ services:
 
     #Infrastructure
     #Listener
+
+    #Framework
     Preventool\Infrastructure\Ui\Http\Listener\Shared\JsonTransformerExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 100 }
-
+    #Doctrine
     gedmo.listener.softdeleteable:
         class: Gedmo\SoftDeleteable\SoftDeleteableListener
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
             - [ setAnnotationReader, [ '@annotation_reader' ] ]
+
+    #Security Listener
+    Preventool\Infrastructure\Security\Listener\JWTCreatedListener:
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
