@@ -10,6 +10,8 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 class User extends AggregateRoot implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
+    const ROLE_ROOT = 'ROOT';
+
     public function __construct(
         private string $id,
         private string $email,
