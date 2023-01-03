@@ -10,10 +10,7 @@ class DemoCreatedHandler implements DomainEventHandler
 {
     public function __invoke(DemoCreated $demoCreated): void
     {
-        dd(
-            "desde el evento",
-            $demoCreated->id
-        );
+       throw new \Exception('hola');
     }
 
 

@@ -18,10 +18,10 @@ class JsonTransformerExceptionListener
     {
         $exception = $event->getThrowable();
 
-//        if ($exception instanceof HandlerFailedException) {
-//            $exception = $exception->getPrevious();
-//        }
-
+        if ($exception instanceof HandlerFailedException) {
+            $exception = $exception->getPrevious();
+        }
+        
         $data = [
             'class' => \get_class($exception),
             'code' => Response::HTTP_INTERNAL_SERVER_ERROR,

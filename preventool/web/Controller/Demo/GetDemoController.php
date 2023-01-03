@@ -30,7 +30,7 @@ class GetDemoController
     public function __invoke(CreateDemoRequest $createDemoRequest):Response
     {
 
-        $this->identityValidator->validate("rafa");
+//        $this->identityValidator->validate("rafa");
 //
 //        $query = new GetDemoByIdQuery(
 //            'rafa'

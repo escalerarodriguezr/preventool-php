@@ -33,13 +33,14 @@ class CreateDemoCommandHandler implements CommandHandler
 
         $demo = new Demo(
             $this->identityGenerator->generateId(),
-            'Alejandro de la Escalera'
+            $command->name
         );
         $this->demoRepository->save($demo);
 
 //        $demo = $this->demoRepository->findById('id_1');
 //
 //       $this->demoRepository->remove($demo);
+//        throw new \Exception("jksdfhjksd");
 
         $event = new DemoCreated(
             $demo->getId()

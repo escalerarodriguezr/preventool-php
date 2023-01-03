@@ -15,6 +15,7 @@ class JWTCreatedListener
 
     public function onJWTCreated(JWTCreatedEvent $event): void
     {
+
         /**
          * @var User $user
          */
@@ -27,11 +28,10 @@ class JWTCreatedListener
 
         $payload = $event->getData();
         unset($payload['roles']);
-        unset($payload['username']);
+//        unset($payload['username']);
         $payload[self::USER_ID] = $user->getId();
-        $payload[self::USER_EMAIL] = $user->getEmail();
+        $payload[self::USER_EMAIL] = $user->getEmail()->value;
         $payload[self::USER_ROLE] = $user->getRole();
-
         $event->setData($payload);
     }
 
