@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace PHPUnit\Tests\Functional\Http;
 
-use PHPUnit\Exception;
+use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -19,11 +19,9 @@ class FunctionalHttpTestBase extends WebTestCase
     {
         parent::setUp();
         $this->getClient();
-
-
-
-        //$this->databaseTool = static::getContainer()->get(DatabaseToolCollection::class)->get();
+        $this->databaseTool = static::getContainer()->get(DatabaseToolCollection::class)->get();
     }
+
 
     protected function getClient():void
     {
