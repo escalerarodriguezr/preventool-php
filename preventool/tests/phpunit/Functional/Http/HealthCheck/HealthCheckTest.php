@@ -5,6 +5,7 @@ namespace PHPUnit\Tests\Functional\Http\HealthCheck;
 
 use PHPUnit\Tests\Functional\Http\FunctionalHttpTestBase;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\UserFixtures;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class HealthCheckTest extends FunctionalHttpTestBase
 {
@@ -20,12 +21,17 @@ class HealthCheckTest extends FunctionalHttpTestBase
         ]);
     }
 
-    public function testHealthCheck(): void
+    public function testBaseClient(): void
     {
-        $this->prepareDataBase();
-        self::assertSame(1,1);
-
+        $this->baseClient();
+        self::assertInstanceOf(KernelBrowser::class, self::$baseClient);
     }
 
+    public function testAuthenticateRootClient(): void
+    {
+        $this->prepareDataBase();
+        $this->authenticatedRootClient();
+        self::assertInstanceOf(KernelBrowser::class, self::$authenticatedRootClient);
+    }
 
 }
