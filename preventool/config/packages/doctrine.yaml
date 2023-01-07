@@ -31,12 +31,13 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/User'
                 prefix: 'Preventool\Domain\User\Model'
                 alias: Preventool\Domain\User\Model\User
-#            App\Domain\Admin\Model\Admin:
-#                is_bundle: false
-#                type: xml
-#                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Admin'
-#                prefix: 'App\Domain\Admin\Model'
-#                alias: App\Domain\Admin\Model\Admin
+            Preventool\Domain\Admin\Model\Admin:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Admin'
+                prefix: 'Preventool\Domain\Admin\Model'
+                alias: Preventool\Domain\Admin\Model\Admin
+
 
 when@test:
     doctrine:
