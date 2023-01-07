@@ -8,12 +8,10 @@ use Assert\AssertionFailedException;
 
 class UserRole
 {
-    const USER_ROLE_ROOT = 'ROOT';
     const USER_ROLE_ADMIN = 'ADMIN';
     const USER_ROLE_EMPLOYEE = 'EMPLOYEE';
 
     const VALID_ROLES = [
-        self::USER_ROLE_ROOT,
         self::USER_ROLE_ADMIN,
         self::USER_ROLE_EMPLOYEE
     ];

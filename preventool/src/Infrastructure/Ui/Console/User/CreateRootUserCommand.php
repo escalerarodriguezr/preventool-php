@@ -4,7 +4,9 @@ namespace Preventool\Infrastructure\Ui\Console\User;
 
 use Preventool\Domain\Shared\Model\IdentityGenerator;
 use Preventool\Domain\Shared\Model\Value\Email;
+use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Domain\User\Model\User;
+use Preventool\Domain\User\Model\Value\UserRole;
 use Preventool\Domain\User\Repository\UserRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -48,15 +50,15 @@ class CreateRootUserCommand extends Command
 
         $passwordQuestion = new Question('Please enter the password ', 'qwertyuiop');
         $password = $helper->ask($input, $output, $passwordQuestion);
-//        if( strlen($password)<6 ){
-//            throw new \DomainException('The password must have at least 6 characters');
-//        }
+        if( strlen($password)<6 ){
+            throw new \DomainException('The password must have at least 6 characters');
+        }
 
 
         $rootUser = new User(
-            $this->identityGenerator->generateId(),
+            new Uuid($this->identityGenerator->generateId()),
             new Email($email),
-            User::ROLE_ROOT
+            new UserRole(UserRole::USER_ROLE_ADMIN)
         );
 
         $hashedPassword = $this->passwordHasher->hashPassword(
@@ -68,7 +70,7 @@ class CreateRootUserCommand extends Command
         $this->userRepository->save($rootUser);
 
         $output->writeln([
-            'Root User Created: '. $rootUser->getId(),
+            'Root User Created: '. $rootUser->getId()->value,
             '============',
             '',
         ]);
