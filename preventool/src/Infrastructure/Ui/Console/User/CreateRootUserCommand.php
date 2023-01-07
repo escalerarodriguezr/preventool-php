@@ -2,8 +2,14 @@
 
 namespace Preventool\Infrastructure\Ui\Console\User;
 
+use Preventool\Domain\Admin\Model\Admin;
+use Preventool\Domain\Admin\Model\Value\AdminRole;
+use Preventool\Domain\Admin\Model\Value\AdminType;
+use Preventool\Domain\Admin\Repository\AdminRepository;
 use Preventool\Domain\Shared\Model\IdentityGenerator;
 use Preventool\Domain\Shared\Model\Value\Email;
+use Preventool\Domain\Shared\Model\Value\LastName;
+use Preventool\Domain\Shared\Model\Value\Name;
 use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Domain\User\Model\User;
 use Preventool\Domain\User\Model\Value\UserRole;
@@ -23,6 +29,7 @@ class CreateRootUserCommand extends Command
         private readonly UserRepository $userRepository,
         private readonly IdentityGenerator $identityGenerator,
         private readonly UserPasswordHasherInterface $passwordHasher,
+        private readonly AdminRepository $adminRepository
     )
     {
         parent::__construct();
@@ -53,6 +60,11 @@ class CreateRootUserCommand extends Command
         if( strlen($password)<6 ){
             throw new \DomainException('The password must have at least 6 characters');
         }
+        $nameQuestion = new Question('Please enter the name ', 'RootName');
+        $name = $helper->ask($input, $output, $nameQuestion);
+
+        $lastNameQuestion = new Question('Please enter the lastName ', 'RootLastName');
+        $lastName = $helper->ask($input, $output, $lastNameQuestion);
 
 
         $rootUser = new User(
@@ -71,6 +83,23 @@ class CreateRootUserCommand extends Command
 
         $output->writeln([
             'Root User Created: '. $rootUser->getId()->value,
+            '============',
+            '',
+        ]);
+
+        $admin = new Admin(
+            $rootUser->getId(),
+            $rootUser->getEmail(),
+            new AdminType($rootUser->getRole()->value),
+            new AdminRole(AdminRole::ADMIN_ROLE_ROOT),
+            new Name($name),
+            new LastName($lastName)
+        );
+
+        $this->adminRepository->save($admin);
+
+        $output->writeln([
+            'Admin for Root User Created: '. $rootUser->getId()->value,
             '============',
             '',
         ]);

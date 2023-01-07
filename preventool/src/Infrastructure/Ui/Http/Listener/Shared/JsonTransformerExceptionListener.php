@@ -3,12 +3,15 @@ declare(strict_types=1);
 
 namespace Preventool\Infrastructure\Ui\Http\Listener\Shared;
 
+use Preventool\Domain\Admin\Exception\AdminAlreadyExistsException;
+use Preventool\Domain\User\Exception\UserAlreadyExistsException;
 use Preventool\Domain\User\Exception\UserNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
+use Symfony\Component\Messenger\Exception\HandlerFailedException;
 
 class JsonTransformerExceptionListener
 {
@@ -75,11 +78,8 @@ class JsonTransformerExceptionListener
     private function getConflictExceptions(): array
     {
         return [
-//            UserAlreadyExistsException::class,
-//            UserAccountNotActiveException::class,
-//            ActionUserActionNotAllowedException::class,
-//            CompanyAlreadyExistsException::class,
-//            CompanyNotFoundException::class
+            UserAlreadyExistsException::class,
+            AdminAlreadyExistsException::class
         ];
     }
 
