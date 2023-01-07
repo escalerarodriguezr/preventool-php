@@ -1,6 +1,12 @@
 api_login_check:
   path: /api/login_check
 
+#shared
+get_session:
+  path: /api/v1/session
+  controller: App\Controller\Shared\Session\GetSessionController
+  methods: [GET]
+
 #Demo
 get_demo:
   path: /api/v1/demo

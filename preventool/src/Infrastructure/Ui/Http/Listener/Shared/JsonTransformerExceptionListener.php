@@ -12,6 +12,7 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class JsonTransformerExceptionListener
 {
@@ -86,7 +87,7 @@ class JsonTransformerExceptionListener
     private function getDeniedExceptions(): array
     {
         return [
-//            AccessDeniedException::class,
+            AccessDeniedException::class,
 //            ActionUserAccessDeniedException::class
         ];
     }
