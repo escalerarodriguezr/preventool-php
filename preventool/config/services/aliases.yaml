@@ -9,3 +9,6 @@ services:
 
   Preventool\Infrastructure\Persistence\Doctrine\Repository\User\DoctrineUserRepository: ~
   Preventool\Domain\User\Repository\UserRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\User\DoctrineUserRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\Admin\DoctrineAdminRepository: ~
+  Preventool\Domain\Admin\Repository\AdminRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Admin\DoctrineAdminRepository'
