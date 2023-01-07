@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Preventool\Infrastructure\Persistence\Doctrine\Repository\User;
 
-use Doctrine\ORM\Exception\ORMException;
-use Doctrine\ORM\OptimisticLockException;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Preventool\Domain\User\Exception\UserAlreadyExistsException;
 use Preventool\Domain\User\Exception\UserNotFoundException;
 use Preventool\Domain\User\Model\User;
 use Preventool\Domain\User\Repository\UserRepository;
@@ -21,7 +21,11 @@ class DoctrineUserRepository extends DoctrineBaseRepository implements UserRepos
 
     public function save(User|PasswordAuthenticatedUserInterface $user): void
     {
-        $this->saveEntity($user);
+        try {
+            $this->saveEntity($user);
+        }catch (UniqueConstraintViolationException $exception){
+            UserAlreadyExistsException::withEmail($user->getEmail());
+        }
     }
 
     public function findByEmail(string $email): ?User
