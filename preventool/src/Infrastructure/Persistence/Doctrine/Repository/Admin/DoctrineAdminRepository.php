@@ -3,13 +3,12 @@ declare(strict_types=1);
 
 namespace Preventool\Infrastructure\Persistence\Doctrine\Repository\Admin;
 
-use Cassandra\Exception\AlreadyExistsException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use Doctrine\ORM\Exception\ORMException;
-use Doctrine\ORM\OptimisticLockException;
 use Preventool\Domain\Admin\Exception\AdminAlreadyExistsException;
+use Preventool\Domain\Admin\Exception\AdminNotFoundException;
 use Preventool\Domain\Admin\Model\Admin;
 use Preventool\Domain\Admin\Repository\AdminRepository;
+use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Infrastructure\Persistence\Doctrine\Repository\DoctrineBaseRepository;
 
 class DoctrineAdminRepository extends DoctrineBaseRepository implements AdminRepository
@@ -24,8 +23,17 @@ class DoctrineAdminRepository extends DoctrineBaseRepository implements AdminRep
         try {
             $this->saveEntity($admin);
         }catch (UniqueConstraintViolationException $exception){
-            AdminAlreadyExistsException::withEmail($admin->getEmail());
+            throw AdminAlreadyExistsException::withEmail($admin->getEmail());
         }
     }
 
+    public function findById(Uuid $id): Admin
+    {
+        $admin = $this->objectRepository->findOneBy(['id' => $id->value]);
+        if(null === $admin) {
+            throw AdminNotFoundException::withId($id);
+        }
+
+        return $admin;
+    }
 }

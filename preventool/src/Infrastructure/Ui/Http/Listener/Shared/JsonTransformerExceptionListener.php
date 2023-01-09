@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Preventool\Infrastructure\Ui\Http\Listener\Shared;
 
 use Preventool\Domain\Admin\Exception\AdminAlreadyExistsException;
+use Preventool\Domain\Admin\Exception\AdminNotFoundException;
 use Preventool\Domain\User\Exception\UserAlreadyExistsException;
 use Preventool\Domain\User\Exception\UserNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class JsonTransformerExceptionListener
 {
@@ -71,7 +73,8 @@ class JsonTransformerExceptionListener
     private function getNotFoundExceptions(): array
     {
         return [
-            UserNotFoundException::class
+            UserNotFoundException::class,
+            AdminNotFoundException::class
         ];
     }
 
@@ -86,7 +89,7 @@ class JsonTransformerExceptionListener
     private function getDeniedExceptions(): array
     {
         return [
-//            AccessDeniedException::class,
+            AccessDeniedException::class,
 //            ActionUserAccessDeniedException::class
         ];
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Preventool\Infrastructure\Persistence\Doctrine\Repository\User;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Domain\User\Exception\UserAlreadyExistsException;
 use Preventool\Domain\User\Exception\UserNotFoundException;
 use Preventool\Domain\User\Model\User;
@@ -26,6 +27,15 @@ class DoctrineUserRepository extends DoctrineBaseRepository implements UserRepos
         }catch (UniqueConstraintViolationException $exception){
             UserAlreadyExistsException::withEmail($user->getEmail());
         }
+    }
+
+    public function findById(Uuid $id): User
+    {
+        if (null === $user = $this->objectRepository->findOneBy(['id' => $id->value])) {
+            throw UserNotFoundException::fromId($id);
+        }
+
+        return $user;
     }
 
     public function findByEmail(string $email): ?User
