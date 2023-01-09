@@ -3,10 +3,11 @@ declare(strict_types=1);
 
 namespace App\Controller\Shared\Session;
 
-use Preventool\Infrastructure\Security\Listener\JWTAuthenticatedListener;
+use Preventool\Infrastructure\Ui\Http\Service\HttpRequestService;
+use Preventool\Infrastructure\Ui\Http\Service\Session\SessionAdminResponse;
+use Preventool\Infrastructure\Ui\Http\Service\Session\SessionResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 class GetSessionController
@@ -14,7 +15,7 @@ class GetSessionController
 
 
     public function __construct(
-        private readonly RequestStack $requestStack
+        private readonly HttpRequestService $httpRequestService
     )
     {
     }
@@ -22,17 +23,24 @@ class GetSessionController
     public function __invoke(Request $request): Response
     {
 
-        //Crear un servicio http para obtener el admin user
-        //antes crear las fixtures del admin
-        $id = $this->requestStack->getCurrentRequest()->get(JWTAuthenticatedListener::ACTION_USER_ID);
-
-
-        return new JsonResponse(
-            $id,
-            Response::HTTP_OK
+        $sessionAdminResponse = new SessionAdminResponse(
+            $this->httpRequestService->actionAdmin->getId()->value,
+            $this->httpRequestService->actionAdmin->getEmail()->value,
+            $this->httpRequestService->actionAdmin->getType()->value,
+            $this->httpRequestService->actionAdmin->getRole()->value,
+            $this->httpRequestService->actionAdmin->getName()->value,
+            $this->httpRequestService->actionAdmin->getLastName()->value
         );
 
-    }
+        $sessionResponse = new SessionResponse(
+            $this->httpRequestService->actionUserId->value,
+            $sessionAdminResponse
+        );
 
+        return new JsonResponse(
+            $sessionResponse->toArray(),
+            Response::HTTP_OK
+        );
+    }
 
 }

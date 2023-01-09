@@ -7,9 +7,9 @@ use Preventool\Domain\Shared\Model\Value\Email;
 
 class UserAlreadyExistsException extends \DomainException
 {
-    public static function withEmail(Email $email): void
+    public static function withEmail(Email $email): self
     {
-        throw new \DomainException(sprintf('User with email %s already exists', $email->value));
+        throw new self(sprintf('User with email %s already exists', $email->value));
     }
 
 }

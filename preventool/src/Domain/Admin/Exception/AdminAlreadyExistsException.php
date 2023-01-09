@@ -7,9 +7,9 @@ use Preventool\Domain\Shared\Model\Value\Email;
 
 class AdminAlreadyExistsException extends \DomainException
 {
-    public static function withEmail(Email $email):void
+    public static function withEmail(Email $email): self
     {
-        throw new \DomainException(sprintf('Admin with email %s already exists', $email->value));
+        throw new self(sprintf('Admin with email %s already exists', $email->value));
     }
 
 }
