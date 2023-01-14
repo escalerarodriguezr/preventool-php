@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class HttpRequestService
 {
+    const ID = 'uuid';
     public readonly Uuid $actionUserId;
     public readonly Admin $actionAdmin;
 

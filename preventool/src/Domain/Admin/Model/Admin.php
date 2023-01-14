@@ -20,6 +20,9 @@ class Admin extends AggregateRoot
     private string $role;
     private string $name;
     private string $lastName;
+    private ?Admin $creatorAdmin;
+    private ?Admin $updaterAdmin;
+    private bool $active;
 
 
     public function __construct(
@@ -38,6 +41,7 @@ class Admin extends AggregateRoot
         $this->role = $role->value;
         $this->name = $name->value;
         $this->lastName = $lastName->value;
+        $this->active = true;
     }
 
     public function getId(): Uuid
@@ -69,5 +73,32 @@ class Admin extends AggregateRoot
     {
         return new LastName($this->lastName);
     }
+
+
+    public function getCreatorAdmin(): ?Admin
+    {
+        return $this->creatorAdmin;
+    }
+
+    public function getUpdaterAdmin(): ?Admin
+    {
+        return $this->updaterAdmin;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setCreatorAdmin(?Admin $creatorAdmin): void
+    {
+        $this->creatorAdmin = $creatorAdmin;
+    }
+
+    public function setUpdaterAdmin(?Admin $updaterAdmin): void
+    {
+        $this->updaterAdmin = $updaterAdmin;
+    }
+
 
 }
