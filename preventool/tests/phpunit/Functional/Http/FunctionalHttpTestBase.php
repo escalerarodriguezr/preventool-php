@@ -12,10 +12,12 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class FunctionalHttpTestBase extends WebTestCase
 {
-//    protected AbstractDatabaseTool $databaseTool;
+    use CustomAssertTrait;
+
     private static ?KernelBrowser $client = null;
     protected static ?KernelBrowser $baseClient = null;
     protected static ?KernelBrowser $authenticatedRootClient = null;
+    protected static ?KernelBrowser $authenticatedAdminClient = null;
 
 
     public function setUp():void
@@ -55,6 +57,23 @@ class FunctionalHttpTestBase extends WebTestCase
             $token = static::getContainer()->get(JWTTokenManagerInterface::class)->create($user);
 
             self::$authenticatedRootClient->setServerParameters([
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_ACCEPT' => 'application/json',
+                'HTTP_Authorization' => \sprintf('Bearer %s', $token),
+            ]);
+        }
+    }
+
+    protected function authenticatedAdminClient():void
+    {
+        self::$authenticatedAdminClient = null;
+        if (null === self::$authenticatedAdminClient) {
+            self::$authenticatedAdminClient = clone self::$client;
+
+            $user = static::getContainer()->get(UserRepository::class)->findByEmail(UserFixtures::ADMIN_EMAIL);
+            $token = static::getContainer()->get(JWTTokenManagerInterface::class)->create($user);
+
+            self::$authenticatedAdminClient->setServerParameters([
                 'CONTENT_TYPE' => 'application/json',
                 'HTTP_ACCEPT' => 'application/json',
                 'HTTP_Authorization' => \sprintf('Bearer %s', $token),

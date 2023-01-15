@@ -9,6 +9,7 @@ use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\AdminFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\UserFixtures;
 use Preventool\Infrastructure\Ui\Http\Listener\Shared\JsonTransformerExceptionListener;
 use Preventool\Infrastructure\Ui\Http\Request\DTO\Admin\CreateAdminRequest;
+use Preventool\Infrastructure\Ui\Http\Service\HttpRequestService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -51,6 +52,11 @@ class CreateAdminControllerTest extends FunctionalHttpTestBase
 
         $response = self::$authenticatedRootClient->getResponse();
         self::assertSame(Response::HTTP_CREATED,$response->getStatusCode());
+
+        $response = json_decode($response->getContent(), true);
+        self::assertArrayHasKey(HttpRequestService::ID, $response);
+        self::assertIsValidUuid($response[HttpRequestService::ID]);
+
     }
 
     public function testUnprocessableEntityHttpExceptionResponse(): void
@@ -86,5 +92,29 @@ class CreateAdminControllerTest extends FunctionalHttpTestBase
         self::assertArrayHasKey(CreateAdminRequest::ROLE,$errors);
     }
 
+    public function testWhenCreateAdminWithActionAdminWithAminRoleShouldBeResponseActionNotAllowedException(): void
+    {
+        $this->prepareDatabase();
+        $this->authenticatedAdminClient();
+
+        $payload = [
+            'email' => 'kevin@api.com',
+            'password' => 'password123',
+            'role' => AdminRole::ADMIN_ROLE_ADMIN,
+            'name' => 'kevin',
+            'lastName' => 'Leonard'
+        ];
+
+        self::$authenticatedAdminClient->request(Request::METHOD_POST,
+            self::END_POINT,
+            [],
+            [],
+            [],
+            \json_encode($payload)
+        );
+
+        $response = self::$authenticatedAdminClient->getResponse();
+        self::assertSame(Response::HTTP_CONFLICT,$response->getStatusCode());
+    }
 
 }

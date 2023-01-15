@@ -69,7 +69,7 @@ class GetSessionControllerTest extends FunctionalHttpTestBase
         self::assertArrayHasKey(SessionAdminResponse::LAST_NAME,$actionAdmin);
 
         self::assertSame(AdminFixtures::ROOT_ADMIN_UUID,$actionAdmin[SessionAdminResponse::ID]);
-        self::assertSame(AdminFixtures::ROO_ADMIN_EMAIL,$actionAdmin[SessionAdminResponse::EMAIL]);
+        self::assertSame(AdminFixtures::ROOT_ADMIN_EMAIL,$actionAdmin[SessionAdminResponse::EMAIL]);
         self::assertSame(AdminFixtures::ROOT_ADMIN_TYPE,$actionAdmin[SessionAdminResponse::TYPE]);
         self::assertSame(AdminFixtures::ROOT_ADMIN_ROLE,$actionAdmin[SessionAdminResponse::ROLE]);
         self::assertSame(AdminFixtures::ROOT_ADMIN_NAME,$actionAdmin[SessionAdminResponse::NAME]);

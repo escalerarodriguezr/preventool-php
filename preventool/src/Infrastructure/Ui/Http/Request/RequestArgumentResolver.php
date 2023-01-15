@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Preventool\Infrastructure\Ui\Http\Request;
 
+use Preventool\Infrastructure\Ui\Http\Request\Transformer\RequestBodyTransformer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -11,7 +12,10 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RequestArgumentResolver implements ArgumentValueResolverInterface
 {
-    public function __construct(private readonly ValidatorInterface $validator)
+    public function __construct(
+        private readonly ValidatorInterface $validator,
+        private readonly RequestBodyTransformer $requestBodyTransformer
+    )
     {
 
     }
@@ -30,6 +34,7 @@ class RequestArgumentResolver implements ArgumentValueResolverInterface
     public function resolve(Request $request, ArgumentMetadata $argument): \Generator
     {
         $class = $argument->getType();
+        $this->requestBodyTransformer->transform($request);
         $dto = new $class($request);
 
         $errors = $this->validator->validate($dto);
@@ -40,7 +45,6 @@ class RequestArgumentResolver implements ArgumentValueResolverInterface
                 $errorCollection[$error->getPropertyPath()] = $error->getMessage();
             }
             throw new UnprocessableEntityHttpException(json_encode($errorCollection,1));
-//            throw new BadRequestHttpException(json_encode($errorCollection,1));
         }
 
         yield $dto;
