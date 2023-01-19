@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use Preventool\Application\Admin\SearchAdmin\SearchAdminQuery;
+use Preventool\Domain\Shared\Bus\Query\QueryBus;
 use Preventool\Infrastructure\Ui\Http\Request\DTO\Admin\SearchAdminRequest;
 use Preventool\Infrastructure\Ui\Http\Request\DTO\Shared\QueryConditionRequest;
+use Preventool\Infrastructure\Ui\Http\Service\HttpRequestService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,7 +15,10 @@ class SearchAdminController
 {
 
 
-    public function __construct()
+    public function __construct(
+        private readonly HttpRequestService $httpRequestService,
+        private readonly QueryBus $queryBus
+    )
     {
     }
 
@@ -22,8 +28,21 @@ class SearchAdminController
 
     ): Response
     {
+        $query = new SearchAdminQuery(
+            $this->httpRequestService->actionAdmin->getId()->value,
+            $queryCondition->getPageSize(),
+            $queryCondition->getCurrentPage(),
+            $queryCondition->getOrderBy(),
+            $queryCondition->getOrderDirection(),
+            $request->filterById(),
+            $request->filterByEmail()
+        );
+
+        $response = $this->queryBus->handle(
+            $query
+        );
         return new JsonResponse(
-            null,
+            $response->toArray(),
             Response::HTTP_OK
         );
     }
