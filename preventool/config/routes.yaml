@@ -6,10 +6,15 @@ get_session:
   path: /api/v1/session
   controller: App\Controller\Shared\Session\GetSessionController
   methods: [GET]
-
 #Demo
 get_demo:
   path: /api/v1/demo
   controller: App\Controller\Demo\GetDemoController
   methods: [GET]
+
+  #Demo
+post_create_admin:
+  path: /api/v1/admin
+  controller: App\Controller\Admin\CreateAdminController
+  methods: [POST]
 

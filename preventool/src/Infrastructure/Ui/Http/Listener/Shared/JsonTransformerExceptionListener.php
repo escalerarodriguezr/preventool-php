@@ -5,6 +5,7 @@ namespace Preventool\Infrastructure\Ui\Http\Listener\Shared;
 
 use Preventool\Domain\Admin\Exception\AdminAlreadyExistsException;
 use Preventool\Domain\Admin\Exception\AdminNotFoundException;
+use Preventool\Domain\Shared\Exception\ActionNotAllowedException;
 use Preventool\Domain\User\Exception\UserAlreadyExistsException;
 use Preventool\Domain\User\Exception\UserNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -82,7 +83,8 @@ class JsonTransformerExceptionListener
     {
         return [
             UserAlreadyExistsException::class,
-            AdminAlreadyExistsException::class
+            AdminAlreadyExistsException::class,
+            ActionNotAllowedException::class
         ];
     }
 
