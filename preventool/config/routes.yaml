@@ -17,4 +17,8 @@ post_create_admin:
   path: /api/v1/admin
   controller: App\Controller\Admin\CreateAdminController
   methods: [POST]
+search_admin:
+  path: /api/v1/admin
+  controller: App\Controller\Admin\SearchAdminController
+  methods: [GET]
 
