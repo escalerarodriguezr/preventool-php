@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace Preventool\Application\Admin\SearchAdmin;
 
+use Preventool\Application\Admin\Response\AdminResponse;
+use Preventool\Domain\Admin\Model\Admin;
+
 class SearchAdminResponse
 {
     private array $admins;
@@ -40,24 +43,21 @@ class SearchAdminResponse
 
     private function transformItems(\ArrayIterator $items):void
     {
-//        $this->users = array_map(function (User $userEntity):array{
-//            return (new UserQueryView())
-//                ->setId($userEntity->getId())
-//                ->setUuid($userEntity->getUuid())
-//                ->setName($userEntity->getName()->getValue())
-//                ->setLastName($userEntity->getLastName()->getValue())
-//                ->setEmail($userEntity->getEmail()->getValue())
-//                ->setRole($userEntity->getRole()->getValue())
-//                ->setCreatorUuid(!empty($userEntity->getCreator()) ? $userEntity->getCreator()->getUuid() : null)
-//                ->setCreatedOn($userEntity->getCreatedOn()->format(DateTimeInterface::RFC3339))
-//                ->setUpdatedOn($userEntity->getUpdatedOn()->format(DateTimeInterface::RFC3339))
-//                ->setIsActive($userEntity->isActive())
-//                ->setIsEmailConfirmed($userEntity->isEmailConfirmed())
-//                ->toArray();
-//
-//        }, $items->getArrayCopy());
-
-        $this->admins = $items->getArrayCopy();
+        $this->admins = array_map(function (Admin $admin):array{
+            return (new AdminResponse(
+                $admin->getId()->value,
+                $admin->getName()->value,
+                $admin->getLastName()->value,
+                $admin->getEmail()->value,
+                $admin->getType()->value,
+                $admin->getRole()->value,
+                $admin->isActive(),
+                $admin->getCreatorAdmin() ? $admin->getCreatorAdmin()->getId()->value : null,
+                $admin->getUpdaterAdmin() ? $admin->getUpdaterAdmin()->getId()->valu : null,
+                $admin->getCreatedAt(),
+                $admin->getUpdatedAt()
+            ))->toArray();
+        }, $items->getArrayCopy());
 
     }
 

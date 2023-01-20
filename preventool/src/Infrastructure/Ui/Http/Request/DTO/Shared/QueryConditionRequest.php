@@ -28,7 +28,7 @@ class QueryConditionRequest implements RequestDTO
     {
         $this->pageSize = empty($request->query->get(self::PAGE_SIZE)) ? 10 : (int) $request->query->get(self::PAGE_SIZE);
         $this->currentPage = empty($request->query->get(self::CURRENT_PAGE)) ? 1 : (int) $request->query->get(self::CURRENT_PAGE);
-        $this->orderBy = empty($request->query->get(self::ORDER_BY)) ? 'createdOn' : (string) $request->query->get(self::ORDER_BY);
+        $this->orderBy = empty($request->query->get(self::ORDER_BY)) ? 'createdAt' : (string) $request->query->get(self::ORDER_BY);
         $this->orderDirection = empty($request->query->get(self::ORDER_DIRECTION)) ? 'DESC' : (string) $request->query->get(self::ORDER_DIRECTION);
     }
 
