@@ -12,7 +12,7 @@ get_demo:
   controller: App\Controller\Demo\GetDemoController
   methods: [GET]
 
-  #Demo
+#Admin
 post_create_admin:
   path: /api/v1/admin
   controller: App\Controller\Admin\CreateAdminController
@@ -21,4 +21,12 @@ search_admin:
   path: /api/v1/admin
   controller: App\Controller\Admin\SearchAdminController
   methods: [GET]
+get_admin:
+  path: /api/v1/admin/{id}
+  controller: App\Controller\Admin\GetAdminByIdController
+  methods: [GET]
+put_update_admin:
+  path: /api/v1/admin/{id}
+  controller: App\Controller\Admin\UpdateAdminController
+  methods: [PUT]
 
