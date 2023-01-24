@@ -100,5 +100,24 @@ class Admin extends AggregateRoot
         $this->updaterAdmin = $updaterAdmin;
     }
 
+    public function setEmail(Email $email): void
+    {
+        $this->email = $email->value;
+    }
+
+    public function setRole(AdminRole $role): void
+    {
+        $this->role = $role->value;
+    }
+
+    public function setName(Name $name): void
+    {
+        $this->name = $name->value;
+    }
+
+    public function setLastName(LastName $lastName): void
+    {
+        $this->lastName = $lastName->value;
+    }
 
 }

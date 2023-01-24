@@ -21,9 +21,12 @@ search_admin:
   path: /api/v1/admin
   controller: App\Controller\Admin\SearchAdminController
   methods: [GET]
-
 get_admin:
   path: /api/v1/admin/{id}
   controller: App\Controller\Admin\GetAdminByIdController
   methods: [GET]
+put_update_admin:
+  path: /api/v1/admin/{id}
+  controller: App\Controller\Admin\UpdateAdminController
+  methods: [PUT]
 
