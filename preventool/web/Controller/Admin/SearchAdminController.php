@@ -35,7 +35,9 @@ class SearchAdminController
             $queryCondition->getOrderBy(),
             $queryCondition->getOrderDirection(),
             $request->filterById(),
-            $request->filterByEmail()
+            $request->filterByEmail(),
+            $request->filterByCreatedAtFrom(),
+            $request->filterByCreatedAtTo()
         );
 
         $response = $this->queryBus->handle(

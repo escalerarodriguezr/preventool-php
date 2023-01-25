@@ -99,29 +99,21 @@ class DoctrineAdminRepository extends DoctrineBaseRepository implements AdminRep
                 );
         }
 
-//        if($filter->getFilterByIsActive() !== null) {
-//            $queryBuilder->andWhere
-//            (
-//                $queryBuilder->expr()->eq('u.isActive', ':active'),
-//            )
-//                ->setParameter(':active', $filter->getFilterByIsActive());
-//        }
-//
-//        if( !empty($filter->getFilterByCreatedOnFrom()) ){
-//            $queryBuilder->andWhere
-//            (
-//                $queryBuilder->expr()->gte('u.createdOn', ':createdOnFrom')
-//            )
-//                ->setParameter(':createdOnFrom', $filter->getFilterByCreatedOnFrom());
-//        }
-//
-//        if( !empty($filter->getFilterByCreatedOnTo()) ){
-//            $queryBuilder->andWhere
-//            (
-//                $queryBuilder->expr()->lte('u.createdOn', ':createdOnTo')
-//            )
-//                ->setParameter(':createdOnTo', $filter->getFilterByCreatedOnTo());
-//        }
+        if( !empty($filter->getFilterByCreatedAtFrom()) ){
+            $queryBuilder->andWhere
+            (
+                $queryBuilder->expr()->gte('a.createdAt', ':createdAtFrom')
+            )
+                ->setParameter(':createdAtFrom', $filter->getFilterByCreatedAtFrom());
+        }
+
+        if( !empty($filter->getFilterByCreatedAtTo()) ){
+            $queryBuilder->andWhere
+            (
+                $queryBuilder->expr()->lte('a.createdAt', ':createdAtTo')
+            )
+                ->setParameter(':createdAtTo', $filter->getFilterByCreatedAtTo());
+        }
 
         return $queryBuilder;
     }

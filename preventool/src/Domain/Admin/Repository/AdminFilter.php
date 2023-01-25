@@ -9,7 +9,9 @@ class AdminFilter
 
     public function __construct(
         private ?string $filterById = null,
-        private ?string $filterByEmail = null
+        private ?string $filterByEmail = null,
+        private ?string $filterByCreatedAtFrom = null,
+        private ?string $filterByCreatedAtTo = null
     )
     {
     }
@@ -34,5 +36,29 @@ class AdminFilter
         $this->filterByEmail = $filterByEmail;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getFilterByCreatedAtFrom(): ?string
+    {
+        return $this->filterByCreatedAtFrom;
+    }
 
+    /**
+     * @param string|null $filterByCreatedAtFrom
+     */
+    public function setFilterByCreatedAtFrom(?string $filterByCreatedAtFrom): void
+    {
+        $this->filterByCreatedAtFrom = $filterByCreatedAtFrom;
+    }
+
+    public function getFilterByCreatedAtTo(): ?string
+    {
+        return $this->filterByCreatedAtTo;
+    }
+
+    public function setFilterByCreatedAtTo(?string $filterByCreatedAtTo): void
+    {
+        $this->filterByCreatedAtTo = $filterByCreatedAtTo;
+    }
 }
