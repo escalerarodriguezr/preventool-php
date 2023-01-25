@@ -39,7 +39,8 @@ class SearchAdminHandler implements QueryHandler
         $filter = new AdminFilter(
             $query->filterById,
             $query->filterByEmail,
-
+            $query->filterByCreatedAtFrom,
+            $query->filterByCreatedAtTo
         );
 
         $queryCondition = (new QueryCondition())
