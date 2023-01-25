@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Preventool\Application\Admin\UpdateAdminById;
 
+use Preventool\Domain\Admin\Exception\AdminAlreadyExistsException;
 use Preventool\Domain\Admin\Model\Value\AdminRole;
 use Preventool\Domain\Admin\Repository\AdminRepository;
 use Preventool\Domain\Shared\Bus\Command\CommandHandler;
@@ -65,10 +66,23 @@ class UpdateAdminCommandHandler implements CommandHandler
         }
 
         if(!empty($command->email)){
+
+            $email =new Email(
+                $command->email
+            );
+
+            $registeredAdmin = $this->adminRepository->findByEmailOrNull(
+                $email
+            );
+
+            if($registeredAdmin &&
+                ($registeredAdmin->getId()->value != $admin->getId()->value)
+            ){
+                throw AdminAlreadyExistsException::withEmail($email);
+            }
+
             $admin->setEmail(
-                new Email(
-                    $command->email
-                )
+                $email
             );
 
             $user = $this->userRepository->findById(
@@ -76,7 +90,7 @@ class UpdateAdminCommandHandler implements CommandHandler
             );
 
             $user->setEmail(
-                new Email($command->email)
+                $email
             );
 
             $this->userRepository->save(

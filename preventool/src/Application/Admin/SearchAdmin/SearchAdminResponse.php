@@ -43,6 +43,7 @@ class SearchAdminResponse
 
     private function transformItems(\ArrayIterator $items):void
     {
+
         $this->admins = array_map(function (Admin $admin):array{
             return (new AdminResponse(
                 $admin->getId()->value,
@@ -53,7 +54,7 @@ class SearchAdminResponse
                 $admin->getRole()->value,
                 $admin->isActive(),
                 $admin->getCreatorAdmin() ? $admin->getCreatorAdmin()->getId()->value : null,
-                $admin->getUpdaterAdmin() ? $admin->getUpdaterAdmin()->getId()->valu : null,
+                $admin->getUpdaterAdmin() ? $admin->getUpdaterAdmin()->getId()->value : null,
                 $admin->getCreatedAt(),
                 $admin->getUpdatedAt()
             ))->toArray();

@@ -11,6 +11,7 @@ use Preventool\Domain\Admin\Exception\AdminNotFoundException;
 use Preventool\Domain\Admin\Model\Admin;
 use Preventool\Domain\Admin\Repository\AdminFilter;
 use Preventool\Domain\Admin\Repository\AdminRepository;
+use Preventool\Domain\Shared\Model\Value\Email;
 use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Domain\Shared\Repository\QueryCondition\QueryCondition;
 use Preventool\Domain\Shared\Repository\Response\PaginatedQueryResponse;
@@ -41,6 +42,16 @@ class DoctrineAdminRepository extends DoctrineBaseRepository implements AdminRep
 
         return $admin;
     }
+
+    public function findByEmailOrNull(Email $email): ?Admin
+    {
+        return $this->objectRepository->findOneBy(
+            [
+                'email' => $email->value
+            ]
+        );
+    }
+
 
     public function searchPaginated(
         QueryCondition $queryCondition,
