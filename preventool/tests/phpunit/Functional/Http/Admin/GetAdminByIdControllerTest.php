@@ -33,7 +33,7 @@ class GetAdminByIdControllerTest extends FunctionalHttpTestBase
 
         self::$authenticatedRootClient->request(
             Request::METHOD_GET,
-            \sprintf('%s/%s', self::END_POINT, AdminFixtures::ADMIN_ADMIN_UUID)
+            \sprintf('%s/%s', self::END_POINT, AdminFixtures::ROOT_ADMIN_UUID)
         );
 
         $response = self::$authenticatedRootClient->getResponse();
@@ -42,7 +42,7 @@ class GetAdminByIdControllerTest extends FunctionalHttpTestBase
         $responseData = \json_decode($response->getContent(), true);
 
         self::assertArrayHasKey(AdminResponse::ID, $responseData);
-        self::assertSame(AdminFixtures::ADMIN_ADMIN_UUID, $responseData[AdminResponse::ID]);
+        self::assertSame(AdminFixtures::ROOT_ADMIN_UUID, $responseData[AdminResponse::ID]);
         self::assertArrayHasKey(AdminResponse::NAME, $responseData);
         self::assertArrayHasKey(AdminResponse::LAST_NAME, $responseData);
         self::assertArrayHasKey(AdminResponse::ROLE, $responseData);
@@ -61,7 +61,7 @@ class GetAdminByIdControllerTest extends FunctionalHttpTestBase
 
         self::$authenticatedAdminClient->request(
             Request::METHOD_GET,
-            \sprintf('%s/%s', self::END_POINT, AdminFixtures::ADMIN_ADMIN_UUID)
+            \sprintf('%s/%s', self::END_POINT, AdminFixtures::ROOT_ADMIN_UUID)
         );
 
         $response = self::$authenticatedAdminClient->getResponse();

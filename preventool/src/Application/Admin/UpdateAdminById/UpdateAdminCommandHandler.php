@@ -57,7 +57,9 @@ class UpdateAdminCommandHandler implements CommandHandler
             );
         }
 
-        if(!empty($command->role)){
+        if(!empty($command->role) &&
+            $actionAdmin->getRole()->value === AdminRole::ADMIN_ROLE_ROOT
+        ){
             $admin->setRole(
                 new AdminRole(
                     $command->role

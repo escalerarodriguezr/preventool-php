@@ -30,7 +30,10 @@ class GetAdminByIdHandler implements QueryHandler
             $actionAdminId
         );
 
-        if ($actionAdmin->getRole()->value != AdminRole::ADMIN_ROLE_ROOT){
+        if (
+            $actionAdmin->getRole()->value != AdminRole::ADMIN_ROLE_ROOT &&
+            $actionAdmin->getId()->value != $query->id
+        ){
             throw ActionNotAllowedException::fromApplicationUseCase($actionAdminId);
         }
 
