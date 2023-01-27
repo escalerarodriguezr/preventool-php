@@ -1,0 +1,65 @@
+doctrine:
+    dbal:
+        url: '%env(resolve:DATABASE_URL)%'
+
+        types:
+            date: Preventool\Infrastructure\Persistence\Doctrine\Dbal\Types\UTCDateType
+            date_immutable: Preventool\Infrastructure\Persistence\Doctrine\Dbal\Types\UTCDateImmutableType
+            datetime: Preventool\Infrastructure\Persistence\Doctrine\Dbal\Types\UTCDateTimeType
+            datetime_immutable: Preventool\Infrastructure\Persistence\Doctrine\Dbal\Types\UTCDateTimeImmutableType
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+
+        # Doctrine Extensions Filters
+        filters:
+            softdeleteable:
+                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                enabled: true
+
+        mappings:
+            Preventool\Domain\Demo\Model\Demo:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Demo'
+                prefix: 'Preventool\Domain\Demo\Model'
+                alias: Preventool\Domain\Demo\Model\Demo
+            Preventool\Domain\User\Model\User:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/User'
+                prefix: 'Preventool\Domain\User\Model'
+                alias: Preventool\Domain\User\Model\User
+            Preventool\Domain\Admin\Model\Admin:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Admin'
+                prefix: 'Preventool\Domain\Admin\Model'
+                alias: Preventool\Domain\Admin\Model\Admin
+
+
+when@test:
+    doctrine:
+        dbal:
+            # "TEST_TOKEN" is typically set by ParaTest
+            dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+
+when@prod:
+    doctrine:
+        orm:
+            auto_generate_proxy_classes: false
+            query_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            result_cache_driver:
+                type: pool
+                pool: doctrine.result_cache_pool
+
+    framework:
+        cache:
+            pools:
+                doctrine.result_cache_pool:
+                    adapter: cache.app
+                doctrine.system_cache_pool:
+                    adapter: cache.system

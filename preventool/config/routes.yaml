@@ -1,3 +1,32 @@
-controllers:
-    resource: ../src/Controller/
-    type: attribute
+api_login_check:
+  path: /api/login_check
+
+#shared
+get_session:
+  path: /api/v1/session
+  controller: App\Controller\Shared\Session\GetSessionController
+  methods: [GET]
+#Demo
+get_demo:
+  path: /api/v1/demo
+  controller: App\Controller\Demo\GetDemoController
+  methods: [GET]
+
+#Admin
+post_create_admin:
+  path: /api/v1/admin
+  controller: App\Controller\Admin\CreateAdminController
+  methods: [POST]
+search_admin:
+  path: /api/v1/admin
+  controller: App\Controller\Admin\SearchAdminController
+  methods: [GET]
+get_admin:
+  path: /api/v1/admin/{id}
+  controller: App\Controller\Admin\GetAdminByIdController
+  methods: [GET]
+put_update_admin:
+  path: /api/v1/admin/{id}
+  controller: App\Controller\Admin\UpdateAdminController
+  methods: [PUT]
+
