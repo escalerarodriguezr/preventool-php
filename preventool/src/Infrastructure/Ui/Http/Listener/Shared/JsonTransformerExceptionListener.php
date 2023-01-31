@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Preventool\Infrastructure\Ui\Http\Listener\Shared;
 
 use Preventool\Domain\Admin\Exception\AdminAlreadyExistsException;
+use Preventool\Domain\Admin\Exception\AdminInvalidCurrentPasswordException;
 use Preventool\Domain\Admin\Exception\AdminNotFoundException;
 use Preventool\Domain\Shared\Exception\ActionNotAllowedException;
 use Preventool\Domain\User\Exception\UserAlreadyExistsException;
@@ -84,7 +85,8 @@ class JsonTransformerExceptionListener
         return [
             UserAlreadyExistsException::class,
             AdminAlreadyExistsException::class,
-            ActionNotAllowedException::class
+            ActionNotAllowedException::class,
+            AdminInvalidCurrentPasswordException::class
         ];
     }
 

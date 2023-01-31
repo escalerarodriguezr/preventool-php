@@ -29,4 +29,8 @@ put_update_admin:
   path: /api/v1/admin/{id}
   controller: App\Controller\Admin\UpdateAdminController
   methods: [PUT]
+put_update_admin_password:
+  path: /api/v1/admin/{id}/password
+  controller: App\Controller\Admin\UpdateAdminPasswordController
+  methods: [PUT]
 
