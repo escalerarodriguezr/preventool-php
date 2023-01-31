@@ -9,6 +9,8 @@ framework:
                 format: json
                 context: { }
 
+        failure_transport: failed
+
         # Bus
         default_bus: command.bus
         buses:
@@ -16,6 +18,7 @@ framework:
                 middleware:
                     - doctrine_transaction
             query.bus: ~
+            message.bus: ~
             domain.event.bus:
                 default_middleware: allow_no_handlers
 
@@ -24,8 +27,12 @@ framework:
 
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
-            # async: '%env(MESSENGER_TRANSPORT_DSN)%'
-            # failed: 'doctrine://default?queue_name=failed'
+            async:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    # queue_name is specific to the doctrine transport
+                    queue_name: default
+            failed: 'doctrine://default?queue_name=failed'
             sync: 'sync://'
 
         routing:
@@ -34,6 +41,7 @@ framework:
             'Preventool\Domain\Shared\Bus\Command\Command': sync
             'Preventool\Domain\Shared\Bus\Query\Query': sync
             'Preventool\Domain\Shared\Bus\DomainEvent\DomainEvent': sync
+            'Preventool\Domain\Shared\Bus\Message\Message': async
 
 # when@test:
 #    framework:
