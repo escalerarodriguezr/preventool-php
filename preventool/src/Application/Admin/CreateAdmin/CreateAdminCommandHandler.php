@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace Preventool\Application\Admin\CreateAdmin;
 
+use Preventool\Application\Admin\Event\AdminCreated\AdminCreatedEvent;
 use Preventool\Domain\Admin\Model\Admin;
 use Preventool\Domain\Admin\Model\Value\AdminRole;
 use Preventool\Domain\Admin\Model\Value\AdminType;
 use Preventool\Domain\Admin\Repository\AdminRepository;
 use Preventool\Domain\Shared\Bus\Command\CommandHandler;
+use Preventool\Domain\Shared\Bus\DomainEvent\DomainEventBus;
 use Preventool\Domain\Shared\Exception\ActionNotAllowedException;
 use Preventool\Domain\Shared\Model\Value\Email;
 use Preventool\Domain\Shared\Model\Value\LastName;
@@ -25,6 +27,7 @@ class CreateAdminCommandHandler implements CommandHandler
         private UserRepository $userRepository,
         private AdminRepository $adminRepository,
         private readonly UserPasswordHasherInterface $passwordHasher,
+        private readonly DomainEventBus $eventBus
     )
     {
     }
@@ -70,5 +73,12 @@ class CreateAdminCommandHandler implements CommandHandler
 
         $user->setPassword($hashedPassword);
         $this->userRepository->save($user);
+
+        $this->eventBus->dispatch(
+            new AdminCreatedEvent(
+                $admin->getId()->value
+            )
+        );
+
     }
 }

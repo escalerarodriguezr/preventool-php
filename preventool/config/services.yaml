@@ -41,6 +41,10 @@ services:
             tags:
                 - { name: messenger.message_handler, bus: domain.event.bus }
 
+        Preventool\Domain\Shared\Bus\Message\MessageHandler:
+            tags:
+                - { name: messenger.message_handler, bus: message.bus }
+
     #Infrastructure
     #Listener
 
