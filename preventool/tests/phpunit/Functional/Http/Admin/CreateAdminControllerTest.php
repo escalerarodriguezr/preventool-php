@@ -12,6 +12,7 @@ use Preventool\Infrastructure\Ui\Http\Request\DTO\Admin\CreateAdminRequest;
 use Preventool\Infrastructure\Ui\Http\Service\HttpRequestService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\Transport\InMemoryTransport;
 
 class CreateAdminControllerTest extends FunctionalHttpTestBase
 {
@@ -34,6 +35,12 @@ class CreateAdminControllerTest extends FunctionalHttpTestBase
         $this->prepareDatabase();
         $this->authenticatedRootClient();
 
+
+        /* @var InMemoryTransport $transport */
+        $transport = $this->getContainer()->get('messenger.transport.async');
+
+
+
         $payload = [
             'email' => 'leoanar@api.com',
             'password' => 'password123',
@@ -49,13 +56,15 @@ class CreateAdminControllerTest extends FunctionalHttpTestBase
             [],
             \json_encode($payload)
         );
-
+        
         $response = self::$authenticatedRootClient->getResponse();
         self::assertSame(Response::HTTP_CREATED,$response->getStatusCode());
 
         $response = json_decode($response->getContent(), true);
         self::assertArrayHasKey(HttpRequestService::ID, $response);
         self::assertIsValidUuid($response[HttpRequestService::ID]);
+
+        $this->assertCount(1, $transport->getSent());
 
     }
 
