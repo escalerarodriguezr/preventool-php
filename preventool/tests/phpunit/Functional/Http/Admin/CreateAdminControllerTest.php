@@ -56,7 +56,7 @@ class CreateAdminControllerTest extends FunctionalHttpTestBase
             [],
             \json_encode($payload)
         );
-        
+
         $response = self::$authenticatedRootClient->getResponse();
         self::assertSame(Response::HTTP_CREATED,$response->getStatusCode());
 
