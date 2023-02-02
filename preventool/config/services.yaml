@@ -15,6 +15,9 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
+        bind:
+            $defaultSender: '%env(resolve:MAILER_DEFAULT_SENDER)%'
+
     App\Controller\:
         resource: '../web/Controller/'
         tags: [ 'controller.service_arguments' ]
@@ -40,6 +43,10 @@ services:
         Preventool\Domain\Shared\Bus\DomainEvent\DomainEventHandler:
             tags:
                 - { name: messenger.message_handler, bus: domain.event.bus }
+
+        Preventool\Domain\Shared\Bus\Message\MessageHandler:
+            tags:
+                - { name: messenger.message_handler, bus: message.bus }
 
     #Infrastructure
     #Listener
