@@ -12,3 +12,6 @@ services:
 
   Preventool\Infrastructure\Persistence\Doctrine\Repository\Admin\DoctrineAdminRepository: ~
   Preventool\Domain\Admin\Repository\AdminRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Admin\DoctrineAdminRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\Company\DoctrineCompanyRepository: ~
+  Preventool\Domain\Company\Repository\CompanyRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Company\DoctrineCompanyRepository'

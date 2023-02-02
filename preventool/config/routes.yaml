@@ -34,3 +34,10 @@ put_update_admin_password:
   controller: App\Controller\Admin\UpdateAdminPasswordController
   methods: [PUT]
 
+
+#Company
+post_create_company:
+  path: /api/v1/company
+  controller: App\Controller\Company\CreateCompanyController
+  methods: [POST]
+
