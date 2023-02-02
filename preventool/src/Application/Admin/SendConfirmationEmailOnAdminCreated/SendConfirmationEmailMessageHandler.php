@@ -3,18 +3,20 @@ declare(strict_types=1);
 
 namespace Preventool\Application\Admin\SendConfirmationEmailOnAdminCreated;
 
+use Preventool\Domain\Admin\Repository\AdminRepository;
 use Preventool\Domain\Shared\Bus\Message\MessageHandler;
+use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Domain\Shared\Service\Mailer\Mailer;
 use Preventool\Infrastructure\Mailer\TwigTemplate;
-use Psr\Log\LoggerInterface;
+
 
 class SendConfirmationEmailMessageHandler implements MessageHandler
 {
 
 
     public function __construct(
-        private readonly LoggerInterface $logger,
-        private readonly Mailer $mailer
+        private readonly AdminRepository $adminRepository,
+        private readonly Mailer $mailer,
     )
     {
     }
@@ -24,18 +26,18 @@ class SendConfirmationEmailMessageHandler implements MessageHandler
     ): void
     {
 
+        $admin = $this->adminRepository->findById(
+            new Uuid($message->adminId)
+        );
         $payload = [
-            'email' => "un mensaje bonito..."
+            'name' => ucfirst($admin->getName()->value)
         ];
 
         $this->mailer->send(
-            "email@email.com",
+            $admin->getEmail()->value,
             TwigTemplate::ADMIN_REGISTER,
             $payload
         );
-//        $this->logger->info($message->adminId);
-//        // TODO: Implement __invoke() method.
     }
-
 
 }

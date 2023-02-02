@@ -14,10 +14,8 @@ class SendGridMailer implements Mailer
 {
 
     public const TEMPLATE_SUBJECT_MAP = [
-        TwigTemplate::ADMIN_REGISTER => 'Welcome to my App!!',
+        TwigTemplate::ADMIN_REGISTER => 'Bienvenido a Preventool!',
     ];
-
-
 
     public function __construct(
         private readonly MailerInterface $mailer,
