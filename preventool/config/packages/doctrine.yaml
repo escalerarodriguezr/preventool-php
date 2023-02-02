@@ -37,6 +37,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Admin'
                 prefix: 'Preventool\Domain\Admin\Model'
                 alias: Preventool\Domain\Admin\Model\Admin
+            Preventool\Domain\Company\Model\Company:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Company'
+                prefix: 'Preventool\Domain\Company\Model'
+                alias: Preventool\Domain\Company\Model\Company
 
 
 when@test:
