@@ -5,9 +5,11 @@ namespace Preventool\Infrastructure\Persistence\Doctrine\Repository\Company;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Preventool\Domain\Company\Exception\CompanyAlreadyExistsException;
+use Preventool\Domain\Company\Exception\CompanyNotFoundException;
 use Preventool\Domain\Company\Model\Company;
 use Preventool\Domain\Company\Model\Value\LegalDocument;
 use Preventool\Domain\Company\Repository\CompanyRepository;
+use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Infrastructure\Persistence\Doctrine\Repository\DoctrineBaseRepository;
 
 class DoctrineCompanyRepository extends DoctrineBaseRepository implements CompanyRepository
@@ -37,5 +39,13 @@ class DoctrineCompanyRepository extends DoctrineBaseRepository implements Compan
         ]);
     }
 
+    public function findById(Uuid $id): Company
+    {
+        if (null === $company = $this->objectRepository->findOneBy(['id' => $id->value])) {
+            throw CompanyNotFoundException::withId($id);
+        }
+
+        return $company;
+    }
 
 }
