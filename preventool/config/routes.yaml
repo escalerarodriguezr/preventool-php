@@ -41,3 +41,8 @@ post_create_company:
   controller: App\Controller\Company\CreateCompanyController
   methods: [POST]
 
+get_company:
+  path: /api/v1/company/{id}
+  controller: App\Controller\Company\GetCompanyByIdController
+  methods: [GET]
+
