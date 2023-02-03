@@ -45,4 +45,8 @@ get_company:
   path: /api/v1/company/{id}
   controller: App\Controller\Company\GetCompanyByIdController
   methods: [GET]
+search_company:
+  path: /api/v1/company
+  controller: App\Controller\Company\SearchCompanyController
+  methods: [GET]
 

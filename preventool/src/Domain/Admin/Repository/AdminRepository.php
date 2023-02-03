@@ -15,7 +15,8 @@ interface AdminRepository
     public function findById(Uuid $id): Admin;
     public function searchPaginated(
         QueryCondition $queryCondition,
-        AdminFilter $filter
+        AdminFilter $filter,
+        bool $fetchJoinCollections
     ): PaginatedQueryResponse;
 
     public function findByEmailOrNull(Email $email): ?Admin;
