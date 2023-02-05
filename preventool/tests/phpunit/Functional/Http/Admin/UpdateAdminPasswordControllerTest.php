@@ -6,6 +6,7 @@ namespace PHPUnit\Tests\Functional\Http\Admin;
 use PHPUnit\Tests\Functional\Http\FunctionalHttpTestBase;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\AdminFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\UserFixtures;
+use Preventool\Infrastructure\Ui\Http\Request\DTO\Admin\UpdateAdminPasswordRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -31,8 +32,8 @@ class UpdateAdminPasswordControllerTest extends FunctionalHttpTestBase
         $this->authenticatedRootClient();
 
         $payload = [
-            'currentPassword' => AdminFixtures::ADMIN_ADMIN_PASSWORD,
-            'password' => 'qwertyuiop',
+            UpdateAdminPasswordRequest::CURRENT_PASSWORD => AdminFixtures::ROOT_ADMIN_PASSWORD,
+            UpdateAdminPasswordRequest::PASSWORD => 'qwertyuiop',
         ];
 
         self::$authenticatedRootClient->request(
@@ -48,14 +49,37 @@ class UpdateAdminPasswordControllerTest extends FunctionalHttpTestBase
         self::assertSame(Response::HTTP_OK,$response->getStatusCode());
     }
 
+    public function testUpdateAdminPassword_WithRootActionAdmin_ErrorCurrentPassword_Response(): void
+    {
+        $this->prepareDatabase();
+        $this->authenticatedRootClient();
+
+        $payload = [
+            UpdateAdminPasswordRequest::CURRENT_PASSWORD => 'invalid-password',
+            UpdateAdminPasswordRequest::PASSWORD => 'qwertyuiop',
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_PUT,
+            \sprintf(self::END_POINT, AdminFixtures::ADMIN_ADMIN_UUID),
+            [],
+            [],
+            [],
+            \json_encode($payload)
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+        self::assertSame(Response::HTTP_CONFLICT,$response->getStatusCode());
+    }
+
     public function testWhenUpdateAdminPasswordWith_ActionAdminWithAminRole_ShouldBeResponseActionNotAllowedException(): void
     {
         $this->prepareDatabase();
         $this->authenticatedAdminClient();
 
         $payload = [
-            'currentPassword' => AdminFixtures::ADMIN_ADMIN_PASSWORD,
-            'password' => 'qwertyuiop',
+            UpdateAdminPasswordRequest::CURRENT_PASSWORD => AdminFixtures::ADMIN_ADMIN_PASSWORD,
+            UpdateAdminPasswordRequest::PASSWORD => 'qwertyuiop',
         ];
 
         self::$authenticatedAdminClient->request(
@@ -78,8 +102,8 @@ class UpdateAdminPasswordControllerTest extends FunctionalHttpTestBase
         $this->authenticatedAdminClient();
 
         $payload = [
-            'currentPassword' => AdminFixtures::ADMIN_ADMIN_PASSWORD,
-            'password' => 'qwertyuiop',
+            UpdateAdminPasswordRequest::CURRENT_PASSWORD => AdminFixtures::ADMIN_ADMIN_PASSWORD,
+            UpdateAdminPasswordRequest::PASSWORD => 'qwertyuiop',
         ];
 
         self::$authenticatedAdminClient->request(
@@ -101,8 +125,8 @@ class UpdateAdminPasswordControllerTest extends FunctionalHttpTestBase
         $this->authenticatedAdminClient();
 
         $payload = [
-            'currentPassword' => 'invalid-current-password',
-            'password' => 'qwertyuiop',
+            UpdateAdminPasswordRequest::CURRENT_PASSWORD => 'invalid-current-password',
+            UpdateAdminPasswordRequest::PASSWORD => 'qwertyuiop',
         ];
 
         self::$authenticatedAdminClient->request(
