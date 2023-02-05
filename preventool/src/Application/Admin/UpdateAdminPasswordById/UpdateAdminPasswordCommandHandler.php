@@ -4,11 +4,13 @@ declare(strict_types=1);
 namespace Preventool\Application\Admin\UpdateAdminPasswordById;
 
 use Preventool\Domain\Admin\Exception\AdminInvalidCurrentPasswordException;
+use Preventool\Domain\Admin\Model\Admin;
 use Preventool\Domain\Admin\Model\Value\AdminRole;
 use Preventool\Domain\Admin\Repository\AdminRepository;
 use Preventool\Domain\Shared\Bus\Command\CommandHandler;
 use Preventool\Domain\Shared\Exception\ActionNotAllowedException;
 use Preventool\Domain\Shared\Model\Value\Uuid;
+use Preventool\Domain\User\Model\User;
 use Preventool\Domain\User\Model\Value\UserPassword;
 use Preventool\Domain\User\Repository\UserRepository;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -28,7 +30,6 @@ class UpdateAdminPasswordCommandHandler implements CommandHandler
         UpdateAdminPasswordCommand $command
     ): void
     {
-
         $actionAdminId = new Uuid($command->actionAdminId);
         $actionAdmin = $this->adminRepository->findById(
             $actionAdminId
@@ -50,14 +51,12 @@ class UpdateAdminPasswordCommandHandler implements CommandHandler
         );
 
         $currentPassword = new UserPassword($command->currentPassword);
-        $isValid= $this->passwordHasher->isPasswordValid(
-            $user,
-            $currentPassword->value
-        );
 
-        if(!$isValid){
-            throw AdminInvalidCurrentPasswordException::withEmail($admin->getEmail());
-        }
+        $this->checkActionAdminCanEditUserPassword(
+            $actionAdmin,
+            $user,
+            $currentPassword
+        );
 
         $password = new UserPassword($command->password);
         $hashedPassword = $this->passwordHasher->hashPassword(
@@ -70,5 +69,39 @@ class UpdateAdminPasswordCommandHandler implements CommandHandler
 
     }
 
+    private function checkActionAdminCanEditUserPassword(
+        Admin $actionAdmin,
+        User $user,
+        UserPassword $currentPassword
+    ): void
+    {
+
+        if( $actionAdmin->getId()->value == $user->getId()->value ){
+
+            $isValid= $this->passwordHasher->isPasswordValid(
+                $user,
+                $currentPassword->value
+            );
+
+            if(!$isValid){
+                throw AdminInvalidCurrentPasswordException::withEmail($user->getEmail());
+            }
+
+        }else{
+
+            $actionAdminUser = $this->userRepository->findById(
+                $actionAdmin->getId()
+            );
+
+            $isValid= $this->passwordHasher->isPasswordValid(
+                $actionAdminUser,
+                $currentPassword->value
+            );
+
+            if(!$isValid){
+                throw AdminInvalidCurrentPasswordException::withEmail($actionAdminUser->getEmail());
+            }
+        }
+    }
 
 }
