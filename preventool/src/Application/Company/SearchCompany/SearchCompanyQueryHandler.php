@@ -30,10 +30,6 @@ class SearchCompanyQueryHandler implements QueryHandler
             $actionAdminId
         );
 
-        if ($actionAdmin->getRole()->value != AdminRole::ADMIN_ROLE_ROOT){
-            throw ActionNotAllowedException::fromApplicationUseCase($actionAdminId);
-        }
-
         $filter = new CompanyFilter(
             $query->filterById,
             $query->filterByName
