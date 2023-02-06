@@ -68,11 +68,11 @@ class UpdateCompanyRequest implements RequestDTO
     {
         $payload = $request->toArray();
 
-        $this->name = $payload[self::NAME] ?? null;
-        $this->legalName = $payload[self::LEGAL_NAME] ?? null;
-        $this->legalDocument = $payload[self::LEGAL_DOCUMENT] ?? null;
-        $this->address = $payload[self::ADDRESS] ?? null;
-        $this->sector = $payload[self::SECTOR] ?? null;
+        $this->name = trim($payload[self::NAME]) ?? null;
+        $this->legalName = trim($payload[self::LEGAL_NAME]) ?? null;
+        $this->legalDocument = trim($payload[self::LEGAL_DOCUMENT]) ?? null;
+        $this->address = trim($payload[self::ADDRESS]) ?? null;
+        $this->sector = trim($payload[self::SECTOR]) ?? null;
     }
 
 
