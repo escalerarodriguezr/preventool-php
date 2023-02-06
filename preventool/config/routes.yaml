@@ -49,4 +49,9 @@ search_company:
   path: /api/v1/company
   controller: App\Controller\Company\SearchCompanyController
   methods: [GET]
+put_update_company:
+  path: /api/v1/company/{id}
+  controller: App\Controller\Company\UpdateCompanyController
+  methods: [PUT]
+
 
