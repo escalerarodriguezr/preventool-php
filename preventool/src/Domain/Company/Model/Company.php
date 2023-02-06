@@ -89,6 +89,32 @@ class Company extends AggregateRoot
         return $this->active;
     }
 
+
+    public function setName(Name $name): void
+    {
+        $this->name = $name->value;
+    }
+
+    public function setLegalName(LegalName $legalName): void
+    {
+        $this->legalName = $legalName->value;
+    }
+
+    public function setLegalDocument(LegalDocument $legalDocument): void
+    {
+        $this->legalDocument = $legalDocument->value;
+    }
+
+    public function setAddress(Address $address): void
+    {
+        $this->address = $address->value;
+    }
+
+    public function setSector(Sector $sector): void
+    {
+        $this->sector = $sector->value;
+    }
+
     public function setCreatorAdmin(?Admin $creatorAdmin): void
     {
         $this->creatorAdmin = $creatorAdmin;
@@ -98,8 +124,6 @@ class Company extends AggregateRoot
     {
         $this->updaterAdmin = $updaterAdmin;
     }
-
-
 
 
 }
