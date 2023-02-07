@@ -49,7 +49,9 @@ class CreateWorkplaceController
         );
 
         return new JsonResponse(
-            $workplaceId,
+            [
+                HttpRequestService::ID => $workplaceId
+            ],
             Response::HTTP_CREATED
         );
 
