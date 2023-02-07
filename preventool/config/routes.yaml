@@ -59,4 +59,10 @@ put_update_company:
   controller: App\Controller\Company\UpdateCompanyController
   methods: [PUT]
 
+#Workplace
+post_create_workplace:
+  path: api/v1/company/{companyId}/workplace
+  controller: App\Controller\Workplace\CreateWorkplaceController
+  methods: [POST]
+
 
