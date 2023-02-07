@@ -25,7 +25,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class CompanyFixtures extends Fixture implements FixtureInterface
 {
 
-    const RIVENDEL_UUID = '4ddc408f-13f5-4d57-b6f7-7ebd6a02b53c';
+    const RIVENDEL_UUID = 'be2a1167-ea3b-49ef-9375-64851a648446';
     const RIVENDEL_NAME = 'Rivendel';
     const RIVENDEL_LEGAL_NAME = 'Rivendel S.A';
     const RIVENDEL_LEGAL_DOCUMENT = '2011111111';

@@ -6,6 +6,11 @@ get_session:
   path: /api/v1/session
   controller: App\Controller\Shared\Session\GetSessionController
   methods: [GET]
+get_company_session:
+  path: /api/v1/company-session/{id}
+  controller: App\Controller\Shared\Session\GetCompanySessionController
+  methods: [GET]
+
 #Demo
 get_demo:
   path: /api/v1/demo
@@ -53,5 +58,11 @@ put_update_company:
   path: /api/v1/company/{id}
   controller: App\Controller\Company\UpdateCompanyController
   methods: [PUT]
+
+#Workplace
+post_create_workplace:
+  path: api/v1/company/{companyId}/workplace
+  controller: App\Controller\Workplace\CreateWorkplaceController
+  methods: [POST]
 
 
