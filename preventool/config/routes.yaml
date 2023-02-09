@@ -64,5 +64,9 @@ post_create_workplace:
   path: api/v1/company/{companyId}/workplace
   controller: App\Controller\Workplace\CreateWorkplaceController
   methods: [POST]
+search_workplace:
+  path: /api/v1/workplace
+  controller: App\Controller\Workplace\SearchWorkplaceController
+  methods: [GET]
 
 
