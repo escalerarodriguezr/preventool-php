@@ -12,6 +12,8 @@ use Preventool\Domain\Shared\Exception\ActionNotAllowedException;
 use Preventool\Domain\User\Exception\UserAlreadyExistsException;
 use Preventool\Domain\User\Exception\UserNotFoundException;
 use Preventool\Domain\Workplace\Exception\WorkplaceAlreadyExistsException;
+use Preventool\Domain\Workplace\Exception\WorkplaceNotBelongToCompanyException;
+use Preventool\Domain\Workplace\Exception\WorkplaceNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -80,7 +82,8 @@ class JsonTransformerExceptionListener
         return [
             UserNotFoundException::class,
             AdminNotFoundException::class,
-            CompanyNotFoundException::class
+            CompanyNotFoundException::class,
+            WorkplaceNotFoundException::class
         ];
     }
 
@@ -92,7 +95,8 @@ class JsonTransformerExceptionListener
             ActionNotAllowedException::class,
             AdminInvalidCurrentPasswordException::class,
             CompanyAlreadyExistsException::class,
-            WorkplaceAlreadyExistsException::class
+            WorkplaceAlreadyExistsException::class,
+            WorkplaceNotBelongToCompanyException::class
         ];
     }
 

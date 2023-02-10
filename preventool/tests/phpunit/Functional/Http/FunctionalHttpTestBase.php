@@ -19,6 +19,8 @@ class FunctionalHttpTestBase extends WebTestCase
     protected static ?KernelBrowser $authenticatedRootClient = null;
     protected static ?KernelBrowser $authenticatedAdminClient = null;
 
+    protected mixed $databaseTool;
+
 
     public function setUp():void
     {

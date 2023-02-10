@@ -68,5 +68,9 @@ search_workplace:
   path: /api/v1/workplace
   controller: App\Controller\Workplace\SearchWorkplaceController
   methods: [GET]
+get_company_workplace_by_id:
+  path: /api/v1/company/{companyId}/workplace/{workplaceId}
+  controller: App\Controller\Workplace\GetWorkplaceByIdController
+  methods: [GET]
 
 
