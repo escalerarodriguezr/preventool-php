@@ -6,7 +6,9 @@ namespace Preventool\Infrastructure\Persistence\Doctrine\Repository\Workplace;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Domain\Workplace\Exception\WorkplaceAlreadyExistsException;
+use Preventool\Domain\Workplace\Exception\WorkplaceNotFoundException;
 use Preventool\Domain\Workplace\Model\Workplace;
 use Preventool\Domain\Workplace\Repository\WorkplaceFilter;
 use Preventool\Domain\Workplace\Repository\WorkplaceRepository;
@@ -39,6 +41,20 @@ class DoctrineWorkplaceRepository extends DoctrineBaseRepository implements Work
             );
         }
     }
+
+    public function findById(Uuid $id): Workplace
+    {
+        $workplace = $this->objectRepository->findOneBy(
+            ['id' => $id->value]
+        );
+
+        if($workplace == null){
+            throw WorkplaceNotFoundException::withId($id);
+        }
+
+        return $workplace;
+    }
+
 
     public function searchPaginated(
         QueryCondition $queryCondition,
