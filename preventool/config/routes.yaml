@@ -72,5 +72,9 @@ get_company_workplace_by_id:
   path: /api/v1/company/{companyId}/workplace/{workplaceId}
   controller: App\Controller\Workplace\GetWorkplaceByIdController
   methods: [GET]
+put_update_workplace:
+  path: /api/v1/company/{companyId}/workplace/{id}
+  controller: App\Controller\Workplace\UpdateWorkplaceController
+  methods: [PUT]
 
 
