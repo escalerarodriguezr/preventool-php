@@ -11,6 +11,7 @@ use Preventool\Domain\Company\Model\Value\LegalDocument;
 use Preventool\Domain\Company\Model\Value\LegalName;
 use Preventool\Domain\Company\Model\Value\Sector;
 use Preventool\Domain\Company\Repository\CompanyRepository;
+use Preventool\Domain\Company\Service\CreateHealthAndSafetyPolicyService;
 use Preventool\Domain\Shared\Bus\Command\CommandHandler;
 use Preventool\Domain\Shared\Exception\ActionNotAllowedException;
 use Preventool\Domain\Shared\Model\Value\Name;
@@ -22,7 +23,8 @@ class CreateCompanyCommandHandler implements CommandHandler
 
     public function __construct(
         private readonly AdminRepository $adminRepository,
-        private readonly CompanyRepository $companyRepository
+        private readonly CompanyRepository $companyRepository,
+        private readonly CreateHealthAndSafetyPolicyService $createHealthAndSafetyPolicyService
     )
     {
     }
@@ -58,6 +60,10 @@ class CreateCompanyCommandHandler implements CommandHandler
             $company
         );
 
+        $this->createHealthAndSafetyPolicyService->__invoke(
+            $company,
+            $actionAdmin
+        );
     }
 
 }
