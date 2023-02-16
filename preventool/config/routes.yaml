@@ -58,6 +58,10 @@ put_update_company:
   path: /api/v1/company/{id}
   controller: App\Controller\Company\UpdateCompanyController
   methods: [PUT]
+post_upload_health_and_safety_policy_document_of_company:
+  path: /api/v1/company/{id}/upload-health-and-safety-policy
+  controller: App\Controller\Company\UploadHealthAndSafetyPolicyController
+  methods: [POST]
 
 #Workplace
 post_create_workplace:
