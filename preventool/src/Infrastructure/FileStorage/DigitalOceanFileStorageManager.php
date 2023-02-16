@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class DigitalOceanFileStorageManager implements FileStorageManager
 {
 
+   const COMPANY_HEALTH_SAFTEY_POLICY = 'company_health_saftey_policy/%s'; // %s=companyId
+
     public function __construct(
         private readonly FilesystemOperator $defaultStorage,
         private readonly LoggerInterface $logger,
@@ -30,11 +32,13 @@ class DigitalOceanFileStorageManager implements FileStorageManager
         string $visibility
     ): string
     {
+
+        $fileIdentifier = \sha1(\uniqid());
         $fileName = \sprintf(
             '%s%s/%s.%s',
             $this->projectDigitalOceanStoragePath,
             $prefix,
-            \sha1(\uniqid()),
+            $fileIdentifier,
             $file->guessExtension()
         );
 
@@ -50,7 +54,7 @@ class DigitalOceanFileStorageManager implements FileStorageManager
             throw new IOException('Error uploading file');
         }
 
-        return $fileName;
+        return sprintf('%s.%s', $fileIdentifier,$file->guessExtension());
     }
 
     public function deleteFile(
