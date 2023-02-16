@@ -62,6 +62,10 @@ post_upload_health_and_safety_policy_document_of_company:
   path: /api/v1/company/{id}/upload-health-and-safety-policy
   controller: App\Controller\Company\UploadHealthAndSafetyPolicyController
   methods: [POST]
+get_comany_health_and_safety_policy:
+  path: api/v1/company/{id}/health-and-safety-policy
+  controller: App\Controller\Company\GetHealthAndSafetyPolicyController
+  methods: [GET]
 
 #Workplace
 post_create_workplace:
