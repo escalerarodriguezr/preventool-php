@@ -4,7 +4,11 @@ declare(strict_types=1);
 namespace Preventool\Infrastructure\FileStorage;
 
 
+use DateInterval;
+use League\Flysystem\FilesystemException;
 use League\Flysystem\FilesystemOperator;
+use League\Flysystem\UnableToReadFile;
+use Monolog\DateTimeImmutable;
 use Preventool\Domain\Shared\Service\FileStorageManager\FileStorageManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Filesystem\Exception\IOException;
@@ -69,6 +73,35 @@ class DigitalOceanFileStorageManager implements FileStorageManager
             $this->logger->warning(\sprintf('File %s not found in the storage', $path));
             throw new IOException(\sprintf('File %s not found in the storage', $path));
         }
+    }
+
+    public function readFile(string $path): mixed
+    {
+        try {
+            $response = $this->defaultStorage->readStream($path);
+            return $response;
+        } catch (FilesystemException | UnableToReadFile $exception) {
+            $this->logger->warning(\sprintf('File %s not found in the storage', $path));
+            throw new IOException(\sprintf('File %s not found in the storage', $path));
+        }
+    }
+
+    public function readTempUrl(string $path, int $seconds): string
+    {
+
+        try {
+            $expiredAt = new \DateTimeImmutable();
+            $interval = new DateInterval(
+                sprintf('PT%dS', $seconds)
+            );
+            $duration = $expiredAt->add($interval);
+            return $this->defaultStorage->temporaryUrl($path, $duration);
+
+        } catch (\Exception $e) {
+            $this->logger->warning(\sprintf('File %s not found in the storage', $path));
+            throw new IOException(\sprintf('File %s not found in the storage', $path));
+        }
+
     }
 
 
