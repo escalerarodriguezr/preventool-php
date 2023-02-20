@@ -18,4 +18,11 @@ interface FileStorageManager
 
     public function deleteFile(?string $path): void;
 
+    /**
+     * @param string $path
+     * @return resource
+     */
+    public function readFile ( string $path);
+    public function readTempUrl ( string $path, int $seconds): string;
+
 }
