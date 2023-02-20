@@ -5,6 +5,7 @@ namespace Preventool\Infrastructure\Persistence\Doctrine\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Preventool\Domain\Admin\Model\Admin;
 use Preventool\Domain\Company\Model\Company;
 use Preventool\Domain\Company\Model\Value\Address;
 use Preventool\Domain\Shared\Model\Value\Name;

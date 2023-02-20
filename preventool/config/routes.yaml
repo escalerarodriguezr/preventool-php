@@ -58,6 +58,19 @@ put_update_company:
   path: /api/v1/company/{id}
   controller: App\Controller\Company\UpdateCompanyController
   methods: [PUT]
+post_upload_health_and_safety_policy_document_of_company:
+  path: /api/v1/company/{id}/upload-health-and-safety-policy
+  controller: App\Controller\Company\UploadHealthAndSafetyPolicyController
+  methods: [POST]
+get_comany_health_and_safety_policy:
+  path: api/v1/company/{id}/health-and-safety-policy
+  controller: App\Controller\Company\GetHealthAndSafetyPolicyController
+  methods: [GET]
+get_comany_document_health_and_safety_policy:
+  path: api/v1/company/{id}/document-health-and-safety-policy
+  controller: App\Controller\Company\GetDocumentHealthAndSafetyPolicyController
+  methods: [GET]
+
 
 #Workplace
 post_create_workplace:
@@ -68,5 +81,14 @@ search_workplace:
   path: /api/v1/workplace
   controller: App\Controller\Workplace\SearchWorkplaceController
   methods: [GET]
+get_company_workplace_by_id:
+  path: /api/v1/company/{companyId}/workplace/{workplaceId}
+  controller: App\Controller\Workplace\GetWorkplaceByIdController
+  methods: [GET]
+put_update_workplace:
+  path: /api/v1/company/{companyId}/workplace/{id}
+  controller: App\Controller\Workplace\UpdateWorkplaceController
+  methods: [PUT]
+
 
 

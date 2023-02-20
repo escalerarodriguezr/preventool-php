@@ -18,3 +18,6 @@ services:
 
   Preventool\Infrastructure\Persistence\Doctrine\Repository\Workplace\DoctrineWorkplaceRepository: ~
   Preventool\Domain\Workplace\Repository\WorkplaceRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Workplace\DoctrineWorkplaceRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\Company\DoctrineHealthAndSafetyPolicyRepository: ~
+  Preventool\Domain\Company\Repository\HealthAndSafetyPolicyRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Company\DoctrineHealthAndSafetyPolicyRepository'
