@@ -25,7 +25,7 @@ class HealthAndSafetyPolicyResponse
         public readonly string $id,
         public readonly string $companyId,
         public readonly string $status,
-        public readonly string $documentResource,
+        public readonly ?string $documentResource,
         public readonly bool $active,
         public readonly ?string $approvedAdminId,
         public readonly ?string $creatorId,

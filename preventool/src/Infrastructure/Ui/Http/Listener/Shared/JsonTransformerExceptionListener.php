@@ -16,10 +16,12 @@ use Preventool\Domain\User\Exception\UserNotFoundException;
 use Preventool\Domain\Workplace\Exception\WorkplaceAlreadyExistsException;
 use Preventool\Domain\Workplace\Exception\WorkplaceNotBelongToCompanyException;
 use Preventool\Domain\Workplace\Exception\WorkplaceNotFoundException;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -28,6 +30,13 @@ class JsonTransformerExceptionListener
 {
     const ERRORS_KEY = 'errors';
 
+    public function __construct(
+        private readonly LoggerInterface $logger
+    )
+    {
+    }
+
+
     public function onKernelException(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();
@@ -35,7 +44,11 @@ class JsonTransformerExceptionListener
         if ($exception instanceof HandlerFailedException) {
             $exception = $exception->getPrevious();
         }
-        
+
+        if(!$exception instanceof NotFoundHttpException){
+           $this->logger->error($exception);
+        }
+
         $data = [
             'class' => \get_class($exception),
             'code' => Response::HTTP_INTERNAL_SERVER_ERROR,

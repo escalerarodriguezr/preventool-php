@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PHPUnit\Tests\Functional\Http;
 
+use Doctrine\DBAL\Connection;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Preventool\Domain\User\Repository\UserRepository;
@@ -47,6 +48,15 @@ class FunctionalHttpTestBase extends WebTestCase
                 'HTTP_ACCEPT' => 'application/json',
             ]);
         }
+    }
+
+    protected static function initDBConnection(): Connection
+    {
+        if (null === static::$kernel) {
+            static ::bootKernel();
+        }
+
+        return static::$kernel->getContainer()->get('doctrine')->getConnection();
     }
 
     protected function authenticatedRootClient():void

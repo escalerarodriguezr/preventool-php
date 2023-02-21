@@ -10,6 +10,8 @@ use Preventool\Domain\Company\Repository\HealthAndSafetyPolicyRepository;
 use Preventool\Domain\Shared\Bus\Command\CommandHandler;
 use Preventool\Domain\Shared\Model\Value\DocumentStatus;
 use Preventool\Domain\Shared\Model\Value\Uuid;
+use Preventool\Domain\Shared\Service\FileStorageManager\FileStorageManager;
+use Preventool\Infrastructure\FileStorage\DigitalOceanFileStorageManager;
 
 class UploadHealthAndSafetyPolicyCommandHandler implements CommandHandler
 {
@@ -18,7 +20,8 @@ class UploadHealthAndSafetyPolicyCommandHandler implements CommandHandler
     public function __construct(
         private readonly AdminRepository $adminRepository,
         private readonly CompanyRepository $companyRepository,
-        private readonly HealthAndSafetyPolicyRepository $healthAndSafetyPolicyRepository
+        private readonly HealthAndSafetyPolicyRepository $healthAndSafetyPolicyRepository,
+        private readonly FileStorageManager $digitalOceanFileStorageManager
     )
     {
     }
@@ -46,8 +49,34 @@ class UploadHealthAndSafetyPolicyCommandHandler implements CommandHandler
             throw HealthAndSafetyPolicyOfCompanyNotFoundException::withCompanyId($companyId);
         }
 
+
+        $currentDocument = $policy->getDocumentResource();
+
+        if(!empty($currentDocument)){
+            $prefix = sprintf(
+                DigitalOceanFileStorageManager::COMPANY_HEALTH_SAFTEY_POLICY,
+                $companyId->value
+            );
+
+            $path = sprintf(
+                '%s/%s',
+                $prefix,
+                $policy->getDocumentResource()
+            );
+
+            $this->digitalOceanFileStorageManager->deleteFile(
+                $path
+            );
+        }
+
+
+
         $policy->setDocumentResource(
             $command->documentResource
+        );
+
+        $policy->setUpdaterAdmin(
+            $actionAdmin
         );
 
         $policy->setStatus(
