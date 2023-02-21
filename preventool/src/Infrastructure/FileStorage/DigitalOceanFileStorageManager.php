@@ -67,7 +67,12 @@ class DigitalOceanFileStorageManager implements FileStorageManager
     {
         try {
             if (null !== $path) {
-                $this->defaultStorage->delete($path);
+                $this->defaultStorage->delete(
+                    sprintf('%s%s',
+                        $this->projectDigitalOceanStoragePath,
+                        $path
+                    )
+                );
             }
         } catch (\Exception $e) {
             $this->logger->warning(\sprintf('File %s not found in the storage', $path));
