@@ -10,6 +10,7 @@ use Preventool\Domain\Company\Exception\CompanyAlreadyExistsException;
 use Preventool\Domain\Company\Exception\CompanyNotFoundException;
 use Preventool\Domain\Company\Exception\DocumentHealthAndSafetyPolicyOfCompanyNotFoundException;
 use Preventool\Domain\Company\Exception\HealthAndSafetyPolicyOfCompanyNotFoundException;
+use Preventool\Domain\Company\Exception\HealthAndSafetyPolicyOfCompanyNotHasDocumentAssignedException;
 use Preventool\Domain\Shared\Exception\ActionNotAllowedException;
 use Preventool\Domain\User\Exception\UserAlreadyExistsException;
 use Preventool\Domain\User\Exception\UserNotFoundException;
@@ -29,6 +30,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class JsonTransformerExceptionListener
 {
     const ERRORS_KEY = 'errors';
+    const CLASS_KEY = 'class';
+    const CODE_KEY = 'code';
+    const MESSAGE_KEY = 'message';
 
     public function __construct(
         private readonly LoggerInterface $logger
@@ -50,21 +54,21 @@ class JsonTransformerExceptionListener
         }
 
         $data = [
-            'class' => \get_class($exception),
-            'code' => Response::HTTP_INTERNAL_SERVER_ERROR,
-            'message' => $exception->getMessage(),
+            self::CLASS_KEY => \get_class($exception),
+            self::CODE_KEY => Response::HTTP_INTERNAL_SERVER_ERROR,
+            self::MESSAGE_KEY => $exception->getMessage(),
         ];
 
-        if (\in_array($data['class'], $this->getNotFoundExceptions(), true)) {
-            $data['code'] = Response::HTTP_NOT_FOUND;
+        if (\in_array($data[self::CLASS_KEY], $this->getNotFoundExceptions(), true)) {
+            $data[self::CODE_KEY] = Response::HTTP_NOT_FOUND;
         }
 
-        if (\in_array($data['class'], $this->getDeniedExceptions(), true)) {
-            $data['code'] = Response::HTTP_FORBIDDEN;
+        if (\in_array($data[self::CLASS_KEY], $this->getDeniedExceptions(), true)) {
+            $data[self::CODE_KEY] = Response::HTTP_FORBIDDEN;
         }
 
-        if (\in_array($data['class'], $this->getConflictExceptions(), true)) {
-            $data['code'] = Response::HTTP_CONFLICT;
+        if (\in_array($data[self::CLASS_KEY], $this->getConflictExceptions(), true)) {
+            $data[self::CODE_KEY] = Response::HTTP_CONFLICT;
         }
 
         if ($exception instanceof UnprocessableEntityHttpException) {
@@ -75,7 +79,7 @@ class JsonTransformerExceptionListener
         }
 
         if ($exception instanceof HttpExceptionInterface) {
-            $data['code'] = $exception->getStatusCode();
+            $data[self::CODE_KEY] = $exception->getStatusCode();
         }
 
 
@@ -85,8 +89,8 @@ class JsonTransformerExceptionListener
 
     private function prepareResponse(array $data): JsonResponse
     {
-        $response = new JsonResponse($data, $data['code']);
-        $response->headers->set('X-Error-Code', (string) $data['code']);
+        $response = new JsonResponse($data, $data[self::CODE_KEY]);
+        $response->headers->set('X-Error-Code', (string) $data[self::CODE_KEY]);
         $response->headers->set('X-Server-Time', (string) \time());
 
         return $response;
@@ -113,7 +117,8 @@ class JsonTransformerExceptionListener
             AdminInvalidCurrentPasswordException::class,
             CompanyAlreadyExistsException::class,
             WorkplaceAlreadyExistsException::class,
-            WorkplaceNotBelongToCompanyException::class
+            WorkplaceNotBelongToCompanyException::class,
+            HealthAndSafetyPolicyOfCompanyNotHasDocumentAssignedException::class
         ];
     }
 
