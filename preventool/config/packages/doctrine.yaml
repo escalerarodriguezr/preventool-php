@@ -55,6 +55,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Company'
                 prefix: 'Preventool\Domain\Company\Model'
                 alias: Preventool\Domain\Company\Model\HealthAndSafetyPolicy
+            Preventool\Domain\AuditType\Model\AuditType:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Audit'
+                prefix: 'Preventool\Domain\Audit\Model'
+                alias: Preventool\Domain\Audit\Model\Audit
 
 
 when@test:
