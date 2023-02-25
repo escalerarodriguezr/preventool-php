@@ -95,5 +95,11 @@ put_update_workplace:
   controller: App\Controller\Workplace\UpdateWorkplaceController
   methods: [PUT]
 
+#AuditType
+post_create_auditType:
+  path: /api/v1/audit-type
+  controller: App\Controller\AuditType\CreateAuditTypeController
+  methods: [POST]
+
 
 

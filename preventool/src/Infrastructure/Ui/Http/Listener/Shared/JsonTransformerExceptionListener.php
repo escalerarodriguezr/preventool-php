@@ -6,6 +6,8 @@ namespace Preventool\Infrastructure\Ui\Http\Listener\Shared;
 use Preventool\Domain\Admin\Exception\AdminAlreadyExistsException;
 use Preventool\Domain\Admin\Exception\AdminInvalidCurrentPasswordException;
 use Preventool\Domain\Admin\Exception\AdminNotFoundException;
+use Preventool\Domain\Audit\Exception\AuditTypeAlreadyExistsException;
+use Preventool\Domain\Audit\Exception\CreateAuditTypeCommandInvalidCommandException;
 use Preventool\Domain\Company\Exception\CompanyAlreadyExistsException;
 use Preventool\Domain\Company\Exception\CompanyNotFoundException;
 use Preventool\Domain\Company\Exception\DocumentHealthAndSafetyPolicyOfCompanyNotFoundException;
@@ -118,7 +120,9 @@ class JsonTransformerExceptionListener
             CompanyAlreadyExistsException::class,
             WorkplaceAlreadyExistsException::class,
             WorkplaceNotBelongToCompanyException::class,
-            HealthAndSafetyPolicyOfCompanyNotHasDocumentAssignedException::class
+            HealthAndSafetyPolicyOfCompanyNotHasDocumentAssignedException::class,
+            CreateAuditTypeCommandInvalidCommandException::class,
+            AuditTypeAlreadyExistsException::class
         ];
     }
 
