@@ -27,6 +27,8 @@ class AuditType extends AggregateRoot
         Name $name
     )
     {
+        parent::__construct();
+
         $this->id = $uuid->value;
         $this->name = $name->value;
         $this->active = true;
@@ -42,9 +44,10 @@ class AuditType extends AggregateRoot
         return $this->company;
     }
 
-    public function setCompany(?Company $company): void
+    public function setCompany(?Company $company): self
     {
         $this->company = $company;
+        return $this;
     }
 
     public function getWorkplace(): ?Workplace
@@ -52,9 +55,10 @@ class AuditType extends AggregateRoot
         return $this->workplace;
     }
 
-    public function setWorkplace(?Workplace $workplace): void
+    public function setWorkplace(?Workplace $workplace): self
     {
         $this->workplace = $workplace;
+        return $this;
     }
 
     public function getName(): Name
@@ -62,9 +66,10 @@ class AuditType extends AggregateRoot
         return new Name($this->name);
     }
 
-    public function setName(Name $name): void
+    public function setName(Name $name): self
     {
         $this->name = $name->value;
+        return $this;
     }
 
     public function getDescription(): ?MediumDescription
@@ -72,9 +77,10 @@ class AuditType extends AggregateRoot
         return new MediumDescription($this->description);
     }
 
-    public function setDescription(?MediumDescription $description): void
+    public function setDescription(?MediumDescription $description): self
     {
         $this->description = $description->value;
+        return $this;
     }
 
     public function isActive(): bool
@@ -82,9 +88,10 @@ class AuditType extends AggregateRoot
         return $this->active;
     }
 
-    public function setActive(bool $active): void
+    public function setActive(bool $active): self
     {
         $this->active = $active;
+        return $this;
     }
 
     public function getCreatorAdmin(): ?Admin
@@ -92,9 +99,10 @@ class AuditType extends AggregateRoot
         return $this->creatorAdmin;
     }
 
-    public function setCreatorAdmin(?Admin $creatorAdmin): void
+    public function setCreatorAdmin(?Admin $creatorAdmin): self
     {
         $this->creatorAdmin = $creatorAdmin;
+        return $this;
     }
 
     public function getUpdaterAdmin(): ?Admin
@@ -102,9 +110,10 @@ class AuditType extends AggregateRoot
         return $this->updaterAdmin;
     }
 
-    public function setUpdaterAdmin(?Admin $updaterAdmin): void
+    public function setUpdaterAdmin(?Admin $updaterAdmin): self
     {
         $this->updaterAdmin = $updaterAdmin;
+        return $this;
     }
 
 
