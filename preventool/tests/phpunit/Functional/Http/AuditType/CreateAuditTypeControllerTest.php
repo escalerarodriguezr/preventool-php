@@ -249,7 +249,7 @@ class CreateAuditTypeControllerTest extends FunctionalHttpTestBase
 
     }
 
-    public function testCreateAuditTypeCreateAuditTypeAlreadyExistsExceptionResponse(): void
+    public function testCreateAuditTypeAlreadyExistsExceptionResponse(): void
     {
 
         $this->databaseTool->loadFixtures([

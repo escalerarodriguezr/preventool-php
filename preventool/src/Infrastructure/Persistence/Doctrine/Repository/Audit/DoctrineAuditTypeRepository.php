@@ -6,6 +6,7 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Preventool\Domain\Audit\Exception\AuditTypeAlreadyExistsException;
 use Preventool\Domain\Audit\Model\AuditType;
 use Preventool\Domain\Audit\Repository\AuditTypeRepository;
+use Preventool\Domain\Shared\Model\Value\Name;
 use Preventool\Infrastructure\Persistence\Doctrine\Repository\DoctrineBaseRepository;
 
 final class DoctrineAuditTypeRepository extends DoctrineBaseRepository implements AuditTypeRepository
@@ -48,6 +49,18 @@ final class DoctrineAuditTypeRepository extends DoctrineBaseRepository implement
 
         }
 
+    }
+
+    public function findSystemAuditTypeByNameOrNull(
+        Name $name
+    ): ?AuditType
+    {
+
+        return $this->objectRepository->findOneBy([
+            'name' => $name->value,
+            'company' => null,
+            'workplace' => null
+        ]);
     }
 
 

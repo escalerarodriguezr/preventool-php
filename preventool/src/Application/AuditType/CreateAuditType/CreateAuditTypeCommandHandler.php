@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Preventool\Application\AuditType\CreateAuditType;
 
 use Preventool\Domain\Admin\Repository\AdminRepository;
+use Preventool\Domain\Audit\Exception\AuditTypeAlreadyExistsException;
 use Preventool\Domain\Audit\Exception\CreateAuditTypeCommandInvalidCommandException;
 use Preventool\Domain\Audit\Model\AuditType;
 use Preventool\Domain\Audit\Repository\AuditTypeRepository;
@@ -60,6 +61,15 @@ class CreateAuditTypeCommandHandler implements CommandHandler
             );
         }
 
+        $auditName = new Name($command->name);
+        if(
+            !$command->companyId &&
+            !$command->workplaceId &&
+            $this->auditTypeRepository->findSystemAuditTypeByNameOrNull($auditName)
+        ){
+            throw AuditTypeAlreadyExistsException::forSystemWithName($auditName);
+        }
+
         $adminId = new Uuid($command->actionAdminId);
         $actionAdmin = $this->adminRepository->findById($adminId);
 
@@ -67,7 +77,7 @@ class CreateAuditTypeCommandHandler implements CommandHandler
 
         $auditType = new AuditType(
             $auditTypeId,
-            new Name($command->name)
+            $auditName
         );
 
         if( $command->description ){

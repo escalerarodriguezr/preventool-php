@@ -36,11 +36,11 @@
         <gedmo:soft-deleteable field-name="deletedAt"/>
 
         <unique-constraints>
-            <unique-constraint name="U_name_company_deleted_at_audit" columns="name,company_id,deleted_at"/>
+            <unique-constraint name="U_name_company_audit" columns="name,company_id"/>
         </unique-constraints>
 
         <unique-constraints>
-            <unique-constraint name="U_name_workplace_deleted_at_audit" columns="name,workplace_id,deleted_at"/>
+            <unique-constraint name="U_name_workplace_audit" columns="name,workplace_id"/>
         </unique-constraints>
 
         <indexes>
