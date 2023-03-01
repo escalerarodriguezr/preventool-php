@@ -113,6 +113,48 @@ class CreateAuditTypeControllerTest extends FunctionalHttpTestBase
 
     }
 
+    public function testCreateSystemAuditTypeNotDescriptionParamSuccessResponse(): void
+    {
+
+        $this->prepareDatabase();
+        $this->authenticatedRootClient();
+
+        $payload = [
+            'name' => 'Audit test2',
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_POST,
+            self::END_POINT,
+            [],
+            [],
+            [],
+            json_encode($payload)
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+
+        self::assertSame(
+            Response::HTTP_CREATED,
+            $response->getStatusCode()
+        );
+
+        $responseData = json_decode(
+            $response->getContent(),
+            true
+        );
+
+        self::assertArrayHasKey(
+            HttpRequestService::ID,
+            $responseData
+        );
+
+        $this->assertIsValidUuid(
+            $responseData[HttpRequestService::ID]
+        );
+
+    }
+
     public function testCreateRivendelCompanyAuditTypeSuccessResponse(): void
     {
 
@@ -156,6 +198,8 @@ class CreateAuditTypeControllerTest extends FunctionalHttpTestBase
         );
 
     }
+
+
 
     public function testCreateRivendelWorkplace_1_AuditTypeSuccessResponse(): void
     {
