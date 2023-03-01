@@ -4,7 +4,7 @@
     <entity name="Preventool\Domain\Audit\Model\AuditType" table="audit_type">
         <id name="id" type="guid"/>
         <field name="name" length="100" />
-        <field name="description" type="text" length="300" />
+        <field name="description" type="text" length="300" nullable="true" />
 
         <field name="active" type="boolean">
             <options>

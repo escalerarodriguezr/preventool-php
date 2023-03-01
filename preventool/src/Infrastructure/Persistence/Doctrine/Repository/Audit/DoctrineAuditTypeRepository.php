@@ -4,9 +4,11 @@ namespace Preventool\Infrastructure\Persistence\Doctrine\Repository\Audit;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Preventool\Domain\Audit\Exception\AuditTypeAlreadyExistsException;
+use Preventool\Domain\Audit\Exception\AuditTypeNotFoundException;
 use Preventool\Domain\Audit\Model\AuditType;
 use Preventool\Domain\Audit\Repository\AuditTypeRepository;
 use Preventool\Domain\Shared\Model\Value\Name;
+use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Infrastructure\Persistence\Doctrine\Repository\DoctrineBaseRepository;
 
 final class DoctrineAuditTypeRepository extends DoctrineBaseRepository implements AuditTypeRepository
@@ -50,6 +52,20 @@ final class DoctrineAuditTypeRepository extends DoctrineBaseRepository implement
         }
 
     }
+
+    public function findById(Uuid $id): AuditType
+    {
+        $model = $this->objectRepository->findOneBy([
+            'id' => $id->value
+        ]);
+
+        if(!$model){
+            throw AuditTypeNotFoundException::withId($id);
+        }
+
+        return $model;
+    }
+
 
     public function findSystemAuditTypeByNameOrNull(
         Name $name
