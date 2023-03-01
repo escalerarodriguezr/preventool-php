@@ -7,6 +7,7 @@ use Preventool\Domain\Admin\Exception\AdminAlreadyExistsException;
 use Preventool\Domain\Admin\Exception\AdminInvalidCurrentPasswordException;
 use Preventool\Domain\Admin\Exception\AdminNotFoundException;
 use Preventool\Domain\Audit\Exception\AuditTypeAlreadyExistsException;
+use Preventool\Domain\Audit\Exception\AuditTypeNotFoundException;
 use Preventool\Domain\Audit\Exception\CreateAuditTypeCommandInvalidCommandException;
 use Preventool\Domain\Company\Exception\CompanyAlreadyExistsException;
 use Preventool\Domain\Company\Exception\CompanyNotFoundException;
@@ -106,7 +107,8 @@ class JsonTransformerExceptionListener
             CompanyNotFoundException::class,
             WorkplaceNotFoundException::class,
             HealthAndSafetyPolicyOfCompanyNotFoundException::class,
-            DocumentHealthAndSafetyPolicyOfCompanyNotFoundException::class
+            DocumentHealthAndSafetyPolicyOfCompanyNotFoundException::class,
+            AuditTypeNotFoundException::class
         ];
     }
 
