@@ -74,7 +74,7 @@ class AuditType extends AggregateRoot
 
     public function getDescription(): ?MediumDescription
     {
-        return new MediumDescription($this->description);
+        return $this->description ? new MediumDescription($this->description) : null;
     }
 
     public function setDescription(?MediumDescription $description): self
