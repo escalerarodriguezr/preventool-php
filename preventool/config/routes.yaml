@@ -104,6 +104,10 @@ get_auditType:
   path: /api/v1/audit-type/{id}
   controller: App\Controller\AuditType\GetAuditTypeController
   methods: [GET]
+search_auditType:
+  path: /api/v1/audit-type
+  controller: App\Controller\AuditType\SearchAuditTypeController
+  methods: [GET]
 
 
 
