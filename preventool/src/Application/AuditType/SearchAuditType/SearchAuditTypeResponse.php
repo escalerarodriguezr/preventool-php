@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 namespace Preventool\Application\AuditType\SearchAuditType;
 
-use Container5MOI6Fx\getDoctrine_Fixtures_Purger_OrmPurgerFactoryService;
 use Preventool\Application\AuditType\Response\AuditTypeResponse;
 use Preventool\Domain\Audit\Model\AuditType;
-use function Symfony\Component\String\s;
 
 class SearchAuditTypeResponse
 {
@@ -22,19 +20,19 @@ class SearchAuditTypeResponse
     private array $collection;
 
     public function __construct(
-        private int $total,
-        private int $pages,
-        private int $currentPage,
-        private \ArrayIterator $items
+        private readonly int $total,
+        private readonly int $pages,
+        private readonly int $currentPage,
+        private readonly \ArrayIterator $items
     )
     {
-        $this->transformItems($this->items);
+        $this->createCollectionFromItems($this->items);
     }
-    private function transformItems(\ArrayIterator $iterator): void
+    private function createCollectionFromItems(\ArrayIterator $items): void
     {
         $this->collection = array_map(function (AuditType $model):AuditTypeResponse{
             return AuditTypeResponse::createFromModel($model);
-        },$this->items->getArrayCopy());
+        },$items->getArrayCopy());
 
     }
 

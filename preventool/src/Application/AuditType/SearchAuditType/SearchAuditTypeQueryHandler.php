@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace Preventool\Application\AuditType\SearchAuditType;
 
+use Preventool\Domain\Audit\Repository\AuditTypeFilter;
 use Preventool\Domain\Audit\Repository\AuditTypeRepository;
 use Preventool\Domain\Shared\Bus\Query\QueryHandler;
+use Preventool\Domain\Shared\Repository\QueryCondition\QueryCondition;
 
 class SearchAuditTypeQueryHandler implements QueryHandler
 {
@@ -21,11 +23,29 @@ class SearchAuditTypeQueryHandler implements QueryHandler
     ): SearchAuditTypeResponse
     {
 
+        $filter = new AuditTypeFilter(
+            $query->filterById,
+            $query->filterByCompanyId,
+            $query->filterByWorkplaceId
+        );
+
+        $queryCondition = (new QueryCondition())
+            ->setPageSize($query->pageSize)
+            ->setCurrentPage($query->currentPage)
+            ->setOrderBy($query->orderBy)
+            ->setOrderDirection($query->orderDirection);
+
+        $paginatedQueryResponse = $this->auditTypeRepository->searchPaginated(
+            $queryCondition,
+            $filter
+        );
+
+
         return new SearchAuditTypeResponse(
-            1,
-            1,
-            1,
-            new \ArrayIterator([])
+            $paginatedQueryResponse->getTotal(),
+            $paginatedQueryResponse->getPages(),
+            $paginatedQueryResponse->getCurrentPage(),
+            $paginatedQueryResponse->getItems()
         );
     }
 

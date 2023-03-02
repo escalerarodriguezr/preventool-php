@@ -46,5 +46,5 @@ class SearchAuditTypeController
             Response::HTTP_OK
         );
     }
-    
+
 }
