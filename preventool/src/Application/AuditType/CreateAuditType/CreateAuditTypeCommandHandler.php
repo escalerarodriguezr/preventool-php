@@ -7,6 +7,7 @@ use Preventool\Domain\Admin\Repository\AdminRepository;
 use Preventool\Domain\Audit\Exception\AuditTypeAlreadyExistsException;
 use Preventool\Domain\Audit\Exception\CreateAuditTypeCommandInvalidCommandException;
 use Preventool\Domain\Audit\Model\AuditType;
+use Preventool\Domain\Audit\Model\Value\AuditTypeScope;
 use Preventool\Domain\Audit\Repository\AuditTypeRepository;
 use Preventool\Domain\Company\Repository\CompanyRepository;
 use Preventool\Domain\Shared\Bus\Command\CommandHandler;
@@ -77,7 +78,8 @@ class CreateAuditTypeCommandHandler implements CommandHandler
 
         $auditType = new AuditType(
             $auditTypeId,
-            $auditName
+            $this->setAuditTypeScope($command),
+            $auditName,
         );
 
         if( $command->description ){
@@ -94,6 +96,26 @@ class CreateAuditTypeCommandHandler implements CommandHandler
             ->setCreatorAdmin($actionAdmin);
 
         $this->auditTypeRepository->save($auditType);
+
+    }
+
+    private function setAuditTypeScope(
+        CreateAuditTypeCommand $command
+    ): AuditTypeScope
+    {
+        if( empty($command->companyId) && empty($command->workplaceId) ){
+            return new AuditTypeScope(AuditTypeScope::SCOPE_SYSTEM);
+        }
+
+        if(empty($command->workplaceId) && !empty($command->companyId)){
+            return new AuditTypeScope(AuditTypeScope::SCOPE_COMPANY);
+        }
+
+        if(empty($command->companyId) && !empty($command->workplaceId)){
+            return new AuditTypeScope(AuditTypeScope::SCOPE_WORKPLACE);
+        }
+
+        throw CreateAuditTypeCommandInvalidCommandException::companyAndWorkplaceSuppliedTogether();
 
     }
 

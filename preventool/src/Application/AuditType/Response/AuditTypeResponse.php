@@ -6,11 +6,13 @@ namespace Preventool\Application\AuditType\Response;
 use Container5MOI6Fx\getDoctrine_Fixtures_Purger_OrmPurgerFactoryService;
 use DateTimeInterface;
 use Preventool\Domain\Audit\Model\AuditType;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service_locator;
 
 class AuditTypeResponse
 {
 
     const ID = 'id';
+    const SCOPE = 'scope';
     const NAME = 'name';
     const DESCRIPTION = 'description';
     const COMPANY_ID = 'companyId';
@@ -24,6 +26,7 @@ class AuditTypeResponse
 
     public function __construct(
         public readonly string $id,
+        public readonly string $scope,
         public readonly string $name,
         public readonly ?string $description,
         public readonly bool $active,
@@ -46,6 +49,7 @@ class AuditTypeResponse
 
         return new self(
             $model->getId()->value,
+            $model->getScope()->value,
             $model->getName()->value,
             $description,
             $model->isActive(),
@@ -63,6 +67,7 @@ class AuditTypeResponse
     {
         return [
             self::ID => $this->id,
+            self::SCOPE => $this->scope,
             self::NAME => $this->name,
             self::DESCRIPTION => $this->description,
             self::ACTIVE => $this->active,

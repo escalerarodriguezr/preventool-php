@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Preventool\Domain\Audit\Model;
 
 use Preventool\Domain\Admin\Model\Admin;
+use Preventool\Domain\Audit\Model\Value\AuditTypeScope;
 use Preventool\Domain\Company\Model\Company;
 use Preventool\Domain\Shared\Model\AggregateRoot;
 use Preventool\Domain\Shared\Model\Value\MediumDescription;
@@ -16,6 +17,7 @@ class AuditType extends AggregateRoot
     private string $id;
     private ?Company $company;
     private ?Workplace $workplace;
+    private string $scope;
     private string $name;
     private ?string $description;
     private bool $active;
@@ -24,12 +26,14 @@ class AuditType extends AggregateRoot
 
     public function __construct(
         Uuid $uuid,
-        Name $name
+        AuditTypeScope $scope,
+        Name $name,
     )
     {
         parent::__construct();
 
         $this->id = $uuid->value;
+        $this->scope = $scope->value;
         $this->name = $name->value;
         $this->active = true;
     }
@@ -71,6 +75,22 @@ class AuditType extends AggregateRoot
         $this->name = $name->value;
         return $this;
     }
+
+    public function getScope(): AuditTypeScope
+    {
+        return new AuditTypeScope($this->scope);
+    }
+
+    /**
+     * @param AuditTypeScope $scope
+     */
+    public function setScope(AuditTypeScope $scope): self
+    {
+        $this->scope = $scope->value;
+        return $this;
+    }
+
+
 
     public function getDescription(): ?MediumDescription
     {
