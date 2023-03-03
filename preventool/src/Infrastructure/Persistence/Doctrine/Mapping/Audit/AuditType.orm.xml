@@ -3,6 +3,7 @@
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
     <entity name="Preventool\Domain\Audit\Model\AuditType" table="audit_type">
         <id name="id" type="guid"/>
+        <field name="scope" length="50" />
         <field name="name" length="100" />
         <field name="description" type="text" length="300" nullable="true" />
 
@@ -36,11 +37,7 @@
         <gedmo:soft-deleteable field-name="deletedAt"/>
 
         <unique-constraints>
-            <unique-constraint name="U_name_company_audit" columns="name,company_id"/>
-        </unique-constraints>
-
-        <unique-constraints>
-            <unique-constraint name="U_name_workplace_audit" columns="name,workplace_id"/>
+            <unique-constraint name="U_name_scope_audit" columns="scope,name,company_id,workplace_id,deleted_at"/>
         </unique-constraints>
 
         <indexes>

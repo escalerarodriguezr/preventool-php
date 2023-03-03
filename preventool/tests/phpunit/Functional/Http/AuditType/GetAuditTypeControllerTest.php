@@ -58,6 +58,16 @@ class GetAuditTypeControllerTest extends FunctionalHttpTestBase
         );
 
         self::assertArrayHasKey(
+            AuditTypeResponse::SCOPE,
+            $responseData
+        );
+
+        self::assertSame(
+            AuditTypeFixtures::AUDIT_TYPE_SYSTEM_SCOPE,
+            $responseData[AuditTypeResponse::SCOPE]
+        );
+
+        self::assertArrayHasKey(
             AuditTypeResponse::NAME,
             $responseData
         );
