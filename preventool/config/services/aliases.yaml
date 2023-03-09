@@ -21,3 +21,6 @@ services:
 
   Preventool\Infrastructure\Persistence\Doctrine\Repository\Company\DoctrineHealthAndSafetyPolicyRepository: ~
   Preventool\Domain\Company\Repository\HealthAndSafetyPolicyRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Company\DoctrineHealthAndSafetyPolicyRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\BaselineStudy\DoctrineBaselineStudyRepository: ~
+  Preventool\Domain\BaselineStudy\Repository\BaselineStudyRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\BaselineStudy\DoctrineBaselineStudyRepository'
