@@ -95,6 +95,12 @@ put_update_workplace:
   controller: App\Controller\Workplace\UpdateWorkplaceController
   methods: [PUT]
 
+#BaselineStudy
+get_base_line_study_indicators:
+  path: /api/v1/baseline-study-indicators
+  controller: App\Controller\BaselineStudy\GetBaselineStudyIndicatorsController
+  methods: [GET]
+
 #AuditType
 post_create_auditType:
   path: /api/v1/audit-type
