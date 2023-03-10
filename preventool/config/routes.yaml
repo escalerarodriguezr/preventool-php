@@ -10,6 +10,10 @@ get_company_session:
   path: /api/v1/company-session/{id}
   controller: App\Controller\Shared\Session\GetCompanySessionController
   methods: [GET]
+get_workplace_session:
+  path: /api/v1/workplace-session/{id}
+  controller: App\Controller\Shared\Session\GetWorkplaceSessionController
+  methods: [GET]
 
 #Demo
 get_demo:
