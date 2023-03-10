@@ -71,6 +71,22 @@ class CreateWorkplaceControllerTest extends FunctionalHttpTestBase
             $responseData[HttpRequestService::ID],
             $firstIndicator['workplace_id']
         );
+
+        $query = sprintf(
+            'SELECT id, workplace_id, total_compliance FROM baseline_study_compliance WHERE workplace_id = "%s"',
+            $responseData[HttpRequestService::ID]
+        );
+        $firstIndicator = self::initDBConnection()->executeQuery($query)->fetchAssociative();
+
+        self::assertSame(
+            $responseData[HttpRequestService::ID],
+            $firstIndicator['workplace_id']
+        );
+
+        self::assertSame(
+            0,
+            $firstIndicator['total_compliance']
+        );
     }
 
 
