@@ -104,9 +104,13 @@ get_base_line_study_indicators:
   path: /api/v1/baseline-study-indicators
   controller: App\Controller\BaselineStudy\GetBaselineStudyIndicatorsController
   methods: [GET]
-get_workplace-baseline-study_indicators-by-catageory:
+get_workplace-baseline-study_indicators-by-category:
   path: /api/v1/workplace-baseline-study-indicators-by-category/{workplaceId}/{category}
   controller: App\Controller\BaselineStudy\GetWorkplaceBaselineStudyIndicatorsByCategoryController
+  methods: [GET]
+get_base_line_study_compliance_by_workplace:
+  path: /api/v1/baseline-study-compliance/{workplaceId}
+  controller: App\Controller\BaselineStudy\GetBaselineStudyComplianceByWorkplaceIdController
   methods: [GET]
 
 #AuditType
