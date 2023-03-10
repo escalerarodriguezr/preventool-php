@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Preventool\Domain\BaselineStudy\Model;
 
 use Preventool\Domain\Admin\Model\Admin;
+use Preventool\Domain\BaselineStudy\Model\Value\BaselineIndicatorCategory;
 use Preventool\Domain\Shared\Model\AggregateRoot;
 use Preventool\Domain\Shared\Model\Value\CompliancePercentage;
 use Preventool\Domain\Shared\Model\Value\MediumObservation;
@@ -25,7 +26,7 @@ class BaselineStudy extends AggregateRoot
     public function __construct(
         Uuid $id,
         Workplace $workplace,
-        string $category,
+        BaselineIndicatorCategory $category,
         string $indicator,
         CompliancePercentage $compliancePercentage
     )
@@ -33,7 +34,7 @@ class BaselineStudy extends AggregateRoot
         parent::__construct();
         $this->id = $id->value;
         $this->workplace = $workplace;
-        $this->category = $category;
+        $this->category = $category->value;
         $this->indicator = $indicator;
         $this->compliancePercentage = $compliancePercentage->value;
         $this->observations = null;
@@ -50,9 +51,9 @@ class BaselineStudy extends AggregateRoot
         return $this->workplace;
     }
 
-    public function getCategory(): string
+    public function getCategory(): BaselineIndicatorCategory
     {
-        return $this->category;
+        return new BaselineIndicatorCategory($this->category);
     }
 
 

@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace PHPUnit\Tests\Functional\Http\BaselineStudy;
 
-use Container0MjksZY\get_Console_Command_About_LazyService;
 use PHPUnit\Tests\Functional\Http\FunctionalHttpTestBase;
+use Preventool\Domain\BaselineStudy\Model\Value\BaselineIndicatorCategory;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\AdminFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\UserFixtures;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,8 +43,13 @@ class GetBaselineStudyIndicatorsControllerTest extends FunctionalHttpTestBase
         $responseData = json_decode($response->getContent(), true);
 
         self::assertIsArray($responseData);
-        self::assertArrayHasKey('compromiso', $responseData);
-        self::assertArrayHasKey('politica-sst', $responseData);
+        self::assertArrayHasKey(BaselineIndicatorCategory::CATEGORY_COMPROMISO, $responseData);
+        self::assertArrayHasKey(BaselineIndicatorCategory::CATEGORY_POLITICA, $responseData);
+        self::assertArrayHasKey(BaselineIndicatorCategory::CATEGORY_PLANEAMIENTO, $responseData);
+        self::assertArrayHasKey(BaselineIndicatorCategory::CATEGORY_CONTROL, $responseData);
+        self::assertArrayHasKey(BaselineIndicatorCategory::CATEGORY_VERIFICACION, $responseData);
+        self::assertArrayHasKey(BaselineIndicatorCategory::CATEGORY_EVALUACION, $responseData);
+        self::assertArrayHasKey(BaselineIndicatorCategory::CATEGORY_IMPLEMENTACION, $responseData);
 
 
     }

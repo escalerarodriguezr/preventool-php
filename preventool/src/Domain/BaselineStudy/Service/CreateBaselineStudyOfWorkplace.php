@@ -5,6 +5,7 @@ namespace Preventool\Domain\BaselineStudy\Service;
 
 
 use Preventool\Domain\BaselineStudy\Model\BaselineStudy;
+use Preventool\Domain\BaselineStudy\Model\Value\BaselineIndicatorCategory;
 use Preventool\Domain\BaselineStudy\Repository\BaselineStudyRepository;
 use Preventool\Domain\Shared\Model\IdentityGenerator;
 use Preventool\Domain\Shared\Model\Value\CompliancePercentage;
@@ -50,11 +51,12 @@ class CreateBaselineStudyOfWorkplace
     {
 
         $uuid = new Uuid($this->identityGenerator->generateId());
+        $baselineCategoryIndicator = new BaselineIndicatorCategory($category);
 
         $baselineIndicator = new BaselineStudy(
             $uuid,
             $workplace,
-            $category,
+            $baselineCategoryIndicator,
             $indicator,
             new CompliancePercentage(0)
         );

@@ -100,6 +100,10 @@ get_base_line_study_indicators:
   path: /api/v1/baseline-study-indicators
   controller: App\Controller\BaselineStudy\GetBaselineStudyIndicatorsController
   methods: [GET]
+get_workplace-baseline-study_indicators-by-catageory:
+  path: /api/v1/workplace-baseline-study-indicators-by-category/{workplaceId}/{category}
+  controller: App\Controller\BaselineStudy\GetWorkplaceBaselineStudyIndicatorsByCategoryController
+  methods: [GET]
 
 #AuditType
 post_create_auditType:
