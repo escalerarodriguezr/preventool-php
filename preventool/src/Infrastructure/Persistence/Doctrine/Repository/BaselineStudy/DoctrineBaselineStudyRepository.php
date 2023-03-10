@@ -6,7 +6,9 @@ namespace Preventool\Infrastructure\Persistence\Doctrine\Repository\BaselineStud
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Preventool\Domain\BaselineStudy\Exception\BaselineStudyAlreadyExistsException;
 use Preventool\Domain\BaselineStudy\Exception\BaselineStudyNotFoundException;
+use Preventool\Domain\BaselineStudy\Exception\WorkplaceBaselineStudyByCategoryNotFoundException;
 use Preventool\Domain\BaselineStudy\Model\BaselineStudy;
+use Preventool\Domain\BaselineStudy\Model\Value\BaselineIndicatorCategory;
 use Preventool\Domain\BaselineStudy\Repository\BaselineStudyRepository;
 use Preventool\Domain\Workplace\Model\Workplace;
 use Preventool\Infrastructure\Persistence\Doctrine\Repository\DoctrineBaseRepository;
@@ -36,8 +38,6 @@ class DoctrineBaselineStudyRepository extends DoctrineBaseRepository implements 
             'workplace' => $workplace->getId()->value
         ]);
 
-
-
         if( !count($array)){
             throw BaselineStudyNotFoundException::fotWorkplace($workplace);
         }
@@ -45,5 +45,32 @@ class DoctrineBaselineStudyRepository extends DoctrineBaseRepository implements 
         return $array;
     }
 
+    public function findAllByWorkplaceAndCategory(
+        Workplace $workplace,
+        BaselineIndicatorCategory $category
+    ) : array
+    {
+        $criteria = [
+            'workplace' => $workplace->getId()->value,
+            'category' => $category->value
+        ];
+        $orderBy = [
+            'indicator' => 'ASC'
+        ];
+
+        $array = $this->objectRepository->findBy(
+            $criteria,
+            $orderBy
+        );
+
+        if( !count($array)){
+            throw WorkplaceBaselineStudyByCategoryNotFoundException::forWorkplaceAndCategory(
+                $workplace,
+                $category
+            );
+        }
+
+        return $array;
+    }
 
 }

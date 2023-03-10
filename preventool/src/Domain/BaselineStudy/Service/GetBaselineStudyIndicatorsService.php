@@ -3,9 +3,13 @@ declare(strict_types=1);
 
 namespace Preventool\Domain\BaselineStudy\Service;
 
+use Preventool\Domain\BaselineStudy\Model\BaselineStudy;
+
 class GetBaselineStudyIndicatorsService
 {
-
+    /**
+     * @var BaselineStudy[]
+     */
     private array $indicators;
 
     public function __construct()
@@ -13,6 +17,9 @@ class GetBaselineStudyIndicatorsService
         $this->setIndiators();
     }
 
+    /**
+     * @return BaselineStudy[]
+     */
     public function __invoke(): array
     {
         return $this->indicators;

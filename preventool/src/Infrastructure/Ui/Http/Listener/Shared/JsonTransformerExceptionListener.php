@@ -11,6 +11,7 @@ use Preventool\Domain\Audit\Exception\AuditTypeNotFoundException;
 use Preventool\Domain\Audit\Exception\CreateAuditTypeCommandInvalidCommandException;
 use Preventool\Domain\BaselineStudy\Exception\BaselineStudyAlreadyExistsException;
 use Preventool\Domain\BaselineStudy\Exception\BaselineStudyNotFoundException;
+use Preventool\Domain\BaselineStudy\Exception\WorkplaceBaselineStudyByCategoryNotFoundException;
 use Preventool\Domain\Company\Exception\CompanyAlreadyExistsException;
 use Preventool\Domain\Company\Exception\CompanyNotFoundException;
 use Preventool\Domain\Company\Exception\DocumentHealthAndSafetyPolicyOfCompanyNotFoundException;
@@ -128,7 +129,8 @@ class JsonTransformerExceptionListener
             CreateAuditTypeCommandInvalidCommandException::class,
             AuditTypeAlreadyExistsException::class,
             BaselineStudyAlreadyExistsException::class,
-            BaselineStudyNotFoundException::class
+            BaselineStudyNotFoundException::class,
+            WorkplaceBaselineStudyByCategoryNotFoundException::class,
         ];
     }
 
