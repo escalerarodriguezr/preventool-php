@@ -46,8 +46,8 @@ class SessionWorkplaceResponse
     {
         return new self(
             $workplace->getId()->value,
-            $workplace->getCompany()->getId()->value,
             $workplace->getName()->value,
+            $workplace->getCompany()->getId()->value,
             $workplace->getContactPhone()->value,
             $workplace->getAddress()->value,
             $workplace->getNumberOfWorkers(),

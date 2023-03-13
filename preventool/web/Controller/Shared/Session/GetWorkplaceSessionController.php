@@ -39,7 +39,7 @@ class GetWorkplaceSessionController
         );
 
         return new JsonResponse(
-           $sessionWorkplaceResponse->toArray(),
+            $workplaceSessionResponse->toArray(),
             Response::HTTP_OK
         );
     }

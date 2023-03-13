@@ -9,6 +9,7 @@ use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\AdminFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\CompanyFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\UserFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\WorkplaceFixtures;
+use Preventool\Infrastructure\Ui\Http\Service\Session\Workplace\WorkplaceSessionResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -48,6 +49,9 @@ class GetWorkplaceSessionControllerTest extends FunctionalHttpTestBase
         $responseData = json_decode($response->getContent(),true);
 
         self::assertIsArray($responseData);
+
+        self::assertArrayHasKey(WorkplaceSessionResponse::ACTION_WORKPLACE, $responseData);
+        $responseData = $responseData[WorkplaceSessionResponse::ACTION_WORKPLACE];
         self::assertSame(
             WorkplaceFixtures::RIVENDEL_WORKPLACE_1_UUID,
             $responseData[WorkplaceResponse::ID]
@@ -56,6 +60,7 @@ class GetWorkplaceSessionControllerTest extends FunctionalHttpTestBase
             WorkplaceFixtures::RIVENDEL_WORKPLACE_1_UUID,
             $responseData[WorkplaceResponse::ID]
         );
+
         self::assertArrayHasKey(WorkplaceResponse::NAME, $responseData);
         self::assertArrayHasKey(WorkplaceResponse::CONTACT_PHONE, $responseData);
         self::assertArrayHasKey(WorkplaceResponse::ADDRESS, $responseData);
