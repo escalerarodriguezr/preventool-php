@@ -11,6 +11,7 @@ use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\WorkplaceFixture
 use Preventool\Infrastructure\Ui\Http\Request\DTO\BaselineStudy\UpdateBaselineStudyIndicatorRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\Transport\InMemoryTransport;
 
 class PutBaselineStudyIndicatorControllerTest extends FunctionalHttpTestBase
 {

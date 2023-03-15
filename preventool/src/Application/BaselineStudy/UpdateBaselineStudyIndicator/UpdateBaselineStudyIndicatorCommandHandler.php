@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace Preventool\Application\BaselineStudy\UpdateBaselineStudyIndicator;
 
+use Preventool\Application\BaselineStudy\Event\BaselineStudyWasUpdatedEvent;
 use Preventool\Domain\Admin\Repository\AdminRepository;
 use Preventool\Domain\BaselineStudy\Repository\BaselineStudyRepository;
 use Preventool\Domain\Shared\Bus\Command\CommandHandler;
+use Preventool\Domain\Shared\Bus\DomainEvent\DomainEventBus;
 use Preventool\Domain\Shared\Model\Value\CompliancePercentage;
 use Preventool\Domain\Shared\Model\Value\MediumObservation;
 use Preventool\Domain\Shared\Model\Value\Uuid;
@@ -16,7 +18,8 @@ class UpdateBaselineStudyIndicatorCommandHandler implements CommandHandler
     public function __construct(
         private readonly AdminRepository $adminRepository,
         private readonly WorkplaceRepository $workplaceRepository,
-        private readonly BaselineStudyRepository $baselineStudyRepository
+        private readonly BaselineStudyRepository $baselineStudyRepository,
+        private readonly DomainEventBus $eventBus
     )
     {
     }
@@ -58,6 +61,12 @@ class UpdateBaselineStudyIndicatorCommandHandler implements CommandHandler
         }
 
         $this->baselineStudyRepository->save($baselineStudy);
+
+        $this->eventBus->dispatch(
+            new BaselineStudyWasUpdatedEvent(
+                $baselineStudy->getId()->value
+            )
+        );
 
     }
 
