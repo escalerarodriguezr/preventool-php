@@ -17,4 +17,18 @@ class BaselineStudyNotFoundException extends \DomainException
         );
     }
 
+    public static function forWorkplaceAndIndicator(
+        Workplace $workplace,
+        string $indicator
+    ): self
+    {
+        return new self(
+            sprintf(
+                'BaselineStudy of wotkplace %s and indicator %s not found',
+                $workplace->getId()->value,
+                $indicator
+            )
+        );
+    }
+
 }

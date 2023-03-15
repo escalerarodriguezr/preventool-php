@@ -73,4 +73,27 @@ class DoctrineBaselineStudyRepository extends DoctrineBaseRepository implements 
         return $array;
     }
 
+    public function findByWorkplaceAndIndicator(
+        Workplace $workplace,
+        string $indicator
+    ): BaselineStudy
+    {
+        $criteria = [
+            'workplace' => $workplace->getId()->value,
+            'indicator' => $indicator
+        ];
+
+        $model = $this->objectRepository->findOneBy($criteria);
+
+        if( $model === null ){
+            throw BaselineStudyNotFoundException::forWorkplaceAndIndicator(
+                $workplace,
+                $indicator
+            );
+        }
+
+        return $model;
+    }
+
+
 }

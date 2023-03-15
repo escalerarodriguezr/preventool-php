@@ -22,4 +22,9 @@ interface BaselineStudyRepository
         BaselineIndicatorCategory $category
     ): array;
 
+    public function findByWorkplaceAndIndicator(
+        Workplace $workplace,
+        string $indicator
+    ): BaselineStudy;
+
 }
