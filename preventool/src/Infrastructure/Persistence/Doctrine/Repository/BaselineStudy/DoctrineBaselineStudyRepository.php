@@ -10,6 +10,7 @@ use Preventool\Domain\BaselineStudy\Exception\WorkplaceBaselineStudyByCategoryNo
 use Preventool\Domain\BaselineStudy\Model\BaselineStudy;
 use Preventool\Domain\BaselineStudy\Model\Value\BaselineIndicatorCategory;
 use Preventool\Domain\BaselineStudy\Repository\BaselineStudyRepository;
+use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Domain\Workplace\Model\Workplace;
 use Preventool\Infrastructure\Persistence\Doctrine\Repository\DoctrineBaseRepository;
 
@@ -31,6 +32,21 @@ class DoctrineBaselineStudyRepository extends DoctrineBaseRepository implements 
         }
 
     }
+
+    public function findById(Uuid $id): BaselineStudy
+    {
+        $criteria = [
+            'id' => $id->value
+        ];
+        $model = $this->objectRepository->findOneBy($criteria);
+
+        if($model === null){
+            throw BaselineStudyNotFoundException::withId($id);
+        }
+
+        return $model;
+    }
+
 
     public function findAllByWorkplace(Workplace $workplace): array
     {

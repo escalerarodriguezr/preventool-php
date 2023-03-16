@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Preventool\Domain\BaselineStudy\Model;
 
 use Preventool\Domain\Admin\Model\Admin;
+use Preventool\Domain\BaselineStudy\Model\Value\BaselineIndicatorCategory;
 use Preventool\Domain\Shared\Model\AggregateRoot;
 use Preventool\Domain\Shared\Model\Value\CompliancePercentage;
 use Preventool\Domain\Shared\Model\Value\Uuid;
@@ -191,6 +192,32 @@ class BaselineStudyCompliance extends AggregateRoot
     public function setUpdaterAdmin(?Admin $updaterAdmin): void
     {
         $this->updaterAdmin = $updaterAdmin;
+    }
+
+
+    public function recalculateByCategoryAndCategoryPercentage(
+        BaselineIndicatorCategory $category,
+        CompliancePercentage $categoryPercentage
+    ): void
+    {
+        $setCategory = sprintf('set%sCompliance',ucfirst($category->value));
+
+        $this->{$setCategory}($categoryPercentage);
+
+        $total = $this->compromisoCompliance;
+        $total += $this->politicaCompliance;
+        $total += $this->planteamientoCompliance;
+        $total += $this->implementacionCompliance;
+        $total += $this->evaluacionCompliance;
+        $total += $this->verificacionCompliance;
+        $total += $this->controlCompliance;
+        $total += $this->revisionCompliance;
+
+        $percentage = floor($total/8);
+        $percentage = intval($percentage);
+
+        $this->setTotalCompliance(new CompliancePercentage($percentage));
+
     }
 
 

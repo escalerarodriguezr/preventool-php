@@ -11,7 +11,6 @@ use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\WorkplaceFixture
 use Preventool\Infrastructure\Ui\Http\Request\DTO\BaselineStudy\UpdateBaselineStudyIndicatorRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\Transport\InMemoryTransport;
 
 class PutBaselineStudyIndicatorControllerTest extends FunctionalHttpTestBase
 {
@@ -44,7 +43,7 @@ class PutBaselineStudyIndicatorControllerTest extends FunctionalHttpTestBase
         ];
 
         self::$authenticatedRootClient->request(
-            Request::METHOD_GET,
+            Request::METHOD_PUT,
             sprintf(
                 self::END_POINT,
                 WorkplaceFixtures::RIVENDEL_WORKPLACE_1_UUID,
@@ -58,7 +57,22 @@ class PutBaselineStudyIndicatorControllerTest extends FunctionalHttpTestBase
         self::assertSame(Response::HTTP_OK,$response->getStatusCode());
 
 
-    }
+        $query = sprintf(
+            'SELECT id, workplace_id, total_compliance, compromiso_compliance FROM baseline_study_compliance WHERE workplace_id = "%s"',
+            WorkplaceFixtures::RIVENDEL_WORKPLACE_1_UUID
+        );
+        $baselineStudyCompliance = self::initDBConnection()->executeQuery($query)->fetchAssociative();
 
+        self::assertNotSame(
+            0,
+            $baselineStudyCompliance['total_compliance']
+        );
+
+        self::assertNotSame(
+            0,
+            $baselineStudyCompliance['compromiso_compliance']
+        );
+
+    }
 
 }

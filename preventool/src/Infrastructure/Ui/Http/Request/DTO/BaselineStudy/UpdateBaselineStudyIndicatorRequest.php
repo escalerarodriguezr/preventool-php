@@ -17,6 +17,11 @@ class UpdateBaselineStudyIndicatorRequest implements RequestDTO
         allowNull: true
     )]
 
+    #[Assert\Type(
+        type: 'string',
+        message: 'The observations value {{ value }} is not a valid {{ type }}.',
+    )]
+
     #[Assert\Length(
         min: 1,
         max: 100,
@@ -51,16 +56,14 @@ class UpdateBaselineStudyIndicatorRequest implements RequestDTO
 
     }
 
-    public function getObservations(): string
+    public function getObservations(): ?string
     {
         return $this->observations;
     }
 
-    public function getCompliancePercentage(): int
+    public function getCompliancePercentage(): ?int
     {
         return $this->compliancePercentage;
     }
-
-
 
 }
