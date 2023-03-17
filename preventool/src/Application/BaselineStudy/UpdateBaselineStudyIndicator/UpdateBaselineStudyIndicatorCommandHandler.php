@@ -49,11 +49,15 @@ class UpdateBaselineStudyIndicatorCommandHandler implements CommandHandler
             $updated = true;
         }
 
-        if( $command->indicator ){
+        if( !empty($command->observations) ){
             $baselineStudy->setObservations(
                 new MediumObservation($command->observations)
             );
             $updated = true;
+        }
+
+        if(empty($command->observations) && !empty($baselineStudy->getObservations())){
+            $baselineStudy->setObservations(null);
         }
 
         if( $updated === true ){
