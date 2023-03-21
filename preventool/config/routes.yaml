@@ -112,6 +112,10 @@ get_base_line_study_compliance_by_workplace:
   path: /api/v1/baseline-study-compliance/{workplaceId}
   controller: App\Controller\BaselineStudy\GetBaselineStudyComplianceByWorkplaceIdController
   methods: [GET]
+put_update_baseline_study_indicator:
+  path: /api/v1/update-baseline-study-indicator/{workplaceId}/{indicator}
+  controller: App\Controller\BaselineStudy\UpdateBaselineStudyIndicatorController
+  methods: [PUT]
 
 #AuditType
 post_create_auditType:
