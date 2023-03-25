@@ -17,7 +17,7 @@ class BaselineStudyCompliance extends AggregateRoot
     private int $totalCompliance;
     private int $compromisoCompliance;
     private int $politicaCompliance;
-    private int $planteamientoCompliance;
+    private int $planeamientoCompliance;
     private int $implementacionCompliance;
     private int $evaluacionCompliance;
     private int $verificacionCompliance;
@@ -28,12 +28,12 @@ class BaselineStudyCompliance extends AggregateRoot
     private ?Admin $updaterAdmin;
 
     public function __construct(
-        Uuid $id,
-        Workplace $workplace,
+        Uuid                 $id,
+        Workplace            $workplace,
         CompliancePercentage $totalCompliance,
         CompliancePercentage $compromisoCompliance,
         CompliancePercentage $politicaCompliance,
-        CompliancePercentage $planteamientoCompliance,
+        CompliancePercentage $planeamientoCompliance,
         CompliancePercentage $implementacionCompliance,
         CompliancePercentage $evaluacionCompliance,
         CompliancePercentage $verificacionCompliance,
@@ -47,7 +47,7 @@ class BaselineStudyCompliance extends AggregateRoot
         $this->totalCompliance = $totalCompliance->value;
         $this->compromisoCompliance = $compromisoCompliance->value;
         $this->politicaCompliance = $politicaCompliance->value;
-        $this->planteamientoCompliance = $planteamientoCompliance->value;
+        $this->planeamientoCompliance = $planeamientoCompliance->value;
         $this->implementacionCompliance = $implementacionCompliance->value;
         $this->evaluacionCompliance = $evaluacionCompliance->value;
         $this->verificacionCompliance = $verificacionCompliance->value;
@@ -107,14 +107,14 @@ class BaselineStudyCompliance extends AggregateRoot
         return $this;
     }
 
-    public function getPlanteamientoCompliance(): CompliancePercentage
+    public function getPlaneamientoCompliance(): CompliancePercentage
     {
-        return new CompliancePercentage($this->planteamientoCompliance);
+        return new CompliancePercentage($this->planeamientoCompliance);
     }
 
-    public function setPlanteamientoCompliance(CompliancePercentage $planteamientoCompliance): self
+    public function setPlaneamientoCompliance(CompliancePercentage $planeamientoCompliance): self
     {
-        $this->planteamientoCompliance = $planteamientoCompliance->value;
+        $this->planeamientoCompliance = $planeamientoCompliance->value;
         return $this;
     }
 
@@ -206,7 +206,7 @@ class BaselineStudyCompliance extends AggregateRoot
 
         $total = $this->compromisoCompliance;
         $total += $this->politicaCompliance;
-        $total += $this->planteamientoCompliance;
+        $total += $this->planeamientoCompliance;
         $total += $this->implementacionCompliance;
         $total += $this->evaluacionCompliance;
         $total += $this->verificacionCompliance;

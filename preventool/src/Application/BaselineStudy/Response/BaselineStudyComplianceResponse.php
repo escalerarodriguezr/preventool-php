@@ -55,7 +55,7 @@ class BaselineStudyComplianceResponse
             $model->getTotalCompliance()->value,
             $model->getCompromisoCompliance()->value,
             $model->getPoliticaCompliance()->value,
-            $model->getPlanteamientoCompliance()->value,
+            $model->getPlaneamientoCompliance()->value,
             $model->getImplementacionCompliance()->value,
             $model->getEvaluacionCompliance()->value,
             $model->getVerificacionCompliance()->value,

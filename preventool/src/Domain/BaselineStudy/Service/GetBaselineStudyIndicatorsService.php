@@ -646,8 +646,71 @@ class GetBaselineStudyIndicatorsService
                        'category' => 'verificacion',
                        'description' => 'Se implementan medidas preventivas de seguridad y salud en el trabajo.'
                    ],
-
                    //Seguir aqui con el ultimo de la pagina 10
+
+                   'investigacion_accidentes-1' => [
+                       'id' => 'investigacion_accidentes-1',
+                       'name' => 'Investigación de accidentes y enfermedades ocupacionales',
+                       'category' => 'verificacion',
+                       'description' => 'El empleador ha realizado las investigaciones de accidentes de trabajo, enfermedades ocupacionales e incidentes peligrosos, y ha comunicado a la autoridad administrativa de trabajo, indicando las medidas correctivas y preventivas adoptadas.'
+                   ],
+                   'investigacion_accidentes-2' => [
+                       'id' => 'investigacion_accidentes-2',
+                       'name' => 'Investigación de accidentes y enfermedades ocupacionales',
+                       'category' => 'verificacion',
+                       'description' => 'Se investiga los accidentes de trabajo, enfermedades ocupacionales e incidentes peligrosos para:
+                       -Determinar las causas e implementar las medidas correctivas.
+                       -Comprobar la eficacia de las medidas de seguridad y salud vigentes al momento de hecho.
+                       -Determinar la necesidad modificar dichas medidas.'
+                   ],
+                   'investigacion_accidentes-3' => [
+                       'id' => 'investigacion_accidentes-3',
+                       'name' => 'Investigación de accidentes y enfermedades ocupacionales',
+                       'category' => 'verificacion',
+                       'description' => 'Se toma medidas correctivas para reducir las consecuencias de accidentes.'
+                   ],
+                   'investigacion_accidentes-4' => [
+                       'id' => 'investigacion_accidentes-4',
+                       'name' => 'Investigación de accidentes y enfermedades ocupacionales',
+                       'category' => 'verificacion',
+                       'description' => 'Se ha documentado los cambios en los procedimientos como consecuencia de las acciones correctivas.'
+                   ],
+                   'investigacion_accidentes-5' => [
+                       'id' => 'investigacion_accidentes-5',
+                       'name' => 'Investigación de accidentes y enfermedades ocupacionales',
+                       'category' => 'verificacion',
+                       'description' => 'El trabajador ha sido transferido en caso de accidente de trabajo o enfermedad ocupacional a otro puesto que implique menos riesgo.'
+                   ],
+                   'control_operaciones-1' => [
+                       'id' => 'control_operaciones-1',
+                       'name' => 'Control de las operaciones',
+                       'category' => 'verificacion',
+                       'description' => 'La empresa, entidad pública o privada ha identificado las operaciones y actividades que están asociadas con riesgos donde las medidas de control necesitan ser aplicadas.'
+                   ],
+                   'control_operaciones-2' => [
+                       'id' => 'control_operaciones-2',
+                       'name' => 'Control de las operaciones',
+                       'category' => 'verificacion',
+                       'description' => 'La empresa, entidad pública o privada ha establecido procedimientos para el diseño del lugar de trabajo, procesos operativos, instalaciones, maquinarias y organización del trabajo que incluye la adaptación a las capacidades humanas a modo de reducir los riesgos en sus fuentes.'
+                   ],
+                   'gestion_cambio-1' => [
+                       'id' => 'gestion_cambio-1',
+                       'name' => 'Gestión del cambio',
+                       'category' => 'verificacion',
+                       'description' => 'Se ha evaluado las medidas de seguridad debido a cambios internos, método de trabajo, estructura organizativa y cambios externos normativos, conocimientos en el campo de la seguridad, cambios tecnológicos, adaptándose las medidas de prevención antes de introducirlos.'
+                   ],
+                   'auditorias-1' => [
+                       'id' => 'auditorias-1',
+                       'name' => 'Auditorias',
+                       'category' => 'verificacion',
+                       'description' => 'Se cuenta con un programa de auditorías.'
+                   ],
+                   'auditorias-2' => [
+                       'id' => 'auditorias-2',
+                       'name' => 'Auditorias',
+                       'category' => 'verificacion',
+                       'description' => 'El empleador realiza auditorías internas periódicas para comprobar la adecuada aplicación del sistema de gestión de la seguridad y salud en el trabajo.'
+                   ],
                ]
            ],
 
@@ -661,6 +724,97 @@ class GetBaselineStudyIndicatorsService
                        'category' => 'control',
                        'description' => 'La empresa, entidad pública o privada establece y mantiene información en medios apropiados para describir los componentes del sistema de gestión y su relación entre ellos.'
                    ],
+                   'documentos-2' => [
+                       'id' => 'documentos-2',
+                       'name' => 'Documentos',
+                       'category' => 'control',
+                       'description' => 'Los procedimientos de la empresa, entidad pública o privada, en la gestión de la seguridad y salud en el trabajo, se revisan periódicamente.'
+                   ],
+                   'documentos-3' => [
+                       'id' => 'documentos-3',
+                       'name' => 'Documentos',
+                       'category' => 'control',
+                       'description' => 'El empleador establece y mantiene disposiciones y procedimientos para:
+                       -Recibir, documentar y responder adecuadamente a las comunicaciones internas y externas relativas a la seguridad y salud en el trabajo.
+                       -Garantizar la comunicación interna de la información relativa a la seguridad y salud en el trabajo entre los distintos niveles y cargos de la organización.
+                       -Garantizar que las sugerencias de los trabajadores o de sus representantes sobre seguridad y salud en el trabajo se reciban y atiendan en forma oportuna y adecuada.'
+                   ],
+                   'documentos-4' => [
+                       'id' => 'documentos-4',
+                       'name' => 'Documentos',
+                       'category' => 'control',
+                       'description' => 'El empleador entrega adjunto a los contratos de trabajo las recomendaciones de seguridad y salud considerando los riesgos del centro de labores y los relacionados con el puesto o función del trabajador.'
+                   ],
+                   'documentos-5' => [
+                       'id' => 'documentos-5',
+                       'name' => 'Documentos',
+                       'category' => 'control',
+                       'description' => 'El empleador ha:
+                       -Facilitado al trabajador una copia del reglamento interno de seguridad y salud en el trabajo.
+                       -Capacitado al trabajador en referencia al contenido del reglamento interno de seguridad.
+                       -Asegurado poner en práctica las medidas de seguridad y salud en el trabajo.
+                       -Elaborado un mapa de riesgos del centro de trabajo y lo exhibe en un lugar visible.
+                       -El empleador entrega al trabajador las recomendaciones de seguridad y salud en el trabajo considerando los riesgos del centro de labores y los relacionados con el puesto o función, el primer día de labores.'
+                   ],
+                   'documentos-6' => [
+                       'id' => 'documentos-6',
+                       'name' => 'Documentos',
+                       'category' => 'control',
+                       'description' => 'El empleador mantiene procedimientos para garantizan que:
+                       -Se identifiquen, evalúen e incorporen en las especificaciones relativas a compras y arrendamiento financiero, disposiciones relativas al cumplimiento por parte de la organización de los requisitos de seguridad y salud.
+                       -Se identifiquen las obligaciones y los requisitos tanto legales como de la propia organización en materia de seguridad y salud en el trabajo antes de la adquisición de bienes y servicios.
+                       -Se adopten disposiciones para que se cumplan dichos requisitos antes de utilizar los bienes y servicios mencionados.'
+                   ],
+                   'control_documentacion-1' => [
+                       'id' => 'control_documentacion-1',
+                       'name' => 'Control de la documentación y de los datos',
+                       'category' => 'control',
+                       'description' => 'La empresa, entidad pública o privada establece procedimientos para el control de los documentos que se generen por esta lista de verificación.'
+                   ],
+                   'control_documentacion-2' => [
+                       'id' => 'control_documentacion-2',
+                       'name' => 'Control de la documentación y de los datos',
+                       'category' => 'control',
+                       'description' => 'Este control asegura que los documentos y datos:
+                       -Puedan ser fácilmente localizados.
+                       -Puedan ser analizados y verificados periódicamente.
+                       -Están disponibles en los locales.
+                       -Sean removidos cuando los datos sen obsoletos.
+                       -Sean adecuadamente archivados.'
+                   ],
+                   'gestion_registros-1' => [
+                       'id' => 'gestion_registros-1',
+                       'name' => 'Gestión de los registros',
+                       'category' => 'control',
+                       'description' => 'El empleador ha implementado registros y documentos del sistema de gestión actualizados y a disposición del trabajador referido a:
+                       -Registro de accidentes de trabajo, enfermedades ocupacionales, incidentes peligrosos y otros incidentes, en el que deben constar la investigación y las medidas correctivas.
+                       -Registro de exámenes médicos ocupacionales.
+                       -Registro del monitoreo de agentes físicos, químicos, biológicos, psicosociales y factores de riesgo disergonómicos.
+                       -Registro de inspecciones internas de seguridad y salud en el trabajo.
+                       -Registro de estadísticas de seguridad y salud.
+                       -Registro de equipos de seguridad o emergencia.
+                       -Registro de inducción, capacitación, entrenamiento y simulacros de emergencia.
+                       -Registro de auditorías.'
+                   ],
+                   'gestion_registros-2' => [
+                       'id' => 'gestion_registros-2',
+                       'name' => 'Gestión de los registros',
+                       'category' => 'control',
+                       'description' => 'La empresa, entidad pública o privada cuenta con registro de accidente de trabajo y enfermedad ocupacional e incidentes peligrosos y otros incidentes ocurridos a:
+                       -Sus trabajadores.
+                       -Trabajadores de intermediación laboral y/o tercerización.
+                       -Beneficiarios bajo modalidades formativas.
+                       -Personal que presta servicios de manera independiente, desarrollando sus actividades total o parcialmente en las instalaciones de la empresa, entidad pública o privada.'
+                   ],
+                   'gestion_registros-3' => [
+                       'id' => 'gestion_registros-3',
+                       'name' => 'Gestión de los registros',
+                       'category' => 'control',
+                       'description' => 'Los registros mencionados son:
+                       -Legibles e identificables.
+                       -Permite su seguimiento.
+                       -Son archivados y adecuadamente protegidos.'
+                   ],
                ]
            ],
 
@@ -670,9 +824,56 @@ class GetBaselineStudyIndicatorsService
                'indicators' => [
                    'mejora-1' => [
                        'id' => 'mejora-1',
-                       'name' => 'Gestión de la mejoracontinua',
+                       'name' => 'Gestión de la mejora continua',
                        'category' => 'revision',
-                       'description' => 'La alta dirección: Revisa y analiza periódicamente el sistema de gestión para asegurar que es apropiada y efectiva.'
+                       'description' => 'La alta dirección:
+                       Revisa y analiza periódicamente el sistema de gestión para asegurar que es apropiada y efectiva.'
+                   ],
+                   'mejora-2' => [
+                       'id' => 'mejora-2',
+                       'name' => 'Gestión de la mejora continua',
+                       'category' => 'revision',
+                       'description' => 'Las disposiciones adoptadas por la dirección para la mejora continua del sistema de gestión de la seguridad y salud en el trabajo, deben tener en cuenta:
+                       -Los objetivos de la seguridad y salud en el trabajo de la empresa, entidad pública o privada.
+                       -Los resultados de la identificación de los peligros y evaluación de los riesgos.
+                       -Los resultados de la supervisión y medición de la eficiencia.
+                       -La investigación de accidentes, enfermedades ocupacionales, incidentes peligrosos y otros incidentes relacionados con el trabajo.
+                       -Los resultados y recomendaciones de las auditorías y evaluaciones realizadas por la dirección de la empresa, entidad pública o privada.
+                       -Las recomendaciones del Comité de seguridad y salud, o del Supervisor de seguridad y salud.
+                       -Los cambios en las normas.
+                       -La información pertinente nueva.
+                       -Los resultados de los programas anuales de seguridad y salud en el trabajo.'
+                   ],
+                   'mejora-3' => [
+                       'id' => 'mejora-3',
+                       'name' => 'Gestión de la mejora continua',
+                       'category' => 'revision',
+                       'description' => 'La metodología de mejoramiento continuo considera:
+                       -La identificación de las desviaciones de las prácticas y condiciones aceptadas como seguras.
+                       -El establecimiento de estándares de seguridad.
+                       -La medición y evaluación periódica del desempeño con respecto a los estándares de la empresa, entidad pública o privada.
+                       -La corrección y reconocimiento del desempeño.'
+                   ],
+                   'mejora-4' => [
+                       'id' => 'mejora-4',
+                       'name' => 'Gestión de la mejora continua',
+                       'category' => 'revision',
+                       'description' => 'La investigación y auditorías permiten a la dirección de la empresa, entidad pública o privada lograr los fines previstos y determinar, de ser el caso, cambios en la política y objetivos del sistema de gestión de seguridad y salud en el trabajo.'
+                   ],
+                   'mejora-5' => [
+                       'id' => 'mejora-5',
+                       'name' => 'Gestión de la mejora continua',
+                       'category' => 'revision',
+                       'description' => 'La investigación de los accidentes, enfermedades ocupacionales, incidentes peligrosos y otros incidentes, permite identificar:
+                       -Las causas inmediatas (actos y condiciones subestándares),
+                       -Las causas básicas (factores personales y factores del trabajo),
+                       -Deficiencia del sistema de gestión de la seguridad y salud en el trabajo, para la planificación de la acción correctiva pertinente.'
+                   ],
+                   'mejora-6' => [
+                       'id' => 'mejora-6',
+                       'name' => 'Gestión de la mejora continua',
+                       'category' => 'revision',
+                       'description' => 'El empleador ha modificado las medidas de prevención de riesgos laborales cuando resulten inadecuadas e insuficientes para garantizar la seguridad y salud de los trabajadores incluyendo al personal de los regímenes de intermediación y tercerización, modalidad formativa e incluso a los que prestan servicios de manera independiente, siempre que éstos desarrollen sus actividades total o parcialmente en las instalaciones de la empresa, entidad pública o privada durante el desarrollo de las operaciones.'
                    ],
                ]
            ],
