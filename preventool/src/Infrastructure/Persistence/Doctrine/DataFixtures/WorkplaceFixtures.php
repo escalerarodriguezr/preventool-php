@@ -6,6 +6,8 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Preventool\Domain\Admin\Model\Admin;
+use Preventool\Domain\BaselineStudy\Service\CreateBaselineStudyComplianceOfWorkplace;
+use Preventool\Domain\BaselineStudy\Service\CreateBaselineStudyOfWorkplace;
 use Preventool\Domain\Company\Model\Company;
 use Preventool\Domain\Company\Model\Value\Address;
 use Preventool\Domain\Shared\Model\Value\Name;
@@ -27,7 +29,10 @@ class WorkplaceFixtures extends Fixture implements FixtureInterface
 
 
 
-    public function __construct()
+    public function __construct(
+        private readonly CreateBaselineStudyOfWorkplace $createBaselineStudyOfWorkplace,
+        private readonly CreateBaselineStudyComplianceOfWorkplace $createBaselineStudyComplianceOfWorkplace
+    )
     {
 
     }
@@ -59,6 +64,8 @@ class WorkplaceFixtures extends Fixture implements FixtureInterface
         $manager->flush();
         $this->addReference(self::RIVENDEL_WORKPLACE_1_REFERENCE, $rivendelCompanyWorkplace_1);
 
+        $this->createBaselineStudyOfWorkplace->__invoke($rivendelCompanyWorkplace_1);
+        $this->createBaselineStudyComplianceOfWorkplace->__invoke($rivendelCompanyWorkplace_1);
     }
 
     private function createWorkplace(

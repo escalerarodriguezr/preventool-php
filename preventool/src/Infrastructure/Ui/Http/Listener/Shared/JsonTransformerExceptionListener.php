@@ -6,6 +6,13 @@ namespace Preventool\Infrastructure\Ui\Http\Listener\Shared;
 use Preventool\Domain\Admin\Exception\AdminAlreadyExistsException;
 use Preventool\Domain\Admin\Exception\AdminInvalidCurrentPasswordException;
 use Preventool\Domain\Admin\Exception\AdminNotFoundException;
+use Preventool\Domain\Audit\Exception\AuditTypeAlreadyExistsException;
+use Preventool\Domain\Audit\Exception\AuditTypeNotFoundException;
+use Preventool\Domain\Audit\Exception\CreateAuditTypeCommandInvalidCommandException;
+use Preventool\Domain\BaselineStudy\Exception\BaselineStudyAlreadyExistsException;
+use Preventool\Domain\BaselineStudy\Exception\BaselineStudyComplianceOfWorkplaceAlreadyExistsException;
+use Preventool\Domain\BaselineStudy\Exception\BaselineStudyNotFoundException;
+use Preventool\Domain\BaselineStudy\Exception\WorkplaceBaselineStudyByCategoryNotFoundException;
 use Preventool\Domain\Company\Exception\CompanyAlreadyExistsException;
 use Preventool\Domain\Company\Exception\CompanyNotFoundException;
 use Preventool\Domain\Company\Exception\DocumentHealthAndSafetyPolicyOfCompanyNotFoundException;
@@ -104,7 +111,8 @@ class JsonTransformerExceptionListener
             CompanyNotFoundException::class,
             WorkplaceNotFoundException::class,
             HealthAndSafetyPolicyOfCompanyNotFoundException::class,
-            DocumentHealthAndSafetyPolicyOfCompanyNotFoundException::class
+            DocumentHealthAndSafetyPolicyOfCompanyNotFoundException::class,
+            AuditTypeNotFoundException::class
         ];
     }
 
@@ -118,7 +126,13 @@ class JsonTransformerExceptionListener
             CompanyAlreadyExistsException::class,
             WorkplaceAlreadyExistsException::class,
             WorkplaceNotBelongToCompanyException::class,
-            HealthAndSafetyPolicyOfCompanyNotHasDocumentAssignedException::class
+            HealthAndSafetyPolicyOfCompanyNotHasDocumentAssignedException::class,
+            CreateAuditTypeCommandInvalidCommandException::class,
+            AuditTypeAlreadyExistsException::class,
+            BaselineStudyAlreadyExistsException::class,
+            BaselineStudyNotFoundException::class,
+            WorkplaceBaselineStudyByCategoryNotFoundException::class,
+            BaselineStudyComplianceOfWorkplaceAlreadyExistsException::class,
         ];
     }
 
