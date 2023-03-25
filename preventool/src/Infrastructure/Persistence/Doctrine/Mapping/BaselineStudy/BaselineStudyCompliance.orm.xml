@@ -7,7 +7,7 @@
         <field name="totalCompliance" type="integer"/>
         <field name="compromisoCompliance" type="integer"/>
         <field name="politicaCompliance" type="integer"/>
-        <field name="planteamientoCompliance" type="integer"/>
+        <field name="planeamientoCompliance" type="integer"/>
         <field name="implementacionCompliance" type="integer"/>
         <field name="evaluacionCompliance" type="integer"/>
         <field name="verificacionCompliance" type="integer"/>
