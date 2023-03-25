@@ -55,6 +55,24 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Company'
                 prefix: 'Preventool\Domain\Company\Model'
                 alias: Preventool\Domain\Company\Model\HealthAndSafetyPolicy
+            Preventool\Domain\AuditType\Model\AuditType:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Audit'
+                prefix: 'Preventool\Domain\Audit\Model'
+                alias: Preventool\Domain\Audit\Model\Audit
+            Preventool\Domain\BaselineStudy\Model\BaselineStudy:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/BaselineStudy'
+                prefix: 'Preventool\Domain\BaselineStudy\Model'
+                alias: Preventool\Domain\BaselineStudy\Model\BaselineStudy
+            Preventool\Domain\BaselineStudy\Model\BaselineStudyCompliance:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/BaselineStudy'
+                prefix: 'Preventool\Domain\BaselineStudy\Model'
+                alias: Preventool\Domain\BaselineStudy\Model\BaselineStudyCompliance
 
 
 when@test:

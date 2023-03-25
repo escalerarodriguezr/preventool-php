@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace Preventool\Application\Workplace\CreateWorkplace;
 
 use Preventool\Domain\Admin\Repository\AdminRepository;
+use Preventool\Domain\BaselineStudy\Service\CreateBaselineStudyComplianceOfWorkplace;
+use Preventool\Domain\BaselineStudy\Service\CreateBaselineStudyOfWorkplace;
 use Preventool\Domain\Company\Model\Value\Address;
 use Preventool\Domain\Company\Repository\CompanyRepository;
 use Preventool\Domain\Shared\Bus\Command\CommandHandler;
@@ -19,7 +21,9 @@ class CreateWorkPlaceCommandHandler implements CommandHandler
     public function __construct(
         private readonly AdminRepository $adminRepository,
         private readonly CompanyRepository $companyRepository,
-        private readonly WorkplaceRepository $workplaceRepository
+        private readonly WorkplaceRepository $workplaceRepository,
+        private readonly CreateBaselineStudyOfWorkplace $createBaselineStudyOfWorkplace,
+        private readonly CreateBaselineStudyComplianceOfWorkplace $createBaselineStudyComplianceOfWorkplace
     )
     {
     }
@@ -56,6 +60,9 @@ class CreateWorkPlaceCommandHandler implements CommandHandler
         $this->workplaceRepository->save(
             $workplace
         );
+
+        $this->createBaselineStudyOfWorkplace->__invoke($workplace);
+        $this->createBaselineStudyComplianceOfWorkplace->__invoke($workplace);
     }
 
 
