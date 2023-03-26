@@ -73,6 +73,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/BaselineStudy'
                 prefix: 'Preventool\Domain\BaselineStudy\Model'
                 alias: Preventool\Domain\BaselineStudy\Model\BaselineStudyCompliance
+            Preventool\Domain\Process\Model\Process:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Process'
+                prefix: 'Preventool\Domain\Process\Model'
+                alias: Preventool\Domain\Process\Model\Process
 
 
 when@test:

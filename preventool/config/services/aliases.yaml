@@ -27,3 +27,6 @@ services:
 
   Preventool\Infrastructure\Persistence\Doctrine\Repository\BaselineStudy\DoctrineBaselineStudyComplianceRepository: ~
   Preventool\Domain\BaselineStudy\Repository\BaselineStudyComplianceRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\BaselineStudy\DoctrineBaselineStudyComplianceRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\Process\DoctrineProcessRepository: ~
+  Preventool\Domain\Process\Repository\ProcessRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Process\DoctrineProcessRepository'
