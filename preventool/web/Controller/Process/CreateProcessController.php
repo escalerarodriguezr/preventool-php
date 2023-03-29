@@ -39,10 +39,10 @@ class CreateProcessController
                 $this->httpRequestService->actionAdmin->getId()->value,
                 $workplaceId,
                 $processId,
-                $request->getName()
+                $request->getName(),
+                $request->getDescription()
             )
         );
-
 
         return new JsonResponse(
             [HttpRequestService::ID => $processId],

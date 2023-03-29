@@ -39,7 +39,8 @@ class CreateProcessControllerTest extends FunctionalHttpTestBase
         $this->authenticatedRootClient();
 
         $payload = [
-            'name' => 'Cortar planchas'
+            'name' => 'Cortar planchas',
+            'description' => 'Una descripción....'
         ];
         self::$authenticatedRootClient->request(
             Request::METHOD_POST,
@@ -59,13 +60,14 @@ class CreateProcessControllerTest extends FunctionalHttpTestBase
 
     }
 
-    public function testCreateProcessUnprocessableEntityHttpExceptio(): void
+    public function testCreateProcessUnprocessableEntityHttpException(): void
     {
         $this->prepareDatabase();
         $this->authenticatedRootClient();
 
         $payload = [
-            'name' => ''
+            'name' => '',
+            'description' => ''
         ];
         self::$authenticatedRootClient->request(
             Request::METHOD_POST,
@@ -83,7 +85,8 @@ class CreateProcessControllerTest extends FunctionalHttpTestBase
         self::assertArrayHasKey(JsonTransformerExceptionListener::ERRORS_KEY,$response);
         $errors = $response[JsonTransformerExceptionListener::ERRORS_KEY];
         self::assertArrayHasKey(CreateProcessRequest::NAME,$errors);
-        
+        self::assertArrayHasKey(CreateProcessRequest::DESCRIPTION,$errors);
+
     }
 
 

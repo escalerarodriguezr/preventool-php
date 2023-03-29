@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class CreateProcessRequest implements RequestDTO
 {
     const NAME = 'name';
+    const DESCRIPTION = 'description';
 
     #[NotBlank(
         message: "Missing request parameter 'name"
@@ -23,10 +24,17 @@ class CreateProcessRequest implements RequestDTO
     )]
     private mixed $name;
 
+    #[NotBlank(
+        message: "Invalid request parameter 'description' can not be blank.",
+        allowNull: true
+    )]
+    private mixed $description;
+
     public function __construct(Request $request)
     {
         $payload = $request->toArray();
         $this->name = $payload[self::NAME] ?? null;
+        $this->description = $payload[self::DESCRIPTION] ?? null;
     }
 
 
@@ -34,5 +42,12 @@ class CreateProcessRequest implements RequestDTO
     {
         return $this->name;
     }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+
 
 }

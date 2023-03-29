@@ -4,6 +4,7 @@
     <entity name="Preventool\Domain\Process\Model\Process" table="process">
         <id name="id" type="guid"/>
         <field name="name" length="100" />
+        <field name="description" type="text" nullable="true" />
         <field name="revisionNumber" type="integer"/>
         <field name="revisionOf" type="guid" nullable="true"/>
         <field name="revisedBy" type="guid" nullable="true"/>

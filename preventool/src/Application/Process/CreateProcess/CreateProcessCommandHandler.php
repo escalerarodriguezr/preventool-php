@@ -5,6 +5,7 @@ namespace Preventool\Application\Process\CreateProcess;
 
 use Preventool\Domain\Admin\Repository\AdminRepository;
 use Preventool\Domain\Process\Model\Process;
+use Preventool\Domain\Process\Model\Value\ProcessDescription;
 use Preventool\Domain\Process\Repository\ProcessRepository;
 use Preventool\Domain\Shared\Bus\Command\CommandHandler;
 use Preventool\Domain\Shared\Model\Value\LongName;
@@ -27,21 +28,28 @@ class CreateProcessCommandHandler implements CommandHandler
         CreateProcessCommand $command
     ): void
     {
+
+
        $actionAdminId = new Uuid($command->actionAdminId);
        $workplaceId = new Uuid($command->workplaceId);
        $processId = new Uuid($command->processId);
 
        $actionAdmin = $this->adminRepository->findById($actionAdminId);
        $workplace = $this->workplaceRepository->findById($workplaceId);
-
-       $process = new Process(
+       
+        $process = new Process(
            $processId,
            $workplace,
            new LongName($command->name),
            $actionAdmin
-       );
+        );
 
-       $this->processRepository->save($process);
+        if($command->description != null){
+            $description = new ProcessDescription($command->description);
+            $process->setDescription($description);
+        }
+
+        $this->processRepository->save($process);
     }
 
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Preventool\Domain\Process\Model;
 
 use Preventool\Domain\Admin\Model\Admin;
+use Preventool\Domain\Process\Model\Value\ProcessDescription;
 use Preventool\Domain\Shared\Model\AggregateRoot;
 use Preventool\Domain\Shared\Model\Value\LongName;
 use Preventool\Domain\Shared\Model\Value\Uuid;
@@ -13,6 +14,7 @@ class Process extends AggregateRoot
 {
     private string $id;
     private string $name;
+    public ?string $description;
     private Workplace $workplace;
     private int $revisionNumber;
     private ?string $revisionOf;
@@ -38,6 +40,7 @@ class Process extends AggregateRoot
         $this->active = true;
         $this->creatorAdmin = $creatorAdmin;
         $this->updaterAdmin  =null;
+        $this->description = null;
     }
 
 
@@ -114,6 +117,18 @@ class Process extends AggregateRoot
     public function setActive(bool $active): void
     {
         $this->active = $active;
+    }
+
+
+    public function setDescription(?ProcessDescription $description): void
+    {
+        $this->description = $description->value();
+    }
+
+
+    public function getDescription(): ?ProcessDescription
+    {
+        return new ProcessDescription($this->description);
     }
 
 

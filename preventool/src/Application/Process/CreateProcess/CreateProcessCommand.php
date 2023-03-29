@@ -13,7 +13,8 @@ class CreateProcessCommand implements Command
         public readonly string $actionAdminId,
         public readonly string $workplaceId,
         public readonly string $processId,
-        public readonly string $name
+        public readonly string $name,
+        public readonly ?string $description
     )
     {
     }
