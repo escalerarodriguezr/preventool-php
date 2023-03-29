@@ -136,6 +136,10 @@ post_create_process:
   path: /api/v1/workplace/{workplaceId}/process
   controller: App\Controller\Process\CreateProcessController
   methods: [POST]
+get_workplace_process_by_id:
+  path: /api/v1/workplace/{workplaceId}/process/{processId}
+  controller: App\Controller\Process\GetWorkplaceProcessByIdController
+  methods: [GET]
 
 
 
