@@ -76,7 +76,7 @@ class Process extends AggregateRoot
 
     public function getRevisionOf(): ?Uuid
     {
-        return new Uuid($this->revisionOf);
+        return $this->revisionOf ? new Uuid($this->revisionOf) : null;
     }
 
     public function setRevisionOf(?Uuid $revisionOf): void
@@ -86,7 +86,7 @@ class Process extends AggregateRoot
 
     public function getRevisedBy(): ?Uuid
     {
-        return new Uuid($this->revisedBy);
+        return $this->revisedBy ? new Uuid($this->revisedBy) : null;
     }
 
     public function setRevisedBy(?Uuid $revisedBy): void
@@ -128,7 +128,7 @@ class Process extends AggregateRoot
 
     public function getDescription(): ?ProcessDescription
     {
-        return new ProcessDescription($this->description);
+        return $this->description ? new ProcessDescription($this->description) : null;
     }
 
 

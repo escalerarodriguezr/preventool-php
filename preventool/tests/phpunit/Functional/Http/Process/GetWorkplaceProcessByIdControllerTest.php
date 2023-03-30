@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PHPUnit\Tests\Functional\Http\Process;
 
 use PHPUnit\Tests\Functional\Http\FunctionalHttpTestBase;
+use Preventool\Application\Process\Response\ProcessResponse;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\AdminFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\CompanyFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\ProcessFixtures;
@@ -49,10 +50,18 @@ class GetWorkplaceProcessByIdControllerTest extends FunctionalHttpTestBase
         $response = self::$authenticatedRootClient->getResponse();
         self::assertSame(Response::HTTP_OK,$response->getStatusCode());
 
+        $responseData = json_decode($response->getContent(),true);
 
-
+        self::assertArrayHasKey(ProcessResponse::ID, $responseData);
+        self::assertSame(
+            ProcessFixtures::CONFECCION_PROCESS_UUID_RIVENDEL_WORKPLACE_1,
+            $responseData[ProcessResponse::ID]
+        );
+        self::assertSame(
+            WorkplaceFixtures::RIVENDEL_WORKPLACE_1_UUID,
+            $responseData[ProcessResponse::WORKPLACE_ID]
+        );
 
     }
-
 
 }

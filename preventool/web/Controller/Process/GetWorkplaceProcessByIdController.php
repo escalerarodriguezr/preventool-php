@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Process;
 
 use Preventool\Application\Process\GetWorkplaceProcessById\GetWorkplaceProcessByIdQuery;
+use Preventool\Application\Process\Response\ProcessResponse;
 use Preventool\Domain\Shared\Bus\Query\QueryBus;
 use Preventool\Domain\Shared\Model\IdentityValidator;
 use Preventool\Infrastructure\Ui\Http\Service\HttpRequestService;
@@ -30,6 +31,9 @@ class GetWorkplaceProcessByIdController
         $this->identityValidator->validate($workplaceId);
         $this->identityValidator->validate($processId);
 
+        /**
+         * @var ProcessResponse $response
+         */
         $response = $this->queryBus->handle(
             new GetWorkplaceProcessByIdQuery(
                 $this->httpRequestService->actionAdmin->getId()->value,
@@ -38,10 +42,8 @@ class GetWorkplaceProcessByIdController
             )
         );
 
-
-
         return new JsonResponse(
-            ['resp' => $response],
+            $response->toArray(),
             Response::HTTP_OK
         );
     }

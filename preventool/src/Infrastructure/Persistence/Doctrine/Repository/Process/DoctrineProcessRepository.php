@@ -5,8 +5,11 @@ namespace Preventool\Infrastructure\Persistence\Doctrine\Repository\Process;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Preventool\Domain\Process\Exception\ProcessAlreadyExistsException;
+use Preventool\Domain\Process\Exception\ProcessNotFoundException;
 use Preventool\Domain\Process\Model\Process;
 use Preventool\Domain\Process\Repository\ProcessRepository;
+use Preventool\Domain\Shared\Model\Value\Uuid;
+use Preventool\Domain\Workplace\Model\Workplace;
 use Preventool\Infrastructure\Persistence\Doctrine\Repository\DoctrineBaseRepository;
 
 class DoctrineProcessRepository extends DoctrineBaseRepository implements ProcessRepository
@@ -27,6 +30,28 @@ class DoctrineProcessRepository extends DoctrineBaseRepository implements Proces
                 $model->getWorkplace()
             );
         }
+    }
+
+    public function findByWorkplaceAndId(
+        Workplace $workplace,
+        Uuid $id
+    ): Process
+    {
+        $criteria = [
+            'id' => $id->value,
+            'workplace' => $workplace->getId()->value
+        ];
+
+        $process = $this->objectRepository->findOneBy($criteria);
+
+        if($process === null){
+            throw ProcessNotFoundException::withIdForWorkplace(
+                $workplace,
+                $id
+            );
+        }
+
+        return $process;
     }
 
 
