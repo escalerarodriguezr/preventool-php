@@ -5,6 +5,7 @@ namespace Preventool\Application\Process\Response;
 
 use DateTimeInterface;
 use Preventool\Domain\Process\Model\Process;
+use Preventool\Domain\Shared\Model\Value\Uuid;
 
 class ProcessResponse
 {
@@ -40,12 +41,20 @@ class ProcessResponse
     }
 
     public static function createFromModel(
-        Process $model
+        Process $model,
+        Uuid $workplaceId = null
     ): self
     {
+
+        if($workplaceId != null){
+            $workplaceIdResponse = $workplaceId->value;
+        }else{
+            $workplaceIdResponse = $model->getWorkplace()->getId()->value;
+        }
+
         return new self(
             $model->getId()->value,
-            $model->getWorkplace()->getId()->value,
+            $workplaceIdResponse,
             $model->getName()->value,
             $model->getDescription()?->decodeValue(),
             $model->getRevisionNumber(),

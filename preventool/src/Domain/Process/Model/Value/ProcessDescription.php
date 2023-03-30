@@ -11,17 +11,21 @@ class ProcessDescription
 
 
     public function __construct(
-        private string $value
+        private string $value,
+        private bool $encode = true
     )
     {
         try{
             Assertion::minLength($this->value,1);
-            $this->value = base64_encode($this->value);
+            if($this->encode){
+                $this->value = base64_encode($this->value);
+            }
 
         }catch (AssertionFailedException $exception){
             throw new \DomainException(sprintf('"%s" must be %d characters maximum', $value, 1));
         }
     }
+
 
 
     public function value(): string
