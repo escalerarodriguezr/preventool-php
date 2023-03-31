@@ -3,21 +3,18 @@ declare(strict_types=1);
 
 namespace Preventool\Domain\Process\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Preventool\Domain\Admin\Model\Admin;
-use Preventool\Domain\Process\Model\Value\ProcessDescription;
+use Preventool\Domain\Process\Model\Value\ProcessActivityDescription;
 use Preventool\Domain\Shared\Model\AggregateRoot;
 use Preventool\Domain\Shared\Model\Value\LongName;
 use Preventool\Domain\Shared\Model\Value\Uuid;
-use Preventool\Domain\Workplace\Model\Workplace;
 
-class Process extends AggregateRoot
+class ProcessActivity extends AggregateRoot
 {
     private string $id;
     private string $name;
     public ?string $description;
-    private Workplace $workplace;
+    private Process $process;
     private int $revisionNumber;
     private ?string $revisionOf;
     private ?string $revisedBy;
@@ -25,27 +22,23 @@ class Process extends AggregateRoot
     private ?Admin $updaterAdmin;
     private bool $active;
 
-    private Collection $processActivities;
-
     public function __construct(
         Uuid $id,
-        Workplace $workplace,
+        Process $process,
         LongName $name,
-        Admin $creatorAdmin = null
     )
     {
         parent::__construct();
         $this->id = $id->value;
-        $this->workplace = $workplace;
+        $this->process = $process;
         $this->name = $name->value;
         $this->revisionNumber = 0;
         $this->revisionOf = null;
         $this->revisedBy = null;
         $this->active = true;
-        $this->creatorAdmin = $creatorAdmin;
+        $this->creatorAdmin = null;
         $this->updaterAdmin  =null;
         $this->description = null;
-        $this->processActivities = new ArrayCollection();
     }
 
 
@@ -64,9 +57,9 @@ class Process extends AggregateRoot
         $this->name = $name->value;
     }
 
-    public function getWorkplace(): Workplace
+    public function getProcess(): Process
     {
-        return $this->workplace;
+        return $this->process;
     }
 
     public function getRevisionNumber(): int
@@ -104,6 +97,11 @@ class Process extends AggregateRoot
         return $this->creatorAdmin;
     }
 
+    public function setCreatorAdmin(?Admin $creatorAdmin): void
+    {
+        $this->creatorAdmin = $creatorAdmin;
+    }
+
     public function getUpdaterAdmin(): ?Admin
     {
         return $this->updaterAdmin;
@@ -125,35 +123,16 @@ class Process extends AggregateRoot
     }
 
 
-    public function setDescription(?ProcessDescription $description): void
+    public function setDescription(?ProcessActivityDescription $description): void
     {
         $this->description = $description->value();
     }
 
 
-    public function getDescription(): ?ProcessDescription
+    public function getDescription(): ?ProcessActivityDescription
     {
-        return $this->description ? new ProcessDescription($this->description,false) : null;
+        return $this->description ? new ProcessActivityDescription($this->description,false) : null;
     }
-
-    /**
-     * @return Collection|ProcessActivity[]
-     */
-    public function getProcessActivities(): Collection
-    {
-        return $this->processActivities;
-    }
-
-
-    public function addProcessActivity(ProcessActivity $processActivity): void
-    {
-        if ($this->processActivities->contains($processActivity)) {
-            return;
-        }
-
-        $this->processActivities->add($processActivity);
-    }
-
 
 
 }

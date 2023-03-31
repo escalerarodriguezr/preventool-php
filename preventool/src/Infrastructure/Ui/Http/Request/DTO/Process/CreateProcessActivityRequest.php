@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class CreateProcessRequest implements RequestDTO
+class CreateProcessActivityRequest implements RequestDTO
 {
     const NAME = 'name';
     const DESCRIPTION = 'description';

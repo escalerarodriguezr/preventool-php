@@ -149,5 +149,11 @@ update_process:
   controller: App\Controller\Process\UpdateProcessController
   methods: [PUT]
 
+#ProcessActivity
+post_create_process_activity:
+  path: /api/v1/process/{processId}/activity
+  controller: App\Controller\Process\CreateProcessActivityController
+  methods: [POST]
+
 
 
