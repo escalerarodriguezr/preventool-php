@@ -11,6 +11,7 @@ use Preventool\Domain\Process\Exception\ProcessNotFoundException;
 use Preventool\Domain\Process\Model\Process;
 use Preventool\Domain\Process\Repository\ProcessFilter;
 use Preventool\Domain\Process\Repository\ProcessRepository;
+use Preventool\Domain\Shared\Model\Value\LongName;
 use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Domain\Shared\Repository\QueryCondition\QueryCondition;
 use Preventool\Domain\Shared\Repository\Response\PaginatedQueryResponse;
@@ -59,6 +60,21 @@ class DoctrineProcessRepository extends DoctrineBaseRepository implements Proces
 
         return $process;
     }
+
+    public function findByWorkplaceAndNameOrNull(
+        Workplace $workplace,
+        LongName $name
+    ): ?Process
+    {
+        $criteria = [
+            'name' => $name->value,
+            'workplace' => $workplace->getId()->value
+        ];
+
+        return $this->objectRepository->findOneBy($criteria);
+
+    }
+
 
     public function searchPaginated(
         QueryCondition $queryCondition,

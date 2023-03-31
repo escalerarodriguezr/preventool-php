@@ -144,6 +144,10 @@ search_process_by_id:
   path: /api/v1/process
   controller: App\Controller\Process\SearchProcessController
   methods: [GET]
+update_process:
+  path: /api/v1/workplace/{workplaceId}/process/{processId}
+  controller: App\Controller\Process\UpdateProcessController
+  methods: [PUT]
 
 
 

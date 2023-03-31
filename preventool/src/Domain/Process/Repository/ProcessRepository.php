@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Preventool\Domain\Process\Repository;
 
 use Preventool\Domain\Process\Model\Process;
+use Preventool\Domain\Shared\Model\Value\LongName;
 use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Domain\Shared\Repository\QueryCondition\QueryCondition;
 use Preventool\Domain\Shared\Repository\Response\PaginatedQueryResponse;
@@ -19,5 +20,7 @@ interface ProcessRepository
         ProcessFilter $filter,
         bool $fetchJoinCollections
     ): PaginatedQueryResponse;
+
+    public function findByWorkplaceAndNameOrNull(Workplace $workplace, LongName $name): ?Process;
 
 }
