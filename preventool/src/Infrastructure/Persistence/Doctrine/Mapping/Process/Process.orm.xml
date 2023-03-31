@@ -9,6 +9,12 @@
         <field name="revisionOf" type="guid" nullable="true"/>
         <field name="revisedBy" type="guid" nullable="true"/>
 
+        <field name="active" type="boolean">
+            <options>
+                <option name="default">true</option>
+            </options>
+        </field>
+
 
 
         <many-to-one field="workplace" target-entity="Preventool\Domain\Workplace\Model\Workplace" >
