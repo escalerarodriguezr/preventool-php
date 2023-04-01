@@ -158,6 +158,10 @@ get_process_activity_by_id:
   path: /api/v1/process-activity/{id}
   controller: App\Controller\Process\GetProcessActivityByIdController
   methods: [GET]
+search_process_activity:
+  path: /api/v1/process-activity
+  controller: App\Controller\Process\SearchProcessActivityController
+  methods: [GET]
 
 
 

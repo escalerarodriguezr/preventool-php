@@ -4,15 +4,23 @@ declare(strict_types=1);
 namespace Preventool\Infrastructure\Persistence\Doctrine\Repository\Process;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Preventool\Domain\Process\Exception\ProcessActivityAlreadyExistsException;
 use Preventool\Domain\Process\Exception\ProcessActivityNotFoundException;
 use Preventool\Domain\Process\Model\ProcessActivity;
+use Preventool\Domain\Process\Repository\ProcessActivityFilter;
 use Preventool\Domain\Process\Repository\ProcessActivityRepository;
 use Preventool\Domain\Shared\Model\Value\Uuid;
+use Preventool\Domain\Shared\Repository\Response\PaginatedQueryResponse;
 use Preventool\Infrastructure\Persistence\Doctrine\Repository\DoctrineBaseRepository;
+use Preventool\Domain\Shared\Repository\QueryCondition\QueryCondition;
 
 class DoctrineProcessActivityRepository extends DoctrineBaseRepository implements ProcessActivityRepository
 {
+
+    const MODEL_ALIAS = 'pa';
+
     protected static function entityClass(): string
     {
         return ProcessActivity::class;
@@ -43,6 +51,54 @@ class DoctrineProcessActivityRepository extends DoctrineBaseRepository implement
         }
 
         return $model;
+    }
+
+    public function searchPaginated(
+        QueryCondition $queryCondition,
+        ProcessActivityFilter $filter,
+        bool $fetchJoinCollections = false
+    ): PaginatedQueryResponse
+    {
+        $queryBuilder = $this->search($filter);
+        $queryBuilder
+            ->setFirstResult($queryCondition->getPageSize() * ($queryCondition->getCurrentPage()-1))
+            ->setMaxResults($queryCondition->getPageSize())
+            ->orderBy(sprintf(self::MODEL_ALIAS.'.%s',$queryCondition->getOrderBy()), $queryCondition->getOrderDirection());
+
+
+        $paginator = new Paginator($queryBuilder->getQuery(), $fetchJoinCollections);
+        $total = $paginator->count();
+        $pages = (int) ceil($total/$queryCondition->getPageSize());
+
+        return new PaginatedQueryResponse(
+            $total,
+            $pages,
+            $queryCondition->getCurrentPage(),
+            $paginator->getIterator()
+        );
+    }
+
+    private function search(ProcessActivityFilter $filter): QueryBuilder
+    {
+        $queryBuilder = $this->objectRepository->createQueryBuilder(self::MODEL_ALIAS);
+
+        if(!empty($filter->filterById)){
+            $queryBuilder->andWhere(self::MODEL_ALIAS.'.id = :id')
+                ->setParameter(
+                    ':id',
+                    $filter->filterById
+                );
+        }
+
+        if(!empty($filter->filterByProcessId)){
+            $queryBuilder->andWhere(self::MODEL_ALIAS.'.process = :processId')
+                ->setParameter(
+                    ':processId',
+                    $filter->filterByProcessId
+                );
+        }
+
+        return $queryBuilder;
     }
 
 

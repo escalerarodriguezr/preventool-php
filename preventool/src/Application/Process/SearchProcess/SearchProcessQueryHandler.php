@@ -22,7 +22,7 @@ class SearchProcessQueryHandler implements QueryHandler
 
     public function __invoke(
         SearchProcessQuery $query
-    ): mixed
+    ): SearchProcessResponse
     {
         $filter = new ProcessFilter(
             $query->filterByWorkplaceId,
