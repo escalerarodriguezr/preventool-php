@@ -5,8 +5,10 @@ namespace Preventool\Infrastructure\Persistence\Doctrine\Repository\Process;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Preventool\Domain\Process\Exception\ProcessActivityAlreadyExistsException;
+use Preventool\Domain\Process\Exception\ProcessActivityNotFoundException;
 use Preventool\Domain\Process\Model\ProcessActivity;
 use Preventool\Domain\Process\Repository\ProcessActivityRepository;
+use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Infrastructure\Persistence\Doctrine\Repository\DoctrineBaseRepository;
 
 class DoctrineProcessActivityRepository extends DoctrineBaseRepository implements ProcessActivityRepository
@@ -26,6 +28,21 @@ class DoctrineProcessActivityRepository extends DoctrineBaseRepository implement
                 $processActivity->getProcess()
             );
         }
+    }
+
+    public function findById(Uuid $id): ProcessActivity
+    {
+        $citeria = [
+            'id' => $id->value
+        ];
+
+        $model = $this->objectRepository->findOneBy($citeria);
+
+        if($model === null){
+            throw ProcessActivityNotFoundException::withId($id);
+        }
+
+        return $model;
     }
 
 

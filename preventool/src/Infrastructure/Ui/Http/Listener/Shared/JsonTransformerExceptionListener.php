@@ -19,6 +19,7 @@ use Preventool\Domain\Company\Exception\DocumentHealthAndSafetyPolicyOfCompanyNo
 use Preventool\Domain\Company\Exception\HealthAndSafetyPolicyOfCompanyNotFoundException;
 use Preventool\Domain\Company\Exception\HealthAndSafetyPolicyOfCompanyNotHasDocumentAssignedException;
 use Preventool\Domain\Process\Exception\ProcessActivityAlreadyExistsException;
+use Preventool\Domain\Process\Exception\ProcessActivityNotFoundException;
 use Preventool\Domain\Process\Exception\ProcessAlreadyExistsException;
 use Preventool\Domain\Process\Exception\ProcessNotFoundException;
 use Preventool\Domain\Shared\Exception\ActionNotAllowedException;
@@ -139,7 +140,8 @@ class JsonTransformerExceptionListener
             WorkplaceBaselineStudyByCategoryNotFoundException::class,
             BaselineStudyComplianceOfWorkplaceAlreadyExistsException::class,
             ProcessAlreadyExistsException::class,
-            ProcessActivityAlreadyExistsException::class
+            ProcessActivityAlreadyExistsException::class,
+            ProcessActivityNotFoundException::class
         ];
     }
 

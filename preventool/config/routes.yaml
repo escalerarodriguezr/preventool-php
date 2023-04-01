@@ -154,6 +154,10 @@ post_create_process_activity:
   path: /api/v1/process/{processId}/activity
   controller: App\Controller\Process\CreateProcessActivityController
   methods: [POST]
+get_process_activity_by_id:
+  path: /api/v1/process-activity/{id}
+  controller: App\Controller\Process\GetProcessActivityByIdController
+  methods: [GET]
 
 
 
