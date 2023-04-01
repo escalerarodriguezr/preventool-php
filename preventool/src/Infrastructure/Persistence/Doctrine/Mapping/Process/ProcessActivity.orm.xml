@@ -5,9 +5,7 @@
         <id name="id" type="guid"/>
         <field name="name" length="100" />
         <field name="description" type="text" nullable="true" />
-        <field name="revisionNumber" type="integer"/>
-        <field name="revisionOf" type="guid" nullable="true"/>
-        <field name="revisedBy" type="guid" nullable="true"/>
+        <field name="activityOrder" type="integer"/>
 
         <field name="active" type="boolean">
             <options>
@@ -29,8 +27,6 @@
         </many-to-one>
 
 
-
-
         <field name="createdAt" type="datetime_immutable"/>
         <field name="updatedAt" type="datetime_immutable"/>
         <field name="deletedAt" type="datetime_immutable" nullable="true" />
@@ -38,7 +34,11 @@
         <gedmo:soft-deleteable field-name="deletedAt"/>
 
         <unique-constraints>
-            <unique-constraint name="U_activity_name_process_revision" columns="name,process_id,revision_number"/>
+            <unique-constraint name="U_activity_name_process" columns="name,process_id"/>
+        </unique-constraints>
+
+        <unique-constraints>
+            <unique-constraint name="U_activity_order_process" columns="order,process_id"/>
         </unique-constraints>
 
         <indexes>

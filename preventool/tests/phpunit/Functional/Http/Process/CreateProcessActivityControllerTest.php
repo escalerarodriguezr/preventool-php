@@ -35,7 +35,7 @@ class CreateProcessActivityControllerTest extends FunctionalHttpTestBase
         ]);
     }
 
-    public function testCreateProcessActivitySucessResponse(): void
+    public function testCreateProcessActivitySuccessResponse(): void
     {
         $this->prepareDatabase();
         $this->authenticatedRootClient();

@@ -34,10 +34,13 @@ class CreateProcessActivityCommandHandler implements CommandHandler
         $actionAdmin = $this->adminRepository->findById($actionAdminId);
         $process = $this->processRepository->findById($processId);
 
+        $order = $process->getProcessActivities()->count() + 1;
+
         $processActivity = new ProcessActivity(
             $processActivityId,
             $process,
             new LongName($command->name),
+            $order
         );
 
         if($command->description != null){

@@ -15,9 +15,7 @@ class ProcessActivity extends AggregateRoot
     private string $name;
     public ?string $description;
     private Process $process;
-    private int $revisionNumber;
-    private ?string $revisionOf;
-    private ?string $revisedBy;
+    private int $activityOrder;
     private ?Admin $creatorAdmin;
     private ?Admin $updaterAdmin;
     private bool $active;
@@ -26,15 +24,14 @@ class ProcessActivity extends AggregateRoot
         Uuid $id,
         Process $process,
         LongName $name,
+        int $activityOrder
     )
     {
         parent::__construct();
         $this->id = $id->value;
         $this->process = $process;
         $this->name = $name->value;
-        $this->revisionNumber = 0;
-        $this->revisionOf = null;
-        $this->revisedBy = null;
+        $this->activityOrder = $activityOrder;
         $this->active = true;
         $this->creatorAdmin = null;
         $this->updaterAdmin  =null;
@@ -62,34 +59,14 @@ class ProcessActivity extends AggregateRoot
         return $this->process;
     }
 
-    public function getRevisionNumber(): int
+    public function getActivityOrder(): int
     {
-        return $this->revisionNumber;
+        return $this->activityOrder;
     }
 
-    public function setRevisionNumber(int $revisionNumber): void
+    public function setActivityOrder(int $activityOrder): void
     {
-        $this->revisionNumber = $revisionNumber;
-    }
-
-    public function getRevisionOf(): ?Uuid
-    {
-        return $this->revisionOf ? new Uuid($this->revisionOf) : null;
-    }
-
-    public function setRevisionOf(?Uuid $revisionOf): void
-    {
-        $this->revisionOf = $revisionOf->value;
-    }
-
-    public function getRevisedBy(): ?Uuid
-    {
-        return $this->revisedBy ? new Uuid($this->revisedBy) : null;
-    }
-
-    public function setRevisedBy(?Uuid $revisedBy): void
-    {
-        $this->revisedBy = $revisedBy->value;
+        $this->activityOrder = $activityOrder;
     }
 
     public function getCreatorAdmin(): ?Admin
