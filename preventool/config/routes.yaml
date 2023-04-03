@@ -162,6 +162,10 @@ search_process_activity:
   path: /api/v1/process-activity
   controller: App\Controller\Process\SearchProcessActivityController
   methods: [GET]
+get_all_process_activity_by_process_id:
+  path: /api/v1/all-process-activity/{processId}
+  controller: App\Controller\Process\GetAllProcessActivityByProcessIdController
+  methods: [GET]
 
 
 

@@ -53,6 +53,23 @@ class DoctrineProcessActivityRepository extends DoctrineBaseRepository implement
         return $model;
     }
 
+    public function getAllByProcessId(Uuid $processId): array
+    {
+        $criteria = [
+            'process' => $processId->value
+        ];
+
+        $order = [
+            'activityOrder' => 'ASC'
+        ];
+
+        return $this->objectRepository->findBy(
+            $criteria,
+            $order
+        );
+    }
+
+
     public function searchPaginated(
         QueryCondition $queryCondition,
         ProcessActivityFilter $filter,

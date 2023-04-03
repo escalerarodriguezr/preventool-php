@@ -13,6 +13,8 @@ interface ProcessActivityRepository
     public function save(ProcessActivity $processActivity): void;
     public function findById(Uuid $id): ProcessActivity;
 
+    public function getAllByProcessId(Uuid $processId): array;
+
     public function searchPaginated(
         QueryCondition $queryCondition,
         ProcessActivityFilter $filter,
