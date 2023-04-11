@@ -166,6 +166,10 @@ get_all_process_activity_by_process_id:
   path: /api/v1/all-process-activity/{processId}
   controller: App\Controller\Process\GetAllProcessActivityByProcessIdController
   methods: [GET]
+update_process_activity_by_id:
+  path: /api/v1/process-activity/{id}
+  controller: App\Controller\Process\UpdateProcessActivityByIdController
+  methods: [PUT]
 
 
 
