@@ -35,6 +35,7 @@ class UpdateProcessActivityCommandHandler implements CommandHandler
         $processActivity->setName(new LongName($command->name));
 
         $description = !empty($command->description) ? new ProcessActivityDescription($command->description) : null;
+
         $processActivity->setDescription($description);
 
         $processActivity->setUpdaterAdmin($actionAdminId);

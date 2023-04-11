@@ -102,7 +102,7 @@ class ProcessActivity extends AggregateRoot
 
     public function setDescription(?ProcessActivityDescription $description): void
     {
-        $this->description = $description->value();
+        $this->description = !empty($description) ? $description->value() :null;
     }
 
 

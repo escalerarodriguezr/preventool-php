@@ -127,7 +127,7 @@ class Process extends AggregateRoot
 
     public function setDescription(?ProcessDescription $description): void
     {
-        $this->description = $description->value();
+        $this->description = !empty($description) ? $description->value() : null;
     }
 
 
