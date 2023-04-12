@@ -170,6 +170,10 @@ update_process_activity_by_id:
   path: /api/v1/process-activity/{id}
   controller: App\Controller\Process\UpdateProcessActivityByIdController
   methods: [PUT]
+reorder_process_activities:
+  path: /api/v1/process/{processId}/reorder-activities
+  controller: App\Controller\Process\ReorderProcessActivitiesController
+  methods: [PUT]
 
 
 

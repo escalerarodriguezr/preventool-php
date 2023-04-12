@@ -20,7 +20,14 @@ class ProcessActivityFixtures extends Fixture implements FixtureInterface
     const CONFECCION_PROCESS_ACTIVITY_1_NAME = 'Confección_Actividad_1';
     const CONFECCION_PROCESS_ACTIVITY_1_DESCRIPTION = 'Descripción actividad 1';
     const CONFECCION_PROCESS_ACTIVITY_1_ORDER = 1;
-    const CONFECCION_PROCESS_ACTIVITY_1_REFERENCE = 'confeccion-activiti-1';
+    const CONFECCION_PROCESS_ACTIVITY_1_REFERENCE = 'confeccion-activity-1';
+
+
+    const CONFECCION_PROCESS_ACTIVITY_2_UUID = 'f0024e6d-21c2-44d4-a14c-49e50e380d0b';
+    const CONFECCION_PROCESS_ACTIVITY_2_NAME = 'Confección_Actividad_2';
+    const CONFECCION_PROCESS_ACTIVITY_2_DESCRIPTION = 'Descripción actividad 2';
+    const CONFECCION_PROCESS_ACTIVITY_2_ORDER = 2;
+    const CONFECCION_PROCESS_ACTIVITY_2_REFERENCE = 'confeccion-activity-2';
 
 
     public function __construct()
@@ -51,14 +58,32 @@ class ProcessActivityFixtures extends Fixture implements FixtureInterface
             self::CONFECCION_PROCESS_ACTIVITY_1_DESCRIPTION
         );
 
+        $confeccionActivity_2 = $this->createProcessActivity(
+            self::CONFECCION_PROCESS_ACTIVITY_2_UUID,
+            $confeccionProcessOfRivendel,
+            self::CONFECCION_PROCESS_ACTIVITY_2_NAME,
+            self::CONFECCION_PROCESS_ACTIVITY_2_ORDER,
+            $adminRootRef,
+            self::CONFECCION_PROCESS_ACTIVITY_2_DESCRIPTION
+        );
+
 
         $manager->persist(
             $confeccionActivity_1
         );
+        $manager->persist(
+            $confeccionActivity_2
+        );
+
         $manager->flush();
+
         $this->addReference(
             self::CONFECCION_PROCESS_ACTIVITY_1_REFERENCE,
             $confeccionActivity_1
+        );
+        $this->addReference(
+            self::CONFECCION_PROCESS_ACTIVITY_2_REFERENCE,
+            $confeccionActivity_2
         );
 
     }
