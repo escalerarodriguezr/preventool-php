@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Preventool\Domain\Process\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Preventool\Domain\Admin\Model\Admin;
 use Preventool\Domain\Process\Model\Value\ProcessDescription;
 use Preventool\Domain\Shared\Model\AggregateRoot;
@@ -23,6 +25,8 @@ class Process extends AggregateRoot
     private ?Admin $updaterAdmin;
     private bool $active;
 
+    private Collection $processActivities;
+
     public function __construct(
         Uuid $id,
         Workplace $workplace,
@@ -41,6 +45,7 @@ class Process extends AggregateRoot
         $this->creatorAdmin = $creatorAdmin;
         $this->updaterAdmin  =null;
         $this->description = null;
+        $this->processActivities = new ArrayCollection();
     }
 
 
@@ -122,7 +127,7 @@ class Process extends AggregateRoot
 
     public function setDescription(?ProcessDescription $description): void
     {
-        $this->description = $description->value();
+        $this->description = !empty($description) ? $description->value() : null;
     }
 
 
@@ -130,6 +135,25 @@ class Process extends AggregateRoot
     {
         return $this->description ? new ProcessDescription($this->description,false) : null;
     }
+
+    /**
+     * @return Collection|ProcessActivity[]
+     */
+    public function getProcessActivities(): Collection
+    {
+        return $this->processActivities;
+    }
+
+
+    public function addProcessActivity(ProcessActivity $processActivity): void
+    {
+        if ($this->processActivities->contains($processActivity)) {
+            return;
+        }
+
+        $this->processActivities->add($processActivity);
+    }
+
 
 
 }

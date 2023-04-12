@@ -149,5 +149,31 @@ update_process:
   controller: App\Controller\Process\UpdateProcessController
   methods: [PUT]
 
+#ProcessActivity
+post_create_process_activity:
+  path: /api/v1/process/{processId}/activity
+  controller: App\Controller\Process\CreateProcessActivityController
+  methods: [POST]
+get_process_activity_by_id:
+  path: /api/v1/process-activity/{id}
+  controller: App\Controller\Process\GetProcessActivityByIdController
+  methods: [GET]
+search_process_activity:
+  path: /api/v1/process-activity
+  controller: App\Controller\Process\SearchProcessActivityController
+  methods: [GET]
+get_all_process_activity_by_process_id:
+  path: /api/v1/all-process-activity/{processId}
+  controller: App\Controller\Process\GetAllProcessActivityByProcessIdController
+  methods: [GET]
+update_process_activity_by_id:
+  path: /api/v1/process-activity/{id}
+  controller: App\Controller\Process\UpdateProcessActivityByIdController
+  methods: [PUT]
+reorder_process_activities:
+  path: /api/v1/process/{processId}/reorder-activities
+  controller: App\Controller\Process\ReorderProcessActivitiesController
+  methods: [PUT]
+
 
 

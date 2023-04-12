@@ -8,6 +8,17 @@ use Preventool\Domain\Workplace\Model\Workplace;
 
 class ProcessNotFoundException extends \DomainException
 {
+
+    public static function withId(
+        Uuid $id
+    ):self
+    {
+        return new self(sprintf(
+            'Process with id: %s not found',
+            $id->value
+        ));
+    }
+
     public static function withIdForWorkplace(
         Workplace $workplace,
         Uuid $id

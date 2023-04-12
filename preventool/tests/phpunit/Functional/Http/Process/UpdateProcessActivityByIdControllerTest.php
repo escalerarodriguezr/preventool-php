@@ -6,16 +6,17 @@ namespace PHPUnit\Tests\Functional\Http\Process;
 use PHPUnit\Tests\Functional\Http\FunctionalHttpTestBase;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\AdminFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\CompanyFixtures;
+use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\ProcessActivityFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\ProcessFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\UserFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\WorkplaceFixtures;
-use Preventool\Infrastructure\Ui\Http\Request\DTO\Process\UpdateProcessRequest;
+use Preventool\Infrastructure\Ui\Http\Request\DTO\Process\UpdateProcessActivityRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UpdateProcessControllerTest extends FunctionalHttpTestBase
+class UpdateProcessActivityByIdControllerTest extends FunctionalHttpTestBase
 {
-    const END_POINT = 'api/v1/workplace/%s/process/%s';
+    const END_POINT = 'api/v1/process-activity/%s';
 
     public function setUp(): void
     {
@@ -29,27 +30,25 @@ class UpdateProcessControllerTest extends FunctionalHttpTestBase
             AdminFixtures::class,
             CompanyFixtures::class,
             WorkplaceFixtures::class,
-            ProcessFixtures::class
+            ProcessFixtures::class,
+            ProcessActivityFixtures::class
         ]);
     }
 
-    public function testUpdateProcessSuccessResponse(): void
+    public function testUpdateProcessActivityByIdSuccessResponse(): void
     {
         $this->prepareDatabase();
         $this->authenticatedRootClient();
 
         $payload = [
-            UpdateProcessRequest::NAME => 'Nombre nuevo',
-            UpdateProcessRequest::DESCRIPTION => 'Descripción nueva'
+            UpdateProcessActivityRequest::NAME => 'updated-name',
+            UpdateProcessActivityRequest::DESCRIPTION => 'updated-description'
+
         ];
 
         self::$authenticatedRootClient->request(
             Request::METHOD_PUT,
-            sprintf(
-                self::END_POINT,
-                WorkplaceFixtures::RIVENDEL_WORKPLACE_1_UUID,
-                ProcessFixtures::CONFECCION_PROCESS_UUID_RIVENDEL_WORKPLACE_1
-            ),
+            sprintf(self::END_POINT,ProcessActivityFixtures::CONFECCION_PROCESS_ACTIVITY_1_UUID),
             [],[],[],
             json_encode($payload)
         );
@@ -59,31 +58,24 @@ class UpdateProcessControllerTest extends FunctionalHttpTestBase
 
     }
 
-    public function testUpdateProcessUnprocessableEntityException(): void
+    public function testUpdateProcessActivityUnprocessableEntityException(): void
     {
         $this->prepareDatabase();
         $this->authenticatedRootClient();
 
         $payload = [
-            UpdateProcessRequest::NAME => '',
-            UpdateProcessRequest::DESCRIPTION => ''
+            UpdateProcessActivityRequest::NAME => '',
+
         ];
 
         self::$authenticatedRootClient->request(
             Request::METHOD_PUT,
-            sprintf(
-                self::END_POINT,
-                WorkplaceFixtures::RIVENDEL_WORKPLACE_1_UUID,
-                ProcessFixtures::CONFECCION_PROCESS_UUID_RIVENDEL_WORKPLACE_1
-            ),
+            sprintf(self::END_POINT,ProcessActivityFixtures::CONFECCION_PROCESS_ACTIVITY_1_UUID),
             [],[],[],
             json_encode($payload)
         );
 
         $response = self::$authenticatedRootClient->getResponse();
         self::assertSame(Response::HTTP_UNPROCESSABLE_ENTITY,$response->getStatusCode());
-        
     }
-
-
 }

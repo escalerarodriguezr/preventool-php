@@ -30,3 +30,6 @@ services:
 
   Preventool\Infrastructure\Persistence\Doctrine\Repository\Process\DoctrineProcessRepository: ~
   Preventool\Domain\Process\Repository\ProcessRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Process\DoctrineProcessRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\Process\DoctrineProcessActivityRepository: ~
+  Preventool\Domain\Process\Repository\ProcessActivityRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Process\DoctrineProcessActivityRepository'

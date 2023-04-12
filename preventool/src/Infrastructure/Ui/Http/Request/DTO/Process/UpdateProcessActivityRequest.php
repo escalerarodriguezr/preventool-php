@@ -8,13 +8,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class CreateProcessRequest implements RequestDTO
+class UpdateProcessActivityRequest implements RequestDTO
 {
     const NAME = 'name';
     const DESCRIPTION = 'description';
 
     #[NotBlank(
-        message: "Missing request parameter 'name'"
+        message: "Missing request parameter 'name'",
+        allowNull: true
     )]
     #[Length(
         min: 2,
@@ -24,17 +25,15 @@ class CreateProcessRequest implements RequestDTO
     )]
     private mixed $name;
 
-    #[NotBlank(
-        message: "Invalid request parameter 'description' can not be blank.",
-        allowNull: true
-    )]
     private mixed $description;
+
 
     public function __construct(Request $request)
     {
-        $payload = $request->toArray();
+        $payload = json_decode($request->getContent(),true);
         $this->name = $payload[self::NAME] ?? null;
         $this->description = $payload[self::DESCRIPTION] ?? null;
+        $this->description = empty($this->description) ? null : $this->description;
     }
 
 
@@ -43,11 +42,10 @@ class CreateProcessRequest implements RequestDTO
         return $this->name;
     }
 
+
     public function getDescription(): ?string
     {
         return $this->description;
     }
-
-
 
 }

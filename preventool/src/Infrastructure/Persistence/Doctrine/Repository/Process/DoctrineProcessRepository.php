@@ -39,6 +39,25 @@ class DoctrineProcessRepository extends DoctrineBaseRepository implements Proces
         }
     }
 
+    public function findById(
+        Uuid $id
+    ): Process
+    {
+        $criteria = [
+            'id' => $id->value,
+        ];
+
+        $process = $this->objectRepository->findOneBy($criteria);
+
+        if($process === null){
+            throw ProcessNotFoundException::withId(
+                $id
+            );
+        }
+
+        return $process;
+    }
+
     public function findByWorkplaceAndId(
         Workplace $workplace,
         Uuid $id
