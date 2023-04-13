@@ -6,10 +6,8 @@ namespace Preventool\Domain\Process\Model\Value;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 
-class ProcessActivityDescription
+class ActivityTaskDescription
 {
-
-
     public function __construct(
         private string $value,
         private bool $encode = true
@@ -22,7 +20,7 @@ class ProcessActivityDescription
             }
 
         }catch (AssertionFailedException $exception){
-            throw new \DomainException(sprintf('Description must be %d characters maximum', 1));
+            throw new \DomainException(sprintf('Description must be %d characters maximum',  1));
         }
     }
 
