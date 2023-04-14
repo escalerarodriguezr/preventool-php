@@ -178,6 +178,10 @@ post_create_activity_task:
   path: /api/v1/activity/{activityId}/task
   controller: App\Controller\Process\CreateActivityTaskController
   methods: [POST]
+get_process_activity_task_by_id:
+  path: /api/v1/activity-task/{taskId}
+  controller: App\Controller\Process\GetActivityTaskByIdController
+  methods: [GET]
 
 
 

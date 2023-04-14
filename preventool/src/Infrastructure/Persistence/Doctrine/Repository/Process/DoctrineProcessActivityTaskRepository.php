@@ -5,8 +5,10 @@ namespace Preventool\Infrastructure\Persistence\Doctrine\Repository\Process;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Preventool\Domain\Process\Exception\ProcessActivityTaskAlreadyExistsException;
+use Preventool\Domain\Process\Exception\ProcessActivityTaskNotFoundException;
 use Preventool\Domain\Process\Model\ProcessActivityTask;
 use Preventool\Domain\Process\Repository\ProcessActivityTaskRepository;
+use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Infrastructure\Persistence\Doctrine\Repository\DoctrineBaseRepository;
 
 final class DoctrineProcessActivityTaskRepository extends DoctrineBaseRepository implements ProcessActivityTaskRepository
@@ -26,6 +28,20 @@ final class DoctrineProcessActivityTaskRepository extends DoctrineBaseRepository
                 $processActivityTask->getProcessActivity()
             );
         }
+    }
+
+    public function findById(Uuid $id): ProcessActivityTask
+    {
+        $criteria = [
+            'id' => $id->value
+        ];
+        $model = $this->objectRepository->findOneBy($criteria);
+
+        if($model === null){
+            throw ProcessActivityTaskNotFoundException::withId($id);
+        }
+
+        return $model;
     }
 
 
