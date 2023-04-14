@@ -44,5 +44,20 @@ final class DoctrineProcessActivityTaskRepository extends DoctrineBaseRepository
         return $model;
     }
 
+    public function getAllByProcessActivityId(Uuid $processActivityId): array
+    {
+        $criteria = [
+            'processActivity' => $processActivityId->value
+        ];
+        $order = [
+            'taskOrder' => 'ASC'
+        ];
+
+        return $this->objectRepository->findBy(
+            $criteria,
+            $order
+        );
+    }
+
 
 }

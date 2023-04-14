@@ -10,5 +10,6 @@ interface ProcessActivityTaskRepository
 {
     public function save(ProcessActivityTask $processActivityTask): void;
     public function findById(Uuid $id):ProcessActivityTask;
+    public function getAllByProcessActivityId(Uuid $processActivityId):array;
 
 }
