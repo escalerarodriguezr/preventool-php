@@ -186,6 +186,10 @@ get_all_process_activity_tasks_by_process_activity_id:
   path: /api/v1/all-process-activity-tasks/{processActivityId}
   controller: App\Controller\Process\GetAllProcessActivityTasksByProcessActivityIdController
   methods: [GET]
+put_update_process_activity_task_controller:
+  path: /api/v1/activity-task/{taskId}
+  controller: App\Controller\Process\UpdateProcessActivityTaskController
+  methods: [PUT]
 
 
 
