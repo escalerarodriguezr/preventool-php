@@ -190,6 +190,10 @@ put_update_process_activity_task_controller:
   path: /api/v1/activity-task/{taskId}
   controller: App\Controller\Process\UpdateProcessActivityTaskController
   methods: [PUT]
+put_reorder_process_activity_tasks:
+  path: /api/v1/process-activity/{processActivityId}/reorder-tasks
+  controller: App\Controller\Process\ReorderProcessActivityTasksController
+  methods: [PUT]
 
 
 
