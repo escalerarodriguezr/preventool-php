@@ -166,13 +166,33 @@ get_all_process_activity_by_process_id:
   path: /api/v1/all-process-activity/{processId}
   controller: App\Controller\Process\GetAllProcessActivityByProcessIdController
   methods: [GET]
-update_process_activity_by_id:
+put_update_process_activity_by_id:
   path: /api/v1/process-activity/{id}
   controller: App\Controller\Process\UpdateProcessActivityByIdController
   methods: [PUT]
-reorder_process_activities:
+put_reorder_process_activities:
   path: /api/v1/process/{processId}/reorder-activities
   controller: App\Controller\Process\ReorderProcessActivitiesController
+  methods: [PUT]
+post_create_activity_task:
+  path: /api/v1/activity/{activityId}/task
+  controller: App\Controller\Process\CreateActivityTaskController
+  methods: [POST]
+get_process_activity_task_by_id:
+  path: /api/v1/activity-task/{taskId}
+  controller: App\Controller\Process\GetActivityTaskByIdController
+  methods: [GET]
+get_all_process_activity_tasks_by_process_activity_id:
+  path: /api/v1/all-process-activity-tasks/{processActivityId}
+  controller: App\Controller\Process\GetAllProcessActivityTasksByProcessActivityIdController
+  methods: [GET]
+put_update_process_activity_task_controller:
+  path: /api/v1/activity-task/{taskId}
+  controller: App\Controller\Process\UpdateProcessActivityTaskController
+  methods: [PUT]
+put_reorder_process_activity_tasks:
+  path: /api/v1/process-activity/{processActivityId}/reorder-tasks
+  controller: App\Controller\Process\ReorderProcessActivityTasksController
   methods: [PUT]
 
 

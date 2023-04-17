@@ -22,7 +22,7 @@ class ProcessDescription
             }
 
         }catch (AssertionFailedException $exception){
-            throw new \DomainException(sprintf('"%s" must be %d characters maximum', $value, 1));
+            throw new \DomainException(sprintf('Description must be %d characters maximum',  1));
         }
     }
 
