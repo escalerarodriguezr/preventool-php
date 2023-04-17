@@ -91,6 +91,18 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Process'
                 prefix: 'Preventool\Domain\Process\Model'
                 alias: Preventool\Domain\Process\Model\ProcessActivityTask
+            Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazardCategory:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/WorkplaceHazard'
+                prefix: 'Preventool\Domain\WorkplaceHazard\Model'
+                alias: Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazardCategory
+            Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazard:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/WorkplaceHazard'
+                prefix: 'Preventool\Domain\WorkplaceHazard\Model'
+                alias: Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazard
 
 
 when@test:

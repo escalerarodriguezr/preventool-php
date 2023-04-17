@@ -14,6 +14,7 @@ use Preventool\Domain\Shared\Model\Value\Phone;
 use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Domain\Workplace\Model\Workplace;
 use Preventool\Domain\Workplace\Repository\WorkplaceRepository;
+use Preventool\Domain\WorkplaceHazard\Service\CreateWorkplaceHazardCategoriesAndHazards;
 
 class CreateWorkPlaceCommandHandler implements CommandHandler
 {
@@ -23,7 +24,8 @@ class CreateWorkPlaceCommandHandler implements CommandHandler
         private readonly CompanyRepository $companyRepository,
         private readonly WorkplaceRepository $workplaceRepository,
         private readonly CreateBaselineStudyOfWorkplace $createBaselineStudyOfWorkplace,
-        private readonly CreateBaselineStudyComplianceOfWorkplace $createBaselineStudyComplianceOfWorkplace
+        private readonly CreateBaselineStudyComplianceOfWorkplace $createBaselineStudyComplianceOfWorkplace,
+        private readonly CreateWorkplaceHazardCategoriesAndHazards $createWorkplaceHazardCategoriesAndHazards
     )
     {
     }
@@ -63,6 +65,7 @@ class CreateWorkPlaceCommandHandler implements CommandHandler
 
         $this->createBaselineStudyOfWorkplace->__invoke($workplace);
         $this->createBaselineStudyComplianceOfWorkplace->__invoke($workplace);
+        $this->createWorkplaceHazardCategoriesAndHazards->__invoke($workplace);
     }
 
 
