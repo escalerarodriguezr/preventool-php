@@ -33,3 +33,9 @@ services:
 
   Preventool\Infrastructure\Persistence\Doctrine\Repository\Process\DoctrineProcessActivityRepository: ~
   Preventool\Domain\Process\Repository\ProcessActivityRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Process\DoctrineProcessActivityRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\WorkplaceHazard\DoctrineWorkplaceHazardCategoryRepository: ~
+  Preventool\Domain\WorkplaceHazard\Repository\WorkplaceHazardCategoryRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\WorkplaceHazard\DoctrineWorkplaceHazardCategoryRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\WorkplaceHazard\DoctrineWorkplaceHazardRepository: ~
+  Preventool\Domain\WorkplaceHazard\Repository\WorkplaceHazardRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\WorkplaceHazard\DoctrineWorkplaceHazardRepository'

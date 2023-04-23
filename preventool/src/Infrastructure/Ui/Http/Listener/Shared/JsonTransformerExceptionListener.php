@@ -30,6 +30,8 @@ use Preventool\Domain\User\Exception\UserNotFoundException;
 use Preventool\Domain\Workplace\Exception\WorkplaceAlreadyExistsException;
 use Preventool\Domain\Workplace\Exception\WorkplaceNotBelongToCompanyException;
 use Preventool\Domain\Workplace\Exception\WorkplaceNotFoundException;
+use Preventool\Domain\WorkplaceHazard\Exception\WorkplaceHazardAlreadyExistsException;
+use Preventool\Domain\WorkplaceHazard\Exception\WorkplaceHazardCategoryAlreadyExistsException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -145,7 +147,9 @@ class JsonTransformerExceptionListener
             ProcessActivityAlreadyExistsException::class,
             ProcessActivityNotFoundException::class,
             ProcessActivityTaskAlreadyExistsException::class,
-            ProcessActivityTaskNotFoundException::class
+            ProcessActivityTaskNotFoundException::class,
+            WorkplaceHazardCategoryAlreadyExistsException::class,
+            WorkplaceHazardAlreadyExistsException::class,
         ];
     }
 
