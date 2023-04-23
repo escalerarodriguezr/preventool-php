@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
-    <entity name="Preventool\Domain\Process\Model\ProcessActivityTask" table="process_activity_task">
+    <entity name="Preventool\Domain\OccupationalRisk\Model\TaskHazard" table="task_hazard">
         <id name="id" type="guid"/>
-        <field name="name" length="100" />
-        <field name="description" type="text" nullable="true" />
-        <field name="taskOrder" type="integer"/>
+
+        <many-to-one field="task" target-entity="Preventool\Domain\Process\Model\ProcessActivityTask" >
+            <join-column name="process_activity_task_id" referenced-column-name="id"/>
+        </many-to-one>
+
+        <many-to-one field="hazard" target-entity="Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazard" >
+            <join-column name="workplace_hazard_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+
+
 
         <field name="active" type="boolean">
             <options>
@@ -13,10 +20,6 @@
             </options>
         </field>
 
-
-        <many-to-one field="processActivity" target-entity="Preventool\Domain\Process\Model\ProcessActivity" inversed-by="activityTasks" >
-            <join-column name="process_activity_id" referenced-column-name="id" nullable="false"/>
-        </many-to-one>
 
         <many-to-one field="creatorAdmin" target-entity="Preventool\Domain\Admin\Model\Admin" >
             <join-column name="creator_admin_id" referenced-column-name="id"/>
@@ -27,13 +30,6 @@
         </many-to-one>
 
 
-        <one-to-many field="taskHazards" target-entity="Preventool\Domain\OccupationalRisk\Model\TaskHazard" mapped-by="process_activity_task_id">
-            <cascade>
-                <cascade-remove/>
-            </cascade>
-        </one-to-many>
-
-
         <field name="createdAt" type="datetime_immutable"/>
         <field name="updatedAt" type="datetime_immutable"/>
         <field name="deletedAt" type="datetime_immutable" nullable="true" />
@@ -41,15 +37,11 @@
         <gedmo:soft-deleteable field-name="deletedAt"/>
 
         <unique-constraints>
-            <unique-constraint name="U_task_name_process_activity" columns="name,process_activity_id"/>
-        </unique-constraints>
-
-        <unique-constraints>
-            <unique-constraint name="U_task_order_process_activity" columns="order,process_activity_id"/>
+            <unique-constraint name="U_workplace_workplace_hazard_name" columns="workplace_id,name"/>
         </unique-constraints>
 
         <indexes>
-            <index name="IDX_activity_task_process_activity" columns="process_activity_id"/>
+            <index name="IDX_workplace_hazard_active" columns="active"/>
         </indexes>
 
         <lifecycle-callbacks>

@@ -3,7 +3,10 @@ declare(strict_types=1);
 
 namespace Preventool\Domain\WorkplaceHazard\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Preventool\Domain\Admin\Model\Admin;
+use Preventool\Domain\OccupationalRisk\Model\TaskHazard;
 use Preventool\Domain\Shared\Model\AggregateRoot;
 use Preventool\Domain\Shared\Model\Value\MediumDescription;
 use Preventool\Domain\Shared\Model\Value\Name;
@@ -21,6 +24,8 @@ class WorkplaceHazard extends AggregateRoot
     private ?Admin $creatorAdmin;
     private ?Admin $updaterAdmin;
 
+    private Collection $taskHazards;
+
     public function __construct(
         Uuid $id,
         Workplace $workplace,
@@ -36,6 +41,7 @@ class WorkplaceHazard extends AggregateRoot
         $this->workplaceHazardCategory = $workplaceHazardCategory;
         $this->active = true;
         $this->description = null;
+        $this->taskHazards = new ArrayCollection();
     }
 
     /**
@@ -106,6 +112,21 @@ class WorkplaceHazard extends AggregateRoot
     {
         return $this->workplaceHazardCategory;
     }
+
+    public function getTaskHazards(): Collection
+    {
+        return $this->taskHazards;
+    }
+
+    public function addTaskHazard(TaskHazard $taskHazard): void
+    {
+        if($this->taskHazards->contains($taskHazard)){
+            return;
+        }
+        $this->taskHazards->add($taskHazard);
+    }
+
+
 
 
 }

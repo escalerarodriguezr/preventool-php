@@ -32,6 +32,7 @@ use Preventool\Domain\Workplace\Exception\WorkplaceNotBelongToCompanyException;
 use Preventool\Domain\Workplace\Exception\WorkplaceNotFoundException;
 use Preventool\Domain\WorkplaceHazard\Exception\WorkplaceHazardAlreadyExistsException;
 use Preventool\Domain\WorkplaceHazard\Exception\WorkplaceHazardCategoryAlreadyExistsException;
+use Preventool\Domain\WorkplaceHazard\Exception\WorkplaceHazardNotFoundException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -121,7 +122,8 @@ class JsonTransformerExceptionListener
             HealthAndSafetyPolicyOfCompanyNotFoundException::class,
             DocumentHealthAndSafetyPolicyOfCompanyNotFoundException::class,
             AuditTypeNotFoundException::class,
-            ProcessNotFoundException::class
+            ProcessNotFoundException::class,
+            WorkplaceHazardNotFoundException::class
 
         ];
     }

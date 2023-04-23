@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace Preventool\Domain\Process\Model;
 
+use Doctrine\Common\Collections\Collection;
 use Preventool\Domain\Admin\Model\Admin;
+use Preventool\Domain\OccupationalRisk\Model\TaskHazard;
 use Preventool\Domain\Process\Model\Value\ActivityTaskDescription;
 use Preventool\Domain\Shared\Model\AggregateRoot;
 use Preventool\Domain\Shared\Model\Value\LongName;
@@ -19,6 +21,7 @@ class ProcessActivityTask extends AggregateRoot
     private bool $active;
     private ?Admin $creatorAdmin;
     private ?Admin $updaterAdmin;
+    private Collection $taskHazards;
 
     /**
      * @param string $id
@@ -120,6 +123,19 @@ class ProcessActivityTask extends AggregateRoot
     public function setUpdaterAdmin(?Admin $updaterAdmin): void
     {
         $this->updaterAdmin = $updaterAdmin;
+    }
+
+    public function getTaskHazards(): Collection
+    {
+        return $this->taskHazards;
+    }
+
+    public function addTaskHazard(TaskHazard $taskHazard): void
+    {
+        if ($this->taskHazards->contains($taskHazard)) {
+            return;
+        }
+        $this->taskHazards->add($taskHazard);
     }
 
 
