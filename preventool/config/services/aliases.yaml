@@ -39,3 +39,6 @@ services:
 
   Preventool\Infrastructure\Persistence\Doctrine\Repository\WorkplaceHazard\DoctrineWorkplaceHazardRepository: ~
   Preventool\Domain\WorkplaceHazard\Repository\WorkplaceHazardRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\WorkplaceHazard\DoctrineWorkplaceHazardRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\OccupationalRisk\DoctrineTaskHazardRepository: ~
+  Preventool\Domain\OccupationalRisk\Repository\TaskHazardRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\OccupationalRisk\DoctrineTaskHazardRepository'

@@ -4,14 +4,13 @@
     <entity name="Preventool\Domain\OccupationalRisk\Model\TaskHazard" table="task_hazard">
         <id name="id" type="guid"/>
 
-        <many-to-one field="task" target-entity="Preventool\Domain\Process\Model\ProcessActivityTask" >
+        <many-to-one field="task" target-entity="Preventool\Domain\Process\Model\ProcessActivityTask" fetch="EAGER">
             <join-column name="process_activity_task_id" referenced-column-name="id"/>
         </many-to-one>
 
-        <many-to-one field="hazard" target-entity="Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazard" >
+        <many-to-one field="hazard" target-entity="Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazard" fetch="EAGER">
             <join-column name="workplace_hazard_id" referenced-column-name="id" nullable="false"/>
         </many-to-one>
-
 
 
         <field name="active" type="boolean">
@@ -21,7 +20,7 @@
         </field>
 
 
-        <many-to-one field="creatorAdmin" target-entity="Preventool\Domain\Admin\Model\Admin" >
+        <many-to-one field="creatorAdmin" target-entity="Preventool\Domain\Admin\Model\Admin">
             <join-column name="creator_admin_id" referenced-column-name="id"/>
         </many-to-one>
 
@@ -34,15 +33,11 @@
         <field name="updatedAt" type="datetime_immutable"/>
         <field name="deletedAt" type="datetime_immutable" nullable="true" />
 
-        <gedmo:soft-deleteable field-name="deletedAt"/>
+<!--        <gedmo:soft-deleteable field-name="deletedAt"/>-->
 
         <unique-constraints>
-            <unique-constraint name="U_workplace_workplace_hazard_name" columns="workplace_id,name"/>
+            <unique-constraint name="U_task_hazard_task_id_hazard_id" columns="workplace_hazard_id,process_activity_task_id"/>
         </unique-constraints>
-
-        <indexes>
-            <index name="IDX_workplace_hazard_active" columns="active"/>
-        </indexes>
 
         <lifecycle-callbacks>
             <lifecycle-callback type="preUpdate" method="markAsUpdated"/>

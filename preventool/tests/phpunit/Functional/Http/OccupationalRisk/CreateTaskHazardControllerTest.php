@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace PHPUnit\Tests\Functional\Http\OccupationalRisk;
 
 use PHPUnit\Tests\Functional\Http\FunctionalHttpTestBase;
-use Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazardCategory;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\AdminFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\CompanyFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\ProcessActivityFixtures;
@@ -15,6 +14,7 @@ use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\WorkplaceFixture
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\WorkplaceHazardCategoryFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\WorkplaceHazardFixtures;
 use Preventool\Infrastructure\Ui\Http\Request\DTO\OccupationalRisk\CreateTaskHazardRequest;
+use Preventool\Infrastructure\Ui\Http\Service\HttpRequestService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -60,14 +60,12 @@ class CreateTaskHazardControllerTest extends FunctionalHttpTestBase
         );
 
         $response = self::$authenticatedRootClient->getResponse();
-
-
+        self::assertSame(Response::HTTP_CREATED,$response->getStatusCode());
 
         $responseData = json_decode($response->getContent(),true);
+        self::assertArrayHasKey(HttpRequestService::ID,$responseData);
+        self::assertIsValidUuid($responseData[HttpRequestService::ID]);
 
-        dd($responseData);
-
-//        self::assertSame(1,1);
 
     }
 
