@@ -27,6 +27,13 @@
         </many-to-one>
 
 
+        <one-to-many field="taskHazards" target-entity="Preventool\Domain\OccupationalRisk\Model\TaskHazard" mapped-by="process_activity_task_id">
+            <cascade>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+
         <field name="createdAt" type="datetime_immutable"/>
         <field name="updatedAt" type="datetime_immutable"/>
         <field name="deletedAt" type="datetime_immutable" nullable="true" />

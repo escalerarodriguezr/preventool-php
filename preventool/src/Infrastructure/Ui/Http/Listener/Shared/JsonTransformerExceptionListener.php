@@ -18,6 +18,8 @@ use Preventool\Domain\Company\Exception\CompanyNotFoundException;
 use Preventool\Domain\Company\Exception\DocumentHealthAndSafetyPolicyOfCompanyNotFoundException;
 use Preventool\Domain\Company\Exception\HealthAndSafetyPolicyOfCompanyNotFoundException;
 use Preventool\Domain\Company\Exception\HealthAndSafetyPolicyOfCompanyNotHasDocumentAssignedException;
+use Preventool\Domain\OccupationalRisk\Exception\TaskHazardAlreadyExitsException;
+use Preventool\Domain\OccupationalRisk\Exception\TaskHazardConflictException;
 use Preventool\Domain\Process\Exception\ProcessActivityAlreadyExistsException;
 use Preventool\Domain\Process\Exception\ProcessActivityNotFoundException;
 use Preventool\Domain\Process\Exception\ProcessActivityTaskAlreadyExistsException;
@@ -32,6 +34,7 @@ use Preventool\Domain\Workplace\Exception\WorkplaceNotBelongToCompanyException;
 use Preventool\Domain\Workplace\Exception\WorkplaceNotFoundException;
 use Preventool\Domain\WorkplaceHazard\Exception\WorkplaceHazardAlreadyExistsException;
 use Preventool\Domain\WorkplaceHazard\Exception\WorkplaceHazardCategoryAlreadyExistsException;
+use Preventool\Domain\WorkplaceHazard\Exception\WorkplaceHazardNotFoundException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -121,7 +124,8 @@ class JsonTransformerExceptionListener
             HealthAndSafetyPolicyOfCompanyNotFoundException::class,
             DocumentHealthAndSafetyPolicyOfCompanyNotFoundException::class,
             AuditTypeNotFoundException::class,
-            ProcessNotFoundException::class
+            ProcessNotFoundException::class,
+            WorkplaceHazardNotFoundException::class
 
         ];
     }
@@ -150,6 +154,8 @@ class JsonTransformerExceptionListener
             ProcessActivityTaskNotFoundException::class,
             WorkplaceHazardCategoryAlreadyExistsException::class,
             WorkplaceHazardAlreadyExistsException::class,
+            TaskHazardConflictException::class,
+            TaskHazardAlreadyExitsException::class
         ];
     }
 
