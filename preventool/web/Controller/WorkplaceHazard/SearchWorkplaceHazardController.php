@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\WorkplaceHazard;
 
 use Preventool\Application\WorkplaceHazard\SearchWorkplaceHazard\SearchWorkplaceHazardQuery;
+use Preventool\Application\WorkplaceHazard\SearchWorkplaceHazard\SearchWorkplaceHazardResponse;
 use Preventool\Domain\Shared\Bus\Query\QueryBus;
 use Preventool\Domain\Shared\Model\IdentityValidator;
 use Preventool\Infrastructure\Ui\Http\Request\DTO\Shared\QueryConditionRequest;
@@ -44,11 +45,14 @@ class SearchWorkplaceHazardController
             $request->getFilterByNotHasTaskHazardWithTaskId()
         );
 
+        /**
+         * @var $response SearchWorkplaceHazardResponse
+         */
         $response = $this->queryBus->handle($query);
 
 
         return new JsonResponse(
-            null,
+            $response->toArray(),
             Response::HTTP_OK
         );
     }

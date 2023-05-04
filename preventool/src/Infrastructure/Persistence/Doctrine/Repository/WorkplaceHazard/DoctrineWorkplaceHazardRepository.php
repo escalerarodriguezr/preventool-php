@@ -82,7 +82,6 @@ class DoctrineWorkplaceHazardRepository extends DoctrineBaseRepository implement
     {
         $queryBuilder = $this->objectRepository->createQueryBuilder(self::MODEL_ALIAS);
 
-//        $queryBuilder->select(sprintf('%s, %s', self::MODEL_ALIAS, 'th'));
         $queryBuilder->select(sprintf('%s', self::MODEL_ALIAS));
         if(!empty($filter->filterById)){
             $queryBuilder->andWhere(self::MODEL_ALIAS.'.id = :id')
@@ -100,7 +99,6 @@ class DoctrineWorkplaceHazardRepository extends DoctrineBaseRepository implement
                 );
         }
 
-//        dD( sprintf('%s.%s', self::MODEL_ALIAS, 'taskHazards'));
 //        if(!empty($filter->filterByNotHasTaskHazardWithTaskId)){
 //            $queryBuilder->leftJoin(
 //                sprintf('%s.%s', self::MODEL_ALIAS, 'taskHazards'),
@@ -124,10 +122,11 @@ class DoctrineWorkplaceHazardRepository extends DoctrineBaseRepository implement
         if(!empty($filter->filterByNotHasTaskHazardWithTaskId)){
             $em = $this->getEntityManager();
             $subQueryTaskHazard = $em->createQuery(
-                'SELECT subh.id 
-                FROM Preventool\Domain\OccupationalRisk\Model\TaskHazard subth 
-                JOIN subth.hazard subh 
-                where subth.task != :taskId');
+                'SELECT subh.id
+                FROM Preventool\Domain\OccupationalRisk\Model\TaskHazard subth
+                JOIN subth.hazard subh
+                where subth.task = :taskId'
+            );
 
 
             $queryBuilder->setParameter('taskId', $filter->filterByNotHasTaskHazardWithTaskId);

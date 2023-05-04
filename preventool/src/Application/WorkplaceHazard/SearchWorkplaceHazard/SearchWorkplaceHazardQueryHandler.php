@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Preventool\Application\WorkplaceHazard\SearchWorkplaceHazard;
 
 use Preventool\Domain\Shared\Bus\Query\QueryHandler;
+use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Domain\Shared\Repository\QueryCondition\QueryCondition;
 use Preventool\Domain\WorkplaceHazard\Repository\WorkplaceHazardFilter;
 use Preventool\Domain\WorkplaceHazard\Repository\WorkplaceHazardRepository;
@@ -20,7 +21,7 @@ class SearchWorkplaceHazardQueryHandler implements QueryHandler
 
     public function __invoke(
         SearchWorkplaceHazardQuery $query
-    ): mixed
+    ): SearchWorkplaceHazardResponse
     {
 
         $filter = new WorkplaceHazardFilter(
@@ -40,17 +41,17 @@ class SearchWorkplaceHazardQueryHandler implements QueryHandler
             $filter
         );
 
-        dd($paginatedQueryResponse);
 
-//        $workplaceId = !empty($query->filterByWorkplaceId) ? new Uuid($query->filterByWorkplaceId) : null;
-//
-//        return new SearchProcessResponse(
-//            $paginatedQueryResponse->getTotal(),
-//            $paginatedQueryResponse->getPages(),
-//            $paginatedQueryResponse->getCurrentPage(),
-//            $paginatedQueryResponse->getItems(),
-//            $workplaceId
-//        );
+
+        $workplaceId = !empty($query->filterByWorkplaceId) ? new Uuid($query->filterByWorkplaceId) : null;
+
+        return new SearchWorkplaceHazardResponse(
+            $paginatedQueryResponse->getTotal(),
+            $paginatedQueryResponse->getPages(),
+            $paginatedQueryResponse->getCurrentPage(),
+            $paginatedQueryResponse->getItems(),
+            $workplaceId
+        );
 
 
     }

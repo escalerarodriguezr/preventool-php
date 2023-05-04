@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Preventool\Application\WorkplaceHazard\SearchWorkplaceHazard;
 
-use Container2bR9Czo\getDoctrine_Fixtures_Purger_OrmPurgerFactoryService;
 use Preventool\Domain\Shared\Bus\Query\Query;
 
 class SearchWorkplaceHazardQuery implements Query
