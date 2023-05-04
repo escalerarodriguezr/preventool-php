@@ -67,6 +67,8 @@ class JsonTransformerExceptionListener
             $exception = $exception->getPrevious();
         }
 
+        dd($exception);
+
         if(!$exception instanceof NotFoundHttpException){
            $this->logger->error($exception);
         }

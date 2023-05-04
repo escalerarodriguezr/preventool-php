@@ -26,6 +26,11 @@ class WorkplaceHazardFixtures extends Fixture implements FixtureInterface
     const TEMPERATURES_DESCRIPTION = 'Descripción temeperaturas extremas';
     const TEMPERATURES_REFERENCE = 'workplace-hazard-category-temperatures';
 
+    const VIBRATIONS_ID = 'cd1f3d51-d154-4710-a8ac-1c808ba80e05';
+    const VIBRATIONS_NAME = 'Vibraciones';
+    const VIBRATIONS_DESCRIPTION = 'Descripción vibraciones';
+    const VIBRATIONS_REFERENCE = 'workplace-hazard-category-vibraciones';
+
 
 
     public function __construct()
@@ -85,6 +90,24 @@ class WorkplaceHazardFixtures extends Fixture implements FixtureInterface
         $manager->persist($temperatures);
         $manager->flush();
         $this->addReference(self::TEMPERATURES_REFERENCE,$temperatures);
+
+
+        //Vibrations
+        $vibrations = $this->createWorkplaceHazard(
+            self::VIBRATIONS_ID,
+            $workplace,
+            $fisicosCategory,
+            self::VIBRATIONS_NAME
+        );
+
+        $vibrations->setDescription(new MediumDescription(self::VIBRATIONS_DESCRIPTION));
+
+
+        $vibrations->setCreatorAdmin($adminRootRef);
+
+        $manager->persist($vibrations);
+        $manager->flush();
+        $this->addReference(self::VIBRATIONS_REFERENCE,$vibrations);
 
 
     }

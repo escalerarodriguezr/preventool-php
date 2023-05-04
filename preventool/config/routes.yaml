@@ -195,10 +195,18 @@ put_reorder_process_activity_tasks:
   controller: App\Controller\Process\ReorderProcessActivityTasksController
   methods: [PUT]
 
+#WorkplaceHazard
+get_search_workplace_hazard:
+  path: /api/v1/workplace/{workplaceId}/search-hazard
+  controller: App\Controller\WorkplaceHazard\SearchWorkplaceHazardController
+  methods: [GET]
+
+
 #TaskHazard
 post_create_task_hazard:
   path: /api/v1/create-task-hazard
   controller: App\Controller\OccupationalRisk\CreateTaskHazardController
   methods: [POST]
+
 
 

@@ -4,11 +4,11 @@
     <entity name="Preventool\Domain\OccupationalRisk\Model\TaskHazard" table="task_hazard">
         <id name="id" type="guid"/>
 
-        <many-to-one field="task" target-entity="Preventool\Domain\Process\Model\ProcessActivityTask" fetch="EAGER">
+        <many-to-one field="task" target-entity="Preventool\Domain\Process\Model\ProcessActivityTask" fetch="EAGER" inversed-by="taskHazards">
             <join-column name="process_activity_task_id" referenced-column-name="id"/>
         </many-to-one>
 
-        <many-to-one field="hazard" target-entity="Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazard" fetch="EAGER">
+        <many-to-one field="hazard" target-entity="Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazard" fetch="EAGER" inversed-by="taskHazards">
             <join-column name="workplace_hazard_id" referenced-column-name="id" nullable="false"/>
         </many-to-one>
 
