@@ -16,7 +16,8 @@
             <join-column name="workplace_id" referenced-column-name="id"/>
         </many-to-one>
 
-        <many-to-one field="workplaceHazardCategory" target-entity="Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazardCategory" >
+        <many-to-one field="workplaceHazardCategory" target-entity="Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazardCategory"
+        fetch="EAGER">
             <join-column name="workplace_hazard_category_id" referenced-column-name="id" nullable="false"/>
         </many-to-one>
 
@@ -29,7 +30,7 @@
             <join-column name="updater_admin_id" referenced-column-name="id" />
         </many-to-one>
 
-        <one-to-many field="taskHazards" target-entity="Preventool\Domain\OccupationalRisk\Model\TaskHazard" mapped-by="workplace_hazard_id">
+        <one-to-many field="taskHazards" target-entity="Preventool\Domain\OccupationalRisk\Model\TaskHazard" mapped-by="hazard">
             <cascade>
                 <cascade-remove/>
             </cascade>

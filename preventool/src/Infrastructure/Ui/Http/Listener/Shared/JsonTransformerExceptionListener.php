@@ -66,7 +66,7 @@ class JsonTransformerExceptionListener
         if ($exception instanceof HandlerFailedException) {
             $exception = $exception->getPrevious();
         }
-
+        
         if(!$exception instanceof NotFoundHttpException){
            $this->logger->error($exception);
         }

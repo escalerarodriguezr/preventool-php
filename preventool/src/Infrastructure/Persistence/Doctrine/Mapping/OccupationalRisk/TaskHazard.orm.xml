@@ -4,11 +4,11 @@
     <entity name="Preventool\Domain\OccupationalRisk\Model\TaskHazard" table="task_hazard">
         <id name="id" type="guid"/>
 
-        <many-to-one field="task" target-entity="Preventool\Domain\Process\Model\ProcessActivityTask" fetch="EAGER">
+        <many-to-one field="task" target-entity="Preventool\Domain\Process\Model\ProcessActivityTask" fetch="EAGER" inversed-by="taskHazards">
             <join-column name="process_activity_task_id" referenced-column-name="id"/>
         </many-to-one>
 
-        <many-to-one field="hazard" target-entity="Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazard" fetch="EAGER">
+        <many-to-one field="hazard" target-entity="Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazard" fetch="EAGER" inversed-by="taskHazards">
             <join-column name="workplace_hazard_id" referenced-column-name="id" nullable="false"/>
         </many-to-one>
 
@@ -33,11 +33,11 @@
         <field name="updatedAt" type="datetime_immutable"/>
         <field name="deletedAt" type="datetime_immutable" nullable="true" />
 
-<!--        <gedmo:soft-deleteable field-name="deletedAt"/>-->
+        <gedmo:soft-deleteable field-name="deletedAt"/>
 
-        <unique-constraints>
-            <unique-constraint name="U_task_hazard_task_id_hazard_id" columns="workplace_hazard_id,process_activity_task_id"/>
-        </unique-constraints>
+<!--        <unique-constraints>-->
+<!--            <unique-constraint name="U_task_hazard_task_id_hazard_id" columns="workplace_hazard_id,process_activity_task_id"/>-->
+<!--        </unique-constraints>-->
 
         <lifecycle-callbacks>
             <lifecycle-callback type="preUpdate" method="markAsUpdated"/>

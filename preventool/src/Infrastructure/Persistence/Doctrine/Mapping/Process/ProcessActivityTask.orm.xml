@@ -27,7 +27,7 @@
         </many-to-one>
 
 
-        <one-to-many field="taskHazards" target-entity="Preventool\Domain\OccupationalRisk\Model\TaskHazard" mapped-by="process_activity_task_id">
+        <one-to-many field="taskHazards" target-entity="Preventool\Domain\OccupationalRisk\Model\TaskHazard" mapped-by="task">
             <cascade>
                 <cascade-remove/>
             </cascade>
