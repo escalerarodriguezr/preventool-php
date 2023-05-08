@@ -32,8 +32,7 @@ class SearchWorkplaceHazardController
     ): Response
     {
         $this->identityValidator->validate($workplaceId);
-        $conditionRequest->setPageSize(100);
-
+        
         $query = new SearchWorkplaceHazardQuery(
             $this->httpRequestService->actionAdmin->getId()->value,
             $conditionRequest->getPageSize(),
@@ -44,6 +43,7 @@ class SearchWorkplaceHazardController
             $workplaceId,
             $request->getFilterByNotHasTaskHazardWithTaskId()
         );
+
 
         /**
          * @var $response SearchWorkplaceHazardResponse

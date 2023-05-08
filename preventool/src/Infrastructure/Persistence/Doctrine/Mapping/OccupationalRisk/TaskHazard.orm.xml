@@ -33,11 +33,11 @@
         <field name="updatedAt" type="datetime_immutable"/>
         <field name="deletedAt" type="datetime_immutable" nullable="true" />
 
-<!--        <gedmo:soft-deleteable field-name="deletedAt"/>-->
+        <gedmo:soft-deleteable field-name="deletedAt"/>
 
-        <unique-constraints>
-            <unique-constraint name="U_task_hazard_task_id_hazard_id" columns="workplace_hazard_id,process_activity_task_id"/>
-        </unique-constraints>
+<!--        <unique-constraints>-->
+<!--            <unique-constraint name="U_task_hazard_task_id_hazard_id" columns="workplace_hazard_id,process_activity_task_id"/>-->
+<!--        </unique-constraints>-->
 
         <lifecycle-callbacks>
             <lifecycle-callback type="preUpdate" method="markAsUpdated"/>

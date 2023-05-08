@@ -51,7 +51,7 @@ class WorkplaceHazardResponse
             $model->getId()->value,
             $workplaceIdResponse,
             $model->getName()->value,
-            $model->getDescription()->value,
+            $model->getDescription()?->value,
             $model->getWorkplaceHazardCategory()->getName()->value,
             $model->isActive(),
             $model->getCreatorAdmin()?->getId()->value,
