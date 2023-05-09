@@ -7,6 +7,7 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Preventool\Domain\OccupationalRisk\Exception\TaskHazardAlreadyExitsException;
 use Preventool\Domain\OccupationalRisk\Model\TaskHazard;
 use Preventool\Domain\OccupationalRisk\Repository\TaskHazardRepository;
+use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Infrastructure\Persistence\Doctrine\Repository\DoctrineBaseRepository;
 
 class DoctrineTaskHazardRepository extends DoctrineBaseRepository implements TaskHazardRepository
@@ -28,5 +29,13 @@ class DoctrineTaskHazardRepository extends DoctrineBaseRepository implements Tas
         }
     }
 
+    public function getAllByTaskId(Uuid $taskId): array
+    {
+        $criteria = [
+            'task' => $taskId->value
+        ];
+
+        return $this->objectRepository->findBy($criteria);
+    }
 
 }
