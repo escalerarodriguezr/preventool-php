@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\OccupationalRisk;
 
 use Preventool\Application\OccupationalRisk\GetTaskHazardsByTaskId\GetTaskHazardsByTaskIdQuery;
+use Preventool\Application\OccupationalRisk\Response\TaskHazardResponse;
 use Preventool\Domain\Shared\Bus\Query\QueryBus;
 use Preventool\Domain\Shared\Model\IdentityValidator;
 use Preventool\Infrastructure\Ui\Http\Service\HttpRequestService;
@@ -28,6 +29,9 @@ class GetTaskHazardsByTaskIdController
     {
         $this->identityValidator->validate($taskId);
 
+        /**
+         * @var $response TaskHazardResponse[]
+         */
         $response = $this->queryBus->handle(
             new GetTaskHazardsByTaskIdQuery(
                 $this->httpRequestService->actionAdmin->getId()->value,
@@ -35,8 +39,13 @@ class GetTaskHazardsByTaskIdController
             )
         );
 
+        $arrayResponse = array_map(
+            fn(TaskHazardResponse $taskHazardResponse)=>$taskHazardResponse->toArray(),
+            $response
+        );
+
         return new JsonResponse(
-            null,
+            $arrayResponse,
             Response::HTTP_OK
         );
     }

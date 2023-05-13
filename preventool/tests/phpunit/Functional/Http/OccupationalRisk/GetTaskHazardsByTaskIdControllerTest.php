@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PHPUnit\Tests\Functional\Http\OccupationalRisk;
 
 use PHPUnit\Tests\Functional\Http\FunctionalHttpTestBase;
+use Preventool\Application\OccupationalRisk\Response\TaskHazardResponse;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\AdminFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\CompanyFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\ProcessActivityFixtures;
@@ -56,8 +57,19 @@ class GetTaskHazardsByTaskIdControllerTest extends FunctionalHttpTestBase
         );
 
         $response = self::$authenticatedRootClient->getResponse();
-
         self::assertSame(Response::HTTP_OK,$response->getStatusCode());
+
+        $responseData = json_decode($response->getContent(),true);
+
+        self::assertSame(
+            TaskHazardFixtures::TASK_1_NOISES_ID,
+            $responseData[0][TaskHazardResponse::ID]
+        );
+
+        self::assertSame(
+            WorkplaceHazardFixtures::NOISES_NAME,
+            $responseData[0][TaskHazardResponse::HAZARD_NAME]
+        );
 
     }
 
