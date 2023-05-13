@@ -35,7 +35,11 @@ class DoctrineTaskHazardRepository extends DoctrineBaseRepository implements Tas
             'task' => $taskId->value
         ];
 
-        return $this->objectRepository->findBy($criteria);
+        $order = [
+            'createdAt' => 'DESC'
+        ];
+
+        return $this->objectRepository->findBy($criteria,$order);
     }
 
 }

@@ -48,6 +48,7 @@ class TaskHazardResponse
         return [
             self::ID => $this->id,
             self::HAZARD_NAME => $this->hazardName,
+            self::ACTIVE => $this->active,
             self::CREATOR_ID => $this->creatorId,
             self::UPDATER_ID => $this->updaterId,
             self::CREATED_AT => $this->createdAt->format(DateTimeInterface::RFC3339),
