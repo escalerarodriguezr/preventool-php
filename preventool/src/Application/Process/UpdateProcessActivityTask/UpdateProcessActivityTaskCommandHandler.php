@@ -40,6 +40,8 @@ class UpdateProcessActivityTaskCommandHandler implements CommandHandler
             $task->setDescription(
                 new ActivityTaskDescription($command->description)
             );
+        }else{
+            $task->setDescription(null);
         }
 
         $task->setUpdaterAdmin($actionAdmin);

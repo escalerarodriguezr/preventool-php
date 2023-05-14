@@ -207,6 +207,10 @@ post_create_task_hazard:
   path: /api/v1/create-task-hazard
   controller: App\Controller\OccupationalRisk\CreateTaskHazardController
   methods: [POST]
+get_task_hazards:
+  path: /api/v1/task/{taskId}/hazards
+  controller: App\Controller\OccupationalRisk\GetTaskHazardsByTaskIdController
+  methods: [GET]
 
 
 
