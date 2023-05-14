@@ -67,7 +67,22 @@ class CreateTaskHazardControllerTest extends FunctionalHttpTestBase
         self::assertIsValidUuid($responseData[HttpRequestService::ID]);
 
 
-    }
+        $query = sprintf(
+            'SELECT id, task_hazard_id, name FROM task_risk WHERE task_hazard_id = "%s"',
+            $responseData[HttpRequestService::ID]
+        );
+        $taskRisk = self::initDBConnection()->executeQuery($query)->fetchAssociative();
 
+        self::assertSame(
+            $responseData[HttpRequestService::ID],
+            $taskRisk['task_hazard_id']
+        );
+
+        self::assertSame(
+            sprintf('Riesgo-%s',WorkplaceHazardFixtures::NOISES_NAME),
+            $taskRisk['name']
+        );
+
+    }
 
 }

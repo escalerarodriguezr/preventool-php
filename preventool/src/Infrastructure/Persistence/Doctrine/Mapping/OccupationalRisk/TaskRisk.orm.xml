@@ -28,10 +28,6 @@
 
         <gedmo:soft-deleteable field-name="deletedAt"/>
 
-        <unique-constraints>
-            <unique-constraint name="U_task_risk_name" columns="name"/>
-        </unique-constraints>
-
         <lifecycle-callbacks>
             <lifecycle-callback type="preUpdate" method="markAsUpdated"/>
         </lifecycle-callbacks>
