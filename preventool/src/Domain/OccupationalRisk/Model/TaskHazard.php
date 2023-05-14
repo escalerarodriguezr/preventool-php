@@ -17,6 +17,7 @@ class TaskHazard extends AggregateRoot
     private bool $active;
     private Admin $creatorAdmin;
     private ?Admin $updaterAdmin;
+    private ?TaskRisk $taskRisk;
 
     public function __construct(
         Uuid $id,
@@ -31,6 +32,7 @@ class TaskHazard extends AggregateRoot
         $this->hazard = $hazard;
         $this->creatorAdmin = $creatorAdmin;
         $this->active = true;
+        $this->taskRisk = null;
     }
 
 
@@ -73,6 +75,11 @@ class TaskHazard extends AggregateRoot
     public function setUpdaterAdmin(?Admin $updaterAdmin): void
     {
         $this->updaterAdmin = $updaterAdmin;
+    }
+
+    public function getTaskRisk(): ?TaskRisk
+    {
+        return $this->taskRisk;
     }
 
 }
