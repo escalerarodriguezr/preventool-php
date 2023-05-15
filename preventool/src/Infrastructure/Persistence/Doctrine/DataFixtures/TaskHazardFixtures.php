@@ -95,12 +95,16 @@ class TaskHazardFixtures extends Fixture implements FixtureInterface
         Admin $creatorAdmin
     ): TaskHazard
     {
-        return new TaskHazard(
+        $taskHazard = new TaskHazard(
             new Uuid($id),
             $task,
-            $hazard,
+            $hazard->getWorkplaceHazardCategory()->getName(),
+            $hazard->getName(),
             $creatorAdmin
         );
+
+        $taskHazard->setHazardDescription($hazard->getDescription());
+        return $taskHazard;
     }
 
 }
