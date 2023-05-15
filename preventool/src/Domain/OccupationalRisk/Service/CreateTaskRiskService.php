@@ -32,7 +32,7 @@ class CreateTaskRiskService
         $taskRisk = new TaskRisk(
             $taskRiskId,
             $taskHazard,
-            new LongName(sprintf('Riesgo-%s', $taskHazard->getHazard()->getName()->value )),
+            new LongName(sprintf('Riesgo-%s', $taskHazard->getHazardName()->value )),
             new TaskRiskStatus(TaskRiskStatus::PENDING_ASSESSMENT),
             $taskHazard->getCreatorAdmin()
         );
