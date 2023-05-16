@@ -52,14 +52,15 @@ class CreateTaskHazardCommandHandler implements CommandHandler
         $taskHazard = new TaskHazard(
             new Uuid($command->taskHazardId),
             $task,
-            $hazard,
+            $hazard->getWorkplaceHazardCategory()->getName(),
+            $hazard->getName(),
             $actionAdmin
         );
 
-        $this->taskHazardRepository->save($taskHazard);
+        $taskHazard->setHazardDescription($hazard->getDescription());
 
+        $this->taskHazardRepository->save($taskHazard);
         $this->createTaskRiskService->__invoke($taskHazard);
-        
     }
 
 

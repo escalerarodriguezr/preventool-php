@@ -4,15 +4,19 @@
     <entity name="Preventool\Domain\OccupationalRisk\Model\TaskHazard" table="task_hazard">
         <id name="id" type="guid"/>
 
+        <field name="hazardName" length="100" />
+        <field name="hazardDescription" length="300" nullable="true" />
+        <field name="hazardCategoryName" length="100" />
+
         <many-to-one field="task" target-entity="Preventool\Domain\Process\Model\ProcessActivityTask" fetch="EAGER" inversed-by="taskHazards">
             <join-column name="process_activity_task_id" referenced-column-name="id"/>
         </many-to-one>
 
-        <many-to-one field="hazard" target-entity="Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazard" fetch="EAGER" inversed-by="taskHazards">
-            <join-column name="workplace_hazard_id" referenced-column-name="id" nullable="false"/>
-        </many-to-one>
+<!--        <many-to-one field="hazard" target-entity="Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazard" fetch="EAGER" inversed-by="taskHazards">-->
+<!--            <join-column name="workplace_hazard_id" referenced-column-name="id" nullable="false"/>-->
+<!--        </many-to-one>-->
 
-        <one-to-one field="taskRisk" target-entity="Preventool\Domain\OccupationalRisk\Model\TaskRisk" mapped-by="taskHazard" />
+        <one-to-one field="taskRisk" target-entity="Preventool\Domain\OccupationalRisk\Model\TaskRisk" mapped-by="taskHazard" fetch="EAGER" />
 
 
         <field name="active" type="boolean">

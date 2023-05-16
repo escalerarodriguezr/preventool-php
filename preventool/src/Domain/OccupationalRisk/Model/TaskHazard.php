@@ -6,6 +6,8 @@ namespace Preventool\Domain\OccupationalRisk\Model;
 use Preventool\Domain\Admin\Model\Admin;
 use Preventool\Domain\Process\Model\ProcessActivityTask;
 use Preventool\Domain\Shared\Model\AggregateRoot;
+use Preventool\Domain\Shared\Model\Value\MediumDescription;
+use Preventool\Domain\Shared\Model\Value\Name;
 use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazard;
 
@@ -13,7 +15,10 @@ class TaskHazard extends AggregateRoot
 {
     private string $id;
     private ProcessActivityTask $task;
-    private WorkplaceHazard $hazard;
+    private string $hazardName;
+    private ?string $hazardDescription;
+    private string $hazardCategoryName;
+
     private bool $active;
     private Admin $creatorAdmin;
     private ?Admin $updaterAdmin;
@@ -22,17 +27,20 @@ class TaskHazard extends AggregateRoot
     public function __construct(
         Uuid $id,
         ProcessActivityTask $task,
-        WorkplaceHazard $hazard,
+        Name $hazardCategoryName,
+        Name $hazardName,
         Admin $creatorAdmin
     )
     {
         parent::__construct();
         $this->id = $id->value;
         $this->task = $task;
-        $this->hazard = $hazard;
         $this->creatorAdmin = $creatorAdmin;
+        $this->hazardName = $hazardName->value;
+        $this->hazardCategoryName = $hazardCategoryName->value;
         $this->active = true;
         $this->taskRisk = null;
+        $this->hazardDescription = null;
     }
 
 
@@ -44,12 +52,6 @@ class TaskHazard extends AggregateRoot
     public function getTask(): ProcessActivityTask
     {
         return $this->task;
-    }
-
-
-    public function getHazard(): WorkplaceHazard
-    {
-        return $this->hazard;
     }
 
     public function isActive(): bool
@@ -80,6 +82,36 @@ class TaskHazard extends AggregateRoot
     public function getTaskRisk(): ?TaskRisk
     {
         return $this->taskRisk;
+    }
+
+    public function getHazardName(): Name
+    {
+        return new Name($this->hazardName);
+    }
+
+    public function setHazardName(Name $hazardName): void
+    {
+        $this->hazardName = $hazardName->value;
+    }
+
+    public function getHazardDescription(): ?MediumDescription
+    {
+        return $this->hazardDescription ? new MediumDescription($this->hazardDescription) : null;
+    }
+
+    public function setHazardDescription(?MediumDescription $hazardDescription): void
+    {
+        $this->hazardDescription = $hazardDescription?->value;
+    }
+
+    public function getHazardCategoryName(): Name
+    {
+        return new Name($this->hazardCategoryName);
+    }
+
+    public function setHazardCategoryName(Name $hazardCategoryName): void
+    {
+        $this->hazardCategoryName = $hazardCategoryName->value;
     }
 
 }
