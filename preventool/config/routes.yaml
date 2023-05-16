@@ -211,6 +211,14 @@ get_task_hazards:
   path: /api/v1/task/{taskId}/hazards
   controller: App\Controller\OccupationalRisk\GetTaskHazardsByTaskIdController
   methods: [GET]
+#TaskRisk
+get_task_risk:
+  path: /api/v1/task-risk/{id}
+  controller: App\Controller\OccupationalRisk\GetTaskRiskByIdController
+  methods: [GET]
+
+
+
 
 
 

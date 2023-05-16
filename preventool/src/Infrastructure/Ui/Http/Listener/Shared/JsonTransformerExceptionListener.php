@@ -20,6 +20,7 @@ use Preventool\Domain\Company\Exception\HealthAndSafetyPolicyOfCompanyNotFoundEx
 use Preventool\Domain\Company\Exception\HealthAndSafetyPolicyOfCompanyNotHasDocumentAssignedException;
 use Preventool\Domain\OccupationalRisk\Exception\TaskHazardAlreadyExitsException;
 use Preventool\Domain\OccupationalRisk\Exception\TaskHazardConflictException;
+use Preventool\Domain\OccupationalRisk\Exception\TaskRiskNotFoundException;
 use Preventool\Domain\Process\Exception\ProcessActivityAlreadyExistsException;
 use Preventool\Domain\Process\Exception\ProcessActivityNotFoundException;
 use Preventool\Domain\Process\Exception\ProcessActivityTaskAlreadyExistsException;
@@ -125,7 +126,8 @@ class JsonTransformerExceptionListener
             DocumentHealthAndSafetyPolicyOfCompanyNotFoundException::class,
             AuditTypeNotFoundException::class,
             ProcessNotFoundException::class,
-            WorkplaceHazardNotFoundException::class
+            WorkplaceHazardNotFoundException::class,
+            TaskRiskNotFoundException::class
 
         ];
     }
