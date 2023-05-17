@@ -22,6 +22,7 @@ class TaskRiskResponse
     const HAZARD_NAME = 'hazardName';
     const HAZARD_DESCRIPTION = 'hazardDescription';
     const HAZARD_CATEGORY_NAME = 'hazardCategoryName';
+    const PROCESS_ACTIVITY_TASK_ID = 'taskId';
 
 
     public function __construct(
@@ -37,7 +38,8 @@ class TaskRiskResponse
         public readonly string $hazardId,
         public readonly string $hazardName,
         public readonly ?string $hazardDescription,
-        public readonly string $hazardCategoryName
+        public readonly string $hazardCategoryName,
+        public readonly string$taskId
 
     )
     {
@@ -58,7 +60,8 @@ class TaskRiskResponse
             $model->getTaskHazard()->getId()->value,
             $model->getTaskHazard()->getHazardName()->value,
             $model->getTaskHazard()->getHazardDescription()?->value,
-            $model->getTaskHazard()->getHazardCategoryName()->value
+            $model->getTaskHazard()->getHazardCategoryName()->value,
+            $model->getTaskHazard()->getTask()->getId()->value
         );
     }
 
@@ -77,7 +80,8 @@ class TaskRiskResponse
             self::HAZARD_ID => $this->hazardId,
             self::HAZARD_NAME => $this->hazardName,
             self::HAZARD_DESCRIPTION => $this->hazardDescription,
-            self::HAZARD_CATEGORY_NAME => $this->hazardCategoryName
+            self::HAZARD_CATEGORY_NAME => $this->hazardCategoryName,
+            self::PROCESS_ACTIVITY_TASK_ID => $this->taskId,
         ];
     }
 
