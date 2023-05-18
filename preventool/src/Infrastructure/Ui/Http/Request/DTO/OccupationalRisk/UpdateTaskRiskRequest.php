@@ -20,11 +20,9 @@ class UpdateTaskRiskRequest implements RequestDTO
     #[Length(max: 100)]
     private mixed $name;
 
-    #[NotBlank(allowNull: true)]
     #[Length(max: 1000)]
     private mixed $observations;
 
-    #[NotBlank(allowNull: true)]
     #[Length(max: 300)]
     private mixed $legalRequirement;
 
@@ -32,7 +30,6 @@ class UpdateTaskRiskRequest implements RequestDTO
     #[Length(max: 50)]
     private mixed $hazardName;
 
-    #[NotBlank(allowNull: true)]
     #[Length(max: 300)]
     private mixed $hazardDescription;
 
