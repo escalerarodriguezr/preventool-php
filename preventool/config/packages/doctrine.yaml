@@ -115,6 +115,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/OccupationalRisk'
                 prefix: 'Preventool\Domain\OccupationalRisk\Model'
                 alias: Preventool\Domain\OccupationalRisk\Model\TaskRisk
+            Preventool\Domain\OccupationalRisk\Model\TaskRiskAssessment:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/OccupationalRisk'
+                prefix: 'Preventool\Domain\OccupationalRisk\Model'
+                alias: Preventool\Domain\OccupationalRisk\Model\TaskRiskAssessment
 
 
 when@test:

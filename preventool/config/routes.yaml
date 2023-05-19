@@ -220,6 +220,11 @@ put_update_task_risk:
   path: /api/v1/task-risk/{id}
   controller: App\Controller\OccupationalRisk\UpdateTaskRiskController
   methods: [PUT]
+#TaskRiskAssessesment
+put_calculate_task_risk_assessment:
+  path: /api/v1/task-risk/{taskRiskId}/calculate-assessment
+  controller: App\Controller\OccupationalRisk\CalculateTaskRiskAssessmentController
+  methods: [PUT]
 
 
 

@@ -15,6 +15,7 @@ class TaskRisk extends AggregateRoot
 {
     private string $id;
     private TaskHazard $taskHazard;
+    private ?TaskRiskAssessment $taskRiskAssessment;
     private string $name;
     private string $status;
     private Admin $creatorAdmin;
@@ -41,6 +42,7 @@ class TaskRisk extends AggregateRoot
         $this->observations = null;
         $this->legalRequirement = null;
         $this->updaterAdmin = null;
+        $this->taskRiskAssessment = null;
     }
 
     /**
@@ -115,5 +117,17 @@ class TaskRisk extends AggregateRoot
     {
         $this->updaterAdmin = $updaterAdmin;
     }
+
+    public function getTaskRiskAssessment(): ?TaskRiskAssessment
+    {
+        return $this->taskRiskAssessment;
+    }
+
+    public function setTaskRiskAssessment(?TaskRiskAssessment $taskRiskAssessment): void
+    {
+        $this->taskRiskAssessment = $taskRiskAssessment;
+    }
+
+
 
 }
