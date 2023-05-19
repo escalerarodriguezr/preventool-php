@@ -43,18 +43,25 @@ class UpdateTaskRiskCommandHandler implements CommandHandler
             );
         }
 
-        $observations = !empty(trim($command->observations)) ? new TaskRiskObservations($command->observations) : null;
-        $taskRisk->setObservations($observations);
+        if($command->observations !== null){
+            $observations = !empty(trim($command->observations)) ? new TaskRiskObservations($command->observations) : null;
+            $taskRisk->setObservations($observations);
+        }
 
-        $legalRequirement = !empty(trim($command->legalRequirement)) ? new LegalRequirement($command->legalRequirement) : null;
-        $taskRisk->setLegalRequirement($legalRequirement);
+        if($command->legalRequirement !== null){
+            $legalRequirement = !empty(trim($command->legalRequirement)) ? new LegalRequirement($command->legalRequirement) : null;
+            $taskRisk->setLegalRequirement($legalRequirement);
+        }
+
 
         if($command->hazardName !== null){
             $taskHazard->setHazardName(new Name($command->hazardName));
         }
 
-        $hazardDescription = !empty(trim($command->hazardDescription)) ? new MediumDescription($command->hazardDescription) : null;
-        $taskHazard->setHazardDescription($hazardDescription);
+        if($command->hazardDescription !== null){
+            $hazardDescription = !empty(trim($command->hazardDescription)) ? new MediumDescription($command->hazardDescription) : null;
+            $taskHazard->setHazardDescription($hazardDescription);
+        }
 
         $taskHazard->setUpdaterAdmin($actionAdmin);
         $taskRisk->setUpdaterAdmin($actionAdmin);
