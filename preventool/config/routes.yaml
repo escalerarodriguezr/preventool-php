@@ -225,6 +225,11 @@ put_calculate_task_risk_assessment:
   path: /api/v1/task-risk/{taskRiskId}/calculate-assessment
   controller: App\Controller\OccupationalRisk\CalculateTaskRiskAssessmentController
   methods: [PUT]
+get_task_risk_assessment_by_task_id:
+  path: /api/v1/task-risk/{taskRiskId}/task-risk-assessment
+  controller: App\Controller\OccupationalRisk\GetTaskRiskAssessmentByTaskRiskIdController
+  methods: [GET]
+
 
 
 
