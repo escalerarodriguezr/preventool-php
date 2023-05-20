@@ -13,6 +13,8 @@
             <join-column name="task_hazard_id" referenced-column-name="id" nullable="false"/>
         </one-to-one>
 
+        <one-to-one field="taskRiskAssessment" target-entity="Preventool\Domain\OccupationalRisk\Model\TaskRiskAssessment" mapped-by="taskRisk" fetch="EAGER" />
+
         <many-to-one field="creatorAdmin" target-entity="Preventool\Domain\Admin\Model\Admin">
             <join-column name="creator_admin_id" referenced-column-name="id"/>
         </many-to-one>
@@ -20,6 +22,8 @@
         <many-to-one field="updaterAdmin" target-entity="Preventool\Domain\Admin\Model\Admin">
             <join-column name="updater_admin_id" referenced-column-name="id" />
         </many-to-one>
+
+
 
 
         <field name="createdAt" type="datetime_immutable"/>
