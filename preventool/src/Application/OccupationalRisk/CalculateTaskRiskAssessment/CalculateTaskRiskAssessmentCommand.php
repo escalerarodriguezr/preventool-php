@@ -9,6 +9,7 @@ class CalculateTaskRiskAssessmentCommand implements Command
 
     public function __construct(
         public readonly string $actionAdminId,
+        public readonly string $taskRiskId,
         public readonly string $taskRiskAssessmentId,
         public readonly int $severityIndex,
         public readonly int $peopleExposedIndex,

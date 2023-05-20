@@ -20,6 +20,7 @@ use Preventool\Domain\Company\Exception\HealthAndSafetyPolicyOfCompanyNotFoundEx
 use Preventool\Domain\Company\Exception\HealthAndSafetyPolicyOfCompanyNotHasDocumentAssignedException;
 use Preventool\Domain\OccupationalRisk\Exception\TaskHazardAlreadyExitsException;
 use Preventool\Domain\OccupationalRisk\Exception\TaskHazardConflictException;
+use Preventool\Domain\OccupationalRisk\Exception\TaskRiskAssessmentAlreadyExitsException;
 use Preventool\Domain\OccupationalRisk\Exception\TaskRiskNotFoundException;
 use Preventool\Domain\Process\Exception\ProcessActivityAlreadyExistsException;
 use Preventool\Domain\Process\Exception\ProcessActivityNotFoundException;
@@ -67,6 +68,8 @@ class JsonTransformerExceptionListener
         if ($exception instanceof HandlerFailedException) {
             $exception = $exception->getPrevious();
         }
+
+        dd($exception);
         
         if(!$exception instanceof NotFoundHttpException){
            $this->logger->error($exception);
@@ -157,7 +160,8 @@ class JsonTransformerExceptionListener
             WorkplaceHazardCategoryAlreadyExistsException::class,
             WorkplaceHazardAlreadyExistsException::class,
             TaskHazardConflictException::class,
-            TaskHazardAlreadyExitsException::class
+            TaskHazardAlreadyExitsException::class,
+            TaskRiskAssessmentAlreadyExitsException::class
         ];
     }
 

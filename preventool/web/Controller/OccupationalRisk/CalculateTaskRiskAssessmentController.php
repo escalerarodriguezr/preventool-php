@@ -36,6 +36,7 @@ class CalculateTaskRiskAssessmentController
         $this->commandBus->dispatch(
             new CalculateTaskRiskAssessmentCommand(
                 $this->httpRequestService->actionAdmin->getId()->value,
+                $taskRiskId,
                 $id,
                 $request->getSeverityIndex(),
                 $request->getPeopleExposedIndex(),

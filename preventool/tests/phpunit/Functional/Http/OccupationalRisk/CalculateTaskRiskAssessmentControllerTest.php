@@ -64,8 +64,8 @@ class CalculateTaskRiskAssessmentControllerTest extends FunctionalHttpTestBase
         );
 
         $response = self::$authenticatedRootClient->getResponse();
-
         self::assertSame(Response::HTTP_OK,$response->getStatusCode());
+
     }
 
 
