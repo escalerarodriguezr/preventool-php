@@ -10,6 +10,7 @@ use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\ProcessActivityF
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\ProcessActivityTaskFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\ProcessFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\TaskHazardFixtures;
+use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\TaskRiskAssessmentFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\UserFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\WorkplaceFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\WorkplaceHazardCategoryFixtures;
@@ -43,9 +44,51 @@ class CalculateTaskRiskAssessmentControllerTest extends FunctionalHttpTestBase
         ]);
     }
 
+    private function prepareDatabaseOnUpdateTest(): void
+    {
+        $this->databaseTool->loadFixtures([
+            UserFixtures::class,
+            AdminFixtures::class,
+            CompanyFixtures::class,
+            WorkplaceFixtures::class,
+            ProcessFixtures::class,
+            ProcessActivityFixtures::class,
+            ProcessActivityTaskFixtures::class,
+            WorkplaceHazardCategoryFixtures::class,
+            WorkplaceHazardFixtures::class,
+            TaskHazardFixtures::class,
+            TaskRiskAssessmentFixtures::class
+        ]);
+    }
+
     public function testCalculateTaskRiskAssessmentOnCreate(): void
     {
         $this->prepareDatabase();
+        $this->authenticatedRootClient();
+
+        $payload = [
+            CalculateTaskRiskAssessmentRequest::EXPOSURE_INDEX => 1,
+            CalculateTaskRiskAssessmentRequest::PEOPLE_EXPOSED_INDEX => 2,
+            CalculateTaskRiskAssessmentRequest::PROCEDURE_INDEX => 2,
+            CalculateTaskRiskAssessmentRequest::TRAINING_INDEX => 1,
+            CalculateTaskRiskAssessmentRequest::SEVERITY_INDEX => 2
+        ];
+
+        self::$authenticatedRootClient->request(
+            Request::METHOD_PUT,
+            sprintf(self::END_POINT,TaskHazardFixtures::TASK_RISK_TASK_1_NOISES_ID),
+            [],[],[],
+            json_encode($payload)
+        );
+
+        $response = self::$authenticatedRootClient->getResponse();
+        self::assertSame(Response::HTTP_OK,$response->getStatusCode());
+
+    }
+
+    public function testCalculateTaskRiskAssessmentOnUpdate(): void
+    {
+        $this->prepareDatabaseOnUpdateTest();
         $this->authenticatedRootClient();
 
         $payload = [

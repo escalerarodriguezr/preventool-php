@@ -44,10 +44,7 @@ class TaskRiskAssessment extends AggregateRoot
         ProcedureIndex $procedureIndex,
         TrainingIndex $trainingIndex,
         ExposureIndex $exposureIndex,
-
         Admin $creatorAdmin
-
-
     )
     {
         parent::__construct();
@@ -61,8 +58,7 @@ class TaskRiskAssessment extends AggregateRoot
         $this->procedureIndex = $procedureIndex->value;
         $this->trainingIndex = $trainingIndex->value;
         $this->exposureIndex = $exposureIndex->value;
-
-        $this->riskLevelIndex = 5;
+        $this->calculateAndSetRiskLevel();
 
     }
 
@@ -109,6 +105,7 @@ class TaskRiskAssessment extends AggregateRoot
     public function setSeverityIndex(SeverityIndex $severityIndex): void
     {
         $this->severityIndex = $severityIndex->value;
+        $this->calculateAndSetRiskLevel();
     }
 
     public function getPeopleExposedIndex(): PeopleExposedIndex
@@ -119,6 +116,7 @@ class TaskRiskAssessment extends AggregateRoot
     public function setPeopleExposedIndex(PeopleExposedIndex $peopleExposedIndex): void
     {
         $this->peopleExposedIndex = $peopleExposedIndex->value;
+        $this->calculateAndSetRiskLevel();
     }
 
     public function getProcedureIndex(): ProcedureIndex
@@ -129,6 +127,7 @@ class TaskRiskAssessment extends AggregateRoot
     public function setProcedureIndex(ProcedureIndex $procedureIndex): void
     {
         $this->procedureIndex = $procedureIndex->value;
+        $this->calculateAndSetRiskLevel();
     }
 
     public function getTrainingIndex(): TrainingIndex
@@ -139,6 +138,7 @@ class TaskRiskAssessment extends AggregateRoot
     public function setTrainingIndex(TrainingIndex $trainingIndex): void
     {
         $this->trainingIndex = $trainingIndex->value;
+        $this->calculateAndSetRiskLevel();
     }
 
     public function getExposureIndex(): ExposureIndex
@@ -149,6 +149,7 @@ class TaskRiskAssessment extends AggregateRoot
     public function setExposureIndex(ExposureIndex $exposureIndex): void
     {
         $this->exposureIndex = $exposureIndex->value;
+        $this->calculateAndSetRiskLevel();
     }
 
     public function getApprovedAdmin(): ?Admin

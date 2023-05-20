@@ -8,13 +8,12 @@ use Assert\AssertionFailedException;
 
 class AssessmentStatus
 {
-    const PENDING = 'PENDING';
+
     const DRAFT = 'DRAFT';
     const REVISED = 'REVISED';
     const APPROVED = 'APPROVED';
 
     const VALID_OPTIONS = [
-        self::PENDING,
         self::DRAFT,
         self::REVISED,
         self::APPROVED
