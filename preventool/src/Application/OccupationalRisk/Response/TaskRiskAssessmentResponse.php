@@ -18,6 +18,7 @@ class TaskRiskAssessmentResponse
     const PROCEDURE_INDEX = 'procedureIndex';
     const TRAINING_INDEX = 'trainingIndex';
     const EXPOSURE_INDEX = 'exposureIndex';
+    const RISK_LEVEL_INDEX = 'riskLevelIndex';
     const REVISED_ADMIN = 'revisedAdminId';
     const APPROVED_ADMIN = 'approvedAdminId';
     const CREATOR_ID = 'creatorId';
@@ -35,6 +36,7 @@ class TaskRiskAssessmentResponse
         public readonly int $procedureIndex,
         public readonly int $trainingIndex,
         public readonly int $exposureIndex,
+        public readonly int $riskLevelIndex,
         public readonly ?string $revisedAdminId,
         public readonly ?string $approvedAdminId,
         public readonly ?string $creatorId,
@@ -57,6 +59,7 @@ class TaskRiskAssessmentResponse
             $model->getProcedureIndex()->value,
             $model->getTrainingIndex()->value,
             $model->getExposureIndex()->value,
+            $model->getRiskLevelIndex()->value,
             $model->getRevisedAdmin()?->getId()->value,
             $model->getApprovedAdmin()?->getId()->value,
             $model->getCreatorAdmin()?->getId()->value,
@@ -78,6 +81,7 @@ class TaskRiskAssessmentResponse
             self::PROCEDURE_INDEX => $this->procedureIndex,
             self::TRAINING_INDEX => $this->trainingIndex,
             self::EXPOSURE_INDEX => $this->exposureIndex,
+            self::RISK_LEVEL_INDEX => $this->riskLevelIndex,
             self::REVISED_ADMIN => $this->revisedAdminId,
             self::APPROVED_ADMIN => $this->approvedAdminId,
             self::CREATOR_ID => $this->creatorId,

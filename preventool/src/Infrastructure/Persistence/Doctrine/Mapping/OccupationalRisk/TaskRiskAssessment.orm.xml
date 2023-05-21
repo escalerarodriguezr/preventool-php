@@ -12,7 +12,7 @@
         <field name="trainingIndex" type="integer"/>
         <field name="exposureIndex" type="integer"/>
 
-        <one-to-one field="taskRisk" target-entity="Preventool\Domain\OccupationalRisk\Model\TaskRisk" inversed-by="taskRisk">
+        <one-to-one field="taskRisk" target-entity="Preventool\Domain\OccupationalRisk\Model\TaskRisk" inversed-by="taskRiskAssessment">
             <join-column name="task_risk_id" referenced-column-name="id" nullable="false"/>
         </one-to-one>
 
