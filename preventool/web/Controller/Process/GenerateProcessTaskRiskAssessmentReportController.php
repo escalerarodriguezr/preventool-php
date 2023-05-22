@@ -3,8 +3,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Process;
 
+
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
+use Preventool\Domain\Process\Repository\ProcessRepository;
+use Preventool\Domain\Shared\Model\IdentityValidator;
+use Preventool\Domain\Shared\Model\Value\Uuid;
 use Twig\Environment;
 
 class GenerateProcessTaskRiskAssessmentReportController
@@ -13,7 +17,9 @@ class GenerateProcessTaskRiskAssessmentReportController
 
     public function __construct(
         private readonly Pdf $knpSnappyPdf,
-        private readonly Environment $engine
+        private readonly Environment $engine,
+        private readonly IdentityValidator $identityValidator,
+        private readonly ProcessRepository $processRepository
     )
     {
     }
@@ -23,12 +29,40 @@ class GenerateProcessTaskRiskAssessmentReportController
 
     )
     {
+
+        $this->identityValidator->validate($processId);
+
+        $process = $this->processRepository->findById(new Uuid($processId));
+
+        $workplace = $process->getWorkplace();
+        $company = $workplace->getCompany();
+
+
+        $activities = $process->getProcessActivities();
+
+        $tasks = $activities[0]->getActivityTasks();
+
+//        $hazards = $tasks[0]->ge
+
+
+
         $template = 'report/process/risk-assessment/report.pdf.twig';
         $header = 'report/process/risk-assessment/header.pdf.twig';
         $footer = 'report/process/risk-assessment/footer.pdf.twig';
-        $html = $this->engine->render($template);
-        $header = $this->engine->render($header);
+
+        $header = $this->engine->render($header,[
+            'companyName' => $company->getName()->value,
+            'workplaceName' => $workplace->getName()->value,
+            'processRevision' => $process->getRevisionNumber()]
+        );
         $footer = $this->engine->render($footer);
+
+        $html = $this->engine->render($template,[
+            'processName' => $process->getName()->value,
+            'processDescription' => $process->getDescription()?->decodeValue(),
+            'activities' => $activities
+        ]);
+
 
 
 
