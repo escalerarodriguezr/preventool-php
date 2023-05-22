@@ -148,6 +148,11 @@ update_process:
   path: /api/v1/workplace/{workplaceId}/process/{processId}
   controller: App\Controller\Process\UpdateProcessController
   methods: [PUT]
+get_process_risk_assessment_report:
+  path: /api/v1/process/{processId}
+  controller: App\Controller\Process\GenerateProcessTaskRiskAssessmentReportController
+  methods: [GET]
+
 
 #ProcessActivity
 post_create_process_activity:
