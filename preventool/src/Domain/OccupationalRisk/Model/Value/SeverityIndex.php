@@ -21,4 +21,13 @@ class SeverityIndex
         }
     }
 
+    public function description():string{
+        return match ($this->value) {
+            1 => 'Lesión sin incapacidad (S) / Disconfort o Incomodidad (SO)',
+            2 => 'Lesión con incapacidad temporal (S) / Daño a la salud reversible (SO)',
+            3 => 'Lesión con incapacidad permanente (S) / Daño a la salid irreversible (SO)',
+            default => '',
+        };
+    }
+
 }

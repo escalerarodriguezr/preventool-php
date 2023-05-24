@@ -19,7 +19,15 @@ class TrainingIndex
         } catch(AssertionFailedException $e) {
             throw new \DomainException(sprintf('"Value %d must be integer between 1 and 3', $value));
         }
+    }
 
+    public function description():string{
+        return match ($this->value) {
+            1 => 'Personal entrenado. Conoce el peligro y lo previene',
+            2 => 'Personal parcialmente entrenado. Conoce el peligro pero no toma acciones de control',
+            3 => 'Personal no entrenado. No conoce el peligro y no toma acciones de control',
+            default => '',
+        };
     }
 
 }

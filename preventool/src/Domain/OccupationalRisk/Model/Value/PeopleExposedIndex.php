@@ -22,4 +22,13 @@ class PeopleExposedIndex
 
     }
 
+    public function description():string{
+        return match ($this->value) {
+            1 => 'De 1 a 3',
+            2 => 'De 4 a 12',
+            3 => 'Más de 12',
+            default => '',
+        };
+    }
+
 }

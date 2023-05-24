@@ -72,10 +72,7 @@
                                         {% set taskIndex = loop.index %}
                                         {% for hazard in task.getTaskHazards %}
 
-                                            <h2>2.{{ activityIndex }}.2.{{ taskIndex }}.{{ loop.index }}.-{{ hazard.getTaskRisk.getName.value }}</h2>
-
-
-
+                                            <h2>2.{{ activityIndex }}.2.{{ taskIndex }}.2.{{ loop.index }}.-{{ hazard.getTaskRisk.getName.value }}</h2>
 
                                             <div style="margin: 5mm">
                                                 <h3>Categoría de Peligro</h3>
@@ -97,7 +94,7 @@
                                                 <h3>Estado</h3>
                                                 <div style="margin: 5mm;"
                                                 >
-                                                    {{ hazard.getTaskRisk.getStatus.value }}
+                                                    {{ hazard.getTaskRisk.getStatus.description }}
 
                                                 </div>
 
@@ -109,7 +106,7 @@
                                                         <h3>Estado</h3>
                                                         <div style="margin: 5mm;"
                                                         >
-                                                            {{ hazard.getTaskRisk.getTaskRiskAssessment.getStatus.value }}
+                                                            {{ hazard.getTaskRisk.getTaskRiskAssessment.getStatus.description }}
 
                                                             {#                                                    {% if hazard.getDescription %}{{ task.getDescription.decodeValue | raw }}{% else %}{{ "" }}{% endif %}#}
                                                         </div>
@@ -131,40 +128,40 @@
                                                                     </thead>
                                                                     <tbody>
                                                                     <tr style="page-break-inside: avoid;">
-                                                                        <td style="border: 1px solid black; padding: 8px; width: 30%;">Personas Expuestas</td>
-                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">Una descripción</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 30%;">Personas Expuestas (A)</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getPeopleExposedIndex.description }}</td>
                                                                         <td style="border: 1px solid black; padding: 8px; width: 20%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getPeopleExposedIndex.value }}</td>
                                                                     </tr>
                                                                     <tr style="page-break-inside: avoid;">
-                                                                        <td style="border: 1px solid black; padding: 8px; width: 30%;">Procedimiento</td>
-                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">Una descripción</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 30%;">Procedimiento (B)</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getProcedureIndex.description }}</td>
                                                                         <td style="border: 1px solid black; padding: 8px; width: 20%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getProcedureIndex.value }}</td>
                                                                     </tr>
                                                                     <tr style="page-break-inside: avoid;">
-                                                                        <td style="border: 1px solid black; padding: 8px; width: 30%;">Capacitación</td>
-                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">Una descripción</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 30%;">Capacitación (C)</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getTrainingIndex.description }}</td>
                                                                         <td style="border: 1px solid black; padding: 8px; width: 20%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getTrainingIndex.value }}</td>
                                                                     </tr>
                                                                     <tr style="page-break-inside: avoid;">
-                                                                        <td style="border: 1px solid black; padding: 8px; width: 30%;">Exposición al riesgo</td>
-                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">Una descripción</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 30%;">Exposición al riesgo (D)</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getExposureIndex.description }}</td>
                                                                         <td style="border: 1px solid black; padding: 8px; width: 20%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getExposureIndex.value }}</td>
                                                                     </tr>
 
                                                                     <tr style="page-break-inside: avoid; background-color: #f2f1f4">
                                                                         <td style="border: 1px solid black; padding: 8px; width: 30%;">Indice de Probabilidad</td>
-                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">Una descripción</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">A+B+C+D</td>
                                                                         <td style="border: 1px solid black; padding: 8px; width: 20%;">8</td>
                                                                     </tr>
                                                                     <tr style="page-break-inside: avoid; background-color: #f2f1f4">
-                                                                        <td style="border: 1px solid black; padding: 8px; width: 30%;">Indice de Serevidad</td>
-                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">Una descripción</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 30%;">Indice de Severidad</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getSeverityIndex.description }}</td>
                                                                         <td style="border: 1px solid black; padding: 8px; width: 20%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getSeverityIndex.value }}</td>
                                                                     </tr>
 
                                                                     <tr style="page-break-inside: avoid; background-color: #f2f1f4">
                                                                         <td style="border: 1px solid black; padding: 8px; width: 30%;"><b>RIESGO</b></td>
-                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">Una descripción</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getRiskLevelIndex.description }}</td>
                                                                         <td style="border: 1px solid black; padding: 8px; width: 20%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getRiskLevelIndex.value }}</td>
                                                                     </tr>
 

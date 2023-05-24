@@ -34,4 +34,14 @@ class TaskRiskStatus
 
     }
 
+    public function description():string{
+        return match ($this->value) {
+            self::PENDING_ASSESSMENT => 'Pendiente de evaluar',
+            self::DRAFT_ASSESSMENT => 'Evaluación en borrador',
+            self::REVISED_ASSESSMENT => 'Evaluación revisada',
+            self::APPROVED_ASSESSMENT => 'Evaluación aprobada',
+            default => '',
+        };
+    }
+
 }
