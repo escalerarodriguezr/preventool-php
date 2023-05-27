@@ -149,7 +149,7 @@ update_process:
   controller: App\Controller\Process\UpdateProcessController
   methods: [PUT]
 get_process_risk_assessment_report:
-  path: /api/v1/process/{processId}
+  path: /api/v1/process/{processId}/{type}
   controller: App\Controller\Process\GenerateProcessTaskRiskAssessmentReportController
   methods: [GET]
 

@@ -26,6 +26,7 @@ class GenerateProcessTaskRiskAssessmentReportController
 
     public function __invoke(
         string $processId,
+        string $type
 
     )
     {
@@ -33,29 +34,29 @@ class GenerateProcessTaskRiskAssessmentReportController
         $this->identityValidator->validate($processId);
 
         $process = $this->processRepository->findById(new Uuid($processId));
-
         $workplace = $process->getWorkplace();
         $company = $workplace->getCompany();
-
-
         $activities = $process->getProcessActivities();
 
-        $tasks = $activities[0]->getActivityTasks();
+//        $tasks = $activities[0]->getActivityTasks();
+//
+////        $hazards = $tasks[0]->ge
 
-//        $hazards = $tasks[0]->ge
 
-
-
-        $template = 'report/process/risk-assessment/report.pdf.twig';
         $header = 'report/process/risk-assessment/header.pdf.twig';
         $footer = 'report/process/risk-assessment/footer.pdf.twig';
 
         $header = $this->engine->render($header,[
-            'companyName' => $company->getName()->value,
-            'workplaceName' => $workplace->getName()->value,
-            'processRevision' => $process->getRevisionNumber()]
+                'companyName' => $company->getName()->value,
+                'workplaceName' => $workplace->getName()->value,
+                'processRevision' => $process->getRevisionNumber()]
         );
         $footer = $this->engine->render($footer);
+
+        if ($type === 'general'){
+            $template = 'report/process/risk-assessment/report-general.pdf.twig';
+        }
+
 
         $html = $this->engine->render($template,[
             'processName' => $process->getName()->value,
@@ -64,9 +65,8 @@ class GenerateProcessTaskRiskAssessmentReportController
         ]);
 
 
-
-
         $options = [
+            'title' => 'Informe',
             'encoding' => 'utf-8',
             'header-html' => $header,
             'margin-top' => '20mm',
@@ -79,9 +79,7 @@ class GenerateProcessTaskRiskAssessmentReportController
             $this->knpSnappyPdf->getOutputFromHtml($html,$options),
             'file.pdf'
         );
-//        dd($html);
-//        dd($this->knpSnappyPdf);
-//        dd($processId);
+
     }
 
 
