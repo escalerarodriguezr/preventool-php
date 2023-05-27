@@ -22,4 +22,13 @@ class ProcedureIndex
 
     }
 
+    public function description():string{
+        return match ($this->value) {
+            1 => 'Existen, son satisfactorios y suficientes',
+            2 => 'Existen, parcialmente y no son satisfactorios o suficientes',
+            3 => 'No existen',
+            default => '',
+        };
+    }
+
 }

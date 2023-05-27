@@ -30,4 +30,13 @@ class AssessmentStatus
         }
     }
 
+    public function description():string{
+        return match ($this->value) {
+            self::DRAFT => 'Borrador',
+            self::REVISED => 'Revisado',
+            self::APPROVED => 'Aprobado',
+            default => '',
+        };
+    }
+
 }
