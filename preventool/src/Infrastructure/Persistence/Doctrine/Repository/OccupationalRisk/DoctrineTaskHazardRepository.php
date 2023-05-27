@@ -4,7 +4,10 @@ declare(strict_types=1);
 namespace Preventool\Infrastructure\Persistence\Doctrine\Repository\OccupationalRisk;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Doctrine\ORM\Exception\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Preventool\Domain\OccupationalRisk\Exception\TaskHazardAlreadyExitsException;
+use Preventool\Domain\OccupationalRisk\Exception\TaskHazardNotFoundException;
 use Preventool\Domain\OccupationalRisk\Model\TaskHazard;
 use Preventool\Domain\OccupationalRisk\Repository\TaskHazardRepository;
 use Preventool\Domain\Shared\Model\Value\Uuid;
@@ -41,5 +44,28 @@ class DoctrineTaskHazardRepository extends DoctrineBaseRepository implements Tas
 
         return $this->objectRepository->findBy($criteria,$order);
     }
+
+    public function findById(Uuid $id): TaskHazard
+    {
+        $criteria = [
+            'id' => $id->value
+        ];
+
+        $model = $this->objectRepository->findOneBy($criteria);
+
+        if ($model === null){
+            throw TaskHazardNotFoundException::withId($id);
+        }
+
+        return $model;
+
+    }
+
+
+    public function delete(TaskHazard $model): void
+    {
+        $this->removeEntity($model);
+    }
+
 
 }

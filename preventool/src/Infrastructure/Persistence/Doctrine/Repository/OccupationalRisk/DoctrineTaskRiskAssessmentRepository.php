@@ -26,5 +26,10 @@ class DoctrineTaskRiskAssessmentRepository extends DoctrineBaseRepository implem
         }
     }
 
+    public function delete(TaskRiskAssessment $model): void
+    {
+        $this->removeEntity($model);
+    }
+
 
 }

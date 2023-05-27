@@ -8,5 +8,7 @@ use Preventool\Domain\OccupationalRisk\Model\TaskRiskAssessment;
 interface TaskRiskAssessmentRepository
 {
     public function save(TaskRiskAssessment $model): void;
+    public function delete(TaskRiskAssessment $model): void;
+
 
 }
