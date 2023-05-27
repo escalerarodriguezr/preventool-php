@@ -36,5 +36,10 @@ class DoctrineTaskRiskRepository extends DoctrineBaseRepository implements TaskR
        return $model;
     }
 
+    public function delete(TaskRisk $model): void
+    {
+        $this->removeEntity($model);
+    }
+
 
 }

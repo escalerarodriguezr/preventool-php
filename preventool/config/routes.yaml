@@ -206,7 +206,6 @@ get_search_workplace_hazard:
   controller: App\Controller\WorkplaceHazard\SearchWorkplaceHazardController
   methods: [GET]
 
-
 #TaskHazard
 post_create_task_hazard:
   path: /api/v1/create-task-hazard
@@ -216,6 +215,11 @@ get_task_hazards:
   path: /api/v1/task/{taskId}/hazards
   controller: App\Controller\OccupationalRisk\GetTaskHazardsByTaskIdController
   methods: [GET]
+delete_task_hazard:
+  path: /api/v1/task-hazard/{id}
+  controller: App\Controller\OccupationalRisk\DeleteTaskHazardByIdController
+  methods: [DELETE]
+
 #TaskRisk
 get_task_risk:
   path: /api/v1/task-risk/{id}

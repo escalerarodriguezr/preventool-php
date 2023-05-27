@@ -10,5 +10,7 @@ interface TaskRiskRepository
 {
     public function save(TaskRisk $taskRisk): void;
     public function findById(Uuid $id): TaskRisk;
+    public function delete(TaskRisk $model): void;
+
 
 }
