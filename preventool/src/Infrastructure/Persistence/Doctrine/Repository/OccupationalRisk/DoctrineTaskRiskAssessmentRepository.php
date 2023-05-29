@@ -48,5 +48,20 @@ class DoctrineTaskRiskAssessmentRepository extends DoctrineBaseRepository implem
        return $model;
     }
 
+    public function findByTaskRiskId(Uuid $id): TaskRiskAssessment
+    {
+        $criteria = [
+            'taskRisk' => $id->value
+        ];
+
+        $model = $this->objectRepository->findOneBy($criteria);
+
+        if($model===null){
+            throw TaskRiskAssessmentNotFoundException::withId($id);
+        }
+
+        return $model;
+    }
+
 
 }

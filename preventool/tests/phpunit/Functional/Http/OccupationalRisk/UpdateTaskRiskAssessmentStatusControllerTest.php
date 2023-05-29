@@ -57,7 +57,7 @@ class UpdateTaskRiskAssessmentStatusControllerTest extends FunctionalHttpTestBas
 
         self::$authenticatedRootClient->request(
             Request::METHOD_PUT,
-            sprintf(self::END_POINT,TaskRiskAssessmentFixtures::TASK_RISK_ASSESSMENT_TASK_1_NOISES_ID),
+            sprintf(self::END_POINT,TaskHazardFixtures::TASK_RISK_TASK_1_NOISES_ID),
             [],[],[],
             json_encode($payload)
         );
@@ -78,7 +78,7 @@ class UpdateTaskRiskAssessmentStatusControllerTest extends FunctionalHttpTestBas
 
         self::$authenticatedRootClient->request(
             Request::METHOD_PUT,
-            sprintf(self::END_POINT,TaskRiskAssessmentFixtures::TASK_RISK_ASSESSMENT_TASK_1_NOISES_ID),
+            sprintf(self::END_POINT,TaskHazardFixtures::TASK_RISK_TASK_1_NOISES_ID),
             [],[],[],
             json_encode($payload)
         );
@@ -99,7 +99,7 @@ class UpdateTaskRiskAssessmentStatusControllerTest extends FunctionalHttpTestBas
 
         self::$authenticatedRootClient->request(
             Request::METHOD_PUT,
-            sprintf(self::END_POINT,TaskRiskAssessmentFixtures::TASK_RISK_ASSESSMENT_TASK_1_NOISES_ID),
+            sprintf(self::END_POINT,TaskHazardFixtures::TASK_RISK_TASK_1_NOISES_ID),
             [],[],[],
             json_encode($payload)
         );

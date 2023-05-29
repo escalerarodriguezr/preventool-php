@@ -29,11 +29,11 @@ class UpdateTaskRiskAssessmentStatusCommandHandler implements CommandHandler
     {
 
         $actionAdminId = new Uuid($command->actionAdminId);
-        $taskRiskAssessmentId = new Uuid($command->taskRiskAssessmentId);
+        $taskRiskId = new Uuid($command->taskRiskId);
         $status = new AssessmentStatus($command->status);
 
         $actionAdmin = $this->adminRepository->findById($actionAdminId);
-        $taskRiskAssessment = $this->taskRiskAssessmentRepository->findById($taskRiskAssessmentId);
+        $taskRiskAssessment = $this->taskRiskAssessmentRepository->findByTaskRiskId($taskRiskId);
         $taskRisk = $taskRiskAssessment->getTaskRisk();
 
         $oldStatus = $taskRiskAssessment->getStatus();

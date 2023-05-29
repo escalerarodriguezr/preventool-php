@@ -24,16 +24,16 @@ class UpdateTaskRiskAssessmentStatusController
     }
 
     public function __invoke(
-        string $taskRiskAssessmentId,
+        string $taskRiskId,
         UpdateTaskRiskAssessmentStatusRequest $request
     ): Response
     {
-        $this->identityValidator->validate($taskRiskAssessmentId);
+        $this->identityValidator->validate($taskRiskId);
 
         $this->commandBus->dispatch(
             new UpdateTaskRiskAssessmentStatusCommand(
                 $this->httpRequestService->actionAdmin->getId()->value,
-                $taskRiskAssessmentId,
+                $taskRiskId,
                 $request->getStatus()
             )
         );

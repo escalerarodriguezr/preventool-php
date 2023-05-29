@@ -11,7 +11,7 @@ class UpdateTaskRiskAssessmentStatusCommand implements Command
 
     public function __construct(
         public readonly string $actionAdminId,
-        public readonly string $taskRiskAssessmentId,
+        public readonly string $taskRiskId,
         public readonly string $status
     )
     {

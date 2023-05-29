@@ -239,7 +239,7 @@ get_task_risk_assessment_by_task_id:
   controller: App\Controller\OccupationalRisk\GetTaskRiskAssessmentByTaskRiskIdController
   methods: [GET]
 put_update_task_risk_assessment_status:
-  path: /api/v1/task-risk-assessment/{taskRiskAssessmentId}/update-status
+  path: /api/v1/task-risk-assessment/{taskRiskId}/update-status
   controller: App\Controller\OccupationalRisk\UpdateTaskRiskAssessmentStatusController
   methods: [PUT]
 

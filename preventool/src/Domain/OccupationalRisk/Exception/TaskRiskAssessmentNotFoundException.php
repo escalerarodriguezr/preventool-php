@@ -14,4 +14,11 @@ class TaskRiskAssessmentNotFoundException extends \DomainException
         );
     }
 
+    public static function withTaskRiskId(Uuid $id): self
+    {
+        return new self(
+            sprintf('TaskRiskAssessment with taskRiskId %s not found', $id->value)
+        );
+    }
+
 }
