@@ -58,6 +58,7 @@ class TaskRiskAssessment extends AggregateRoot
         $this->procedureIndex = $procedureIndex->value;
         $this->trainingIndex = $trainingIndex->value;
         $this->exposureIndex = $exposureIndex->value;
+        $this->creatorAdmin = $creatorAdmin;
         $this->calculateAndSetRiskLevel();
 
     }
