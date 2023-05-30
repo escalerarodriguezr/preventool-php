@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PHPUnit\Tests\Functional\Http\HealthCheck;
 
 use PHPUnit\Tests\Functional\Http\FunctionalHttpTestBase;
+use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\AdminFixtures;
 use Preventool\Infrastructure\Persistence\Doctrine\DataFixtures\UserFixtures;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
@@ -17,7 +18,8 @@ class HealthCheckTest extends FunctionalHttpTestBase
     private function prepareDataBase():void
     {
         $this->databaseTool->loadFixtures([
-            UserFixtures::class
+            UserFixtures::class,
+            AdminFixtures::class
         ]);
     }
 
