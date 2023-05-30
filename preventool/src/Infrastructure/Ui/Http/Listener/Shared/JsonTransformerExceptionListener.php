@@ -31,6 +31,7 @@ use Preventool\Domain\Process\Exception\ProcessActivityTaskNotFoundException;
 use Preventool\Domain\Process\Exception\ProcessAlreadyExistsException;
 use Preventool\Domain\Process\Exception\ProcessNotFoundException;
 use Preventool\Domain\Shared\Exception\ActionNotAllowedException;
+use Preventool\Domain\User\Exception\UserAccountNotActiveException;
 use Preventool\Domain\User\Exception\UserAlreadyExistsException;
 use Preventool\Domain\User\Exception\UserNotFoundException;
 use Preventool\Domain\Workplace\Exception\WorkplaceAlreadyExistsException;
@@ -140,6 +141,7 @@ class JsonTransformerExceptionListener
     {
         return [
             UserAlreadyExistsException::class,
+            UserAccountNotActiveException::class,
             AdminAlreadyExistsException::class,
             ActionNotAllowedException::class,
             AdminInvalidCurrentPasswordException::class,
