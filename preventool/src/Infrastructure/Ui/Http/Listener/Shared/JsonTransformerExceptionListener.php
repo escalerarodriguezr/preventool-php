@@ -22,6 +22,7 @@ use Preventool\Domain\OccupationalRisk\Exception\TaskHazardAlreadyExitsException
 use Preventool\Domain\OccupationalRisk\Exception\TaskHazardConflictException;
 use Preventool\Domain\OccupationalRisk\Exception\TaskHazardNotFoundException;
 use Preventool\Domain\OccupationalRisk\Exception\TaskRiskAssessmentAlreadyExitsException;
+use Preventool\Domain\OccupationalRisk\Exception\TaskRiskAssessmentNotFoundException;
 use Preventool\Domain\OccupationalRisk\Exception\TaskRiskNotFoundException;
 use Preventool\Domain\Process\Exception\ProcessActivityAlreadyExistsException;
 use Preventool\Domain\Process\Exception\ProcessActivityNotFoundException;
@@ -130,7 +131,8 @@ class JsonTransformerExceptionListener
             ProcessNotFoundException::class,
             WorkplaceHazardNotFoundException::class,
             TaskRiskNotFoundException::class,
-            TaskHazardNotFoundException::class
+            TaskHazardNotFoundException::class,
+            TaskRiskAssessmentNotFoundException::class
         ];
     }
 

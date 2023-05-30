@@ -5,8 +5,10 @@ namespace Preventool\Infrastructure\Persistence\Doctrine\Repository\Occupational
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Preventool\Domain\OccupationalRisk\Exception\TaskRiskAssessmentAlreadyExitsException;
+use Preventool\Domain\OccupationalRisk\Exception\TaskRiskAssessmentNotFoundException;
 use Preventool\Domain\OccupationalRisk\Model\TaskRiskAssessment;
 use Preventool\Domain\OccupationalRisk\Repository\TaskRiskAssessmentRepository;
+use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Infrastructure\Persistence\Doctrine\Repository\DoctrineBaseRepository;
 
 class DoctrineTaskRiskAssessmentRepository extends DoctrineBaseRepository implements TaskRiskAssessmentRepository
@@ -29,6 +31,36 @@ class DoctrineTaskRiskAssessmentRepository extends DoctrineBaseRepository implem
     public function delete(TaskRiskAssessment $model): void
     {
         $this->removeEntity($model);
+    }
+
+    public function findById(Uuid $id): TaskRiskAssessment
+    {
+       $criteria = [
+           'id' => $id->value
+       ];
+
+       $model = $this->objectRepository->findOneBy($criteria);
+
+       if($model===null){
+           throw TaskRiskAssessmentNotFoundException::withId($id);
+       }
+
+       return $model;
+    }
+
+    public function findByTaskRiskId(Uuid $id): TaskRiskAssessment
+    {
+        $criteria = [
+            'taskRisk' => $id->value
+        ];
+
+        $model = $this->objectRepository->findOneBy($criteria);
+
+        if($model===null){
+            throw TaskRiskAssessmentNotFoundException::withId($id);
+        }
+
+        return $model;
     }
 
 
