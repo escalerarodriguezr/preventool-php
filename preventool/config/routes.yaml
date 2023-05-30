@@ -42,6 +42,10 @@ put_update_admin_password:
   path: /api/v1/admin/{id}/password
   controller: App\Controller\Admin\UpdateAdminPasswordController
   methods: [PUT]
+put_activate_admin:
+  path: /api/v1/admin/{id}/activate
+  controller: App\Controller\Admin\ActivateAdminController
+  methods: [PUT]
 
 
 #Company
