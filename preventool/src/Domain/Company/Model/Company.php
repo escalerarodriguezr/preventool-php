@@ -125,5 +125,10 @@ class Company extends AggregateRoot
         $this->updaterAdmin = $updaterAdmin;
     }
 
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
+    }
+
 
 }
