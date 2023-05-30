@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace Preventool\Infrastructure\Security\Listener;
 
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
+use Preventool\Domain\Admin\Repository\AdminRepository;
+use Preventool\Domain\Shared\Model\Value\Uuid;
+use Preventool\Domain\User\Exception\UserAccountNotActiveException;
 use Preventool\Domain\User\Model\User;
 
 class JWTCreatedListener
@@ -11,6 +14,12 @@ class JWTCreatedListener
     const USER_ID = 'userId';
     const USER_ROLE = 'userRole';
     const USER_EMAIL = 'userEmail';
+
+    public function __construct(
+        private readonly AdminRepository $adminRepository
+    )
+    {
+    }
 
 
     public function onJWTCreated(JWTCreatedEvent $event): void
@@ -21,9 +30,14 @@ class JWTCreatedListener
          */
         $user = $event->getUser();
 
-//        if(!$user->isActive() || !$user->isEmailConfirmed()){
-//            throw UserAccountNotActiveException::fromLoginService($user->getEmail()->getValue());
-//        }
+
+        $admin = $this->adminRepository->findById(
+            new Uuid($user->getId()->value)
+        );
+
+        if(!$admin->isActive() ){
+            throw UserAccountNotActiveException::fromLoginService($user->getEmail()->value);
+        }
 
 
         $payload = $event->getData();

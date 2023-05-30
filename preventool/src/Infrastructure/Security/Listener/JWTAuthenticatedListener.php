@@ -3,7 +3,9 @@
 namespace Preventool\Infrastructure\Security\Listener;
 
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTAuthenticatedEvent;
+use Preventool\Domain\Admin\Repository\AdminRepository;
 use Preventool\Domain\Shared\Model\Value\Uuid;
+use Preventool\Domain\User\Exception\UserAccountNotActiveException;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class JWTAuthenticatedListener
@@ -12,6 +14,7 @@ class JWTAuthenticatedListener
 
     public function __construct(
         private readonly RequestStack $requestStack,
+        private readonly AdminRepository $adminRepository
 
     )
     {
@@ -21,6 +24,12 @@ class JWTAuthenticatedListener
     {
 
         $userId = new Uuid($event->getPayload()[JWTCreatedListener::USER_ID]);
+
+        $admin = $this->adminRepository->findById($userId);
+        if(!$admin->isActive() ){
+            throw UserAccountNotActiveException::fromSecurity($userId->value);
+        }
+
         $this->addRequestParams($userId);
 
     }

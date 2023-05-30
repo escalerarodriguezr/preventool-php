@@ -120,4 +120,9 @@ class Admin extends AggregateRoot
         $this->lastName = $lastName->value;
     }
 
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
+    }
+
 }
