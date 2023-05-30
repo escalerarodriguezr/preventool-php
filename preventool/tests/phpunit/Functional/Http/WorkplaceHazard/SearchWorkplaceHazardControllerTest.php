@@ -50,15 +50,13 @@ class SearchWorkplaceHazardControllerTest extends FunctionalHttpTestBase
         $this->prepareDatabase();
         $this->authenticatedRootClient();
 
-        $query = [
-            SearchWorkplaceHazardRequest::FILTER_BY_NOT_HAS_TASK_HAZARD_WITH_TASK_ID => ProcessActivityTaskFixtures::CONFECCION_PROCESS_ACTIVITY_1_TASK_1_UUID
-
-        ];
+//        $query = [
+//            SearchWorkplaceHazardRequest::FILTER_BY_NOT_HAS_TASK_HAZARD_WITH_TASK_ID => ProcessActivityTaskFixtures::CONFECCION_PROCESS_ACTIVITY_1_TASK_1_UUID
+//        ];
 
         self::$authenticatedRootClient->request(
             Request::METHOD_GET,
-            sprintf(self::END_POINT,WorkplaceFixtures::RIVENDEL_WORKPLACE_1_UUID),
-            $query
+            sprintf(self::END_POINT,WorkplaceFixtures::RIVENDEL_WORKPLACE_1_UUID)
         );
 
         $response = self::$authenticatedRootClient->getResponse();
@@ -66,14 +64,7 @@ class SearchWorkplaceHazardControllerTest extends FunctionalHttpTestBase
 
         $responseData = json_decode($response->getContent(),true);
 
-
-
         foreach ($responseData[SearchWorkplaceHazardResponse::ITEMS] as $hazard){
-            self::assertNotEquals(
-                WorkplaceHazardFixtures::NOISES_ID,
-                $hazard[WorkplaceHazardResponse::ID]
-            );
-
             self::assertArrayHasKey(
                 WorkplaceHazardResponse::NAME,
                 $hazard

@@ -148,6 +148,11 @@ update_process:
   path: /api/v1/workplace/{workplaceId}/process/{processId}
   controller: App\Controller\Process\UpdateProcessController
   methods: [PUT]
+get_process_risk_assessment_report:
+  path: /api/v1/process/{processId}/{type}
+  controller: App\Controller\Process\GenerateProcessTaskRiskAssessmentReportController
+  methods: [GET]
+
 
 #ProcessActivity
 post_create_process_activity:
@@ -201,7 +206,6 @@ get_search_workplace_hazard:
   controller: App\Controller\WorkplaceHazard\SearchWorkplaceHazardController
   methods: [GET]
 
-
 #TaskHazard
 post_create_task_hazard:
   path: /api/v1/create-task-hazard
@@ -211,6 +215,37 @@ get_task_hazards:
   path: /api/v1/task/{taskId}/hazards
   controller: App\Controller\OccupationalRisk\GetTaskHazardsByTaskIdController
   methods: [GET]
+delete_task_hazard:
+  path: /api/v1/task-hazard/{id}
+  controller: App\Controller\OccupationalRisk\DeleteTaskHazardByIdController
+  methods: [DELETE]
+
+#TaskRisk
+get_task_risk:
+  path: /api/v1/task-risk/{id}
+  controller: App\Controller\OccupationalRisk\GetTaskRiskByIdController
+  methods: [GET]
+put_update_task_risk:
+  path: /api/v1/task-risk/{id}
+  controller: App\Controller\OccupationalRisk\UpdateTaskRiskController
+  methods: [PUT]
+#TaskRiskAssessesment
+put_calculate_task_risk_assessment:
+  path: /api/v1/task-risk/{taskRiskId}/calculate-assessment
+  controller: App\Controller\OccupationalRisk\CalculateTaskRiskAssessmentController
+  methods: [PUT]
+get_task_risk_assessment_by_task_id:
+  path: /api/v1/task-risk/{taskRiskId}/task-risk-assessment
+  controller: App\Controller\OccupationalRisk\GetTaskRiskAssessmentByTaskRiskIdController
+  methods: [GET]
+put_update_task_risk_assessment_status:
+  path: /api/v1/task-risk-assessment/{taskRiskId}/update-status
+  controller: App\Controller\OccupationalRisk\UpdateTaskRiskAssessmentStatusController
+  methods: [PUT]
+
+
+
+
 
 
 

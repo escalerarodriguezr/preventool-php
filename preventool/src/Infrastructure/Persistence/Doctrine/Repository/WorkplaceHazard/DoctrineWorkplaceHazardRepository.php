@@ -100,6 +100,7 @@ class DoctrineWorkplaceHazardRepository extends DoctrineBaseRepository implement
         }
 
 //        if(!empty($filter->filterByNotHasTaskHazardWithTaskId)){
+//
 //            $queryBuilder->leftJoin(
 //                sprintf('%s.%s', self::MODEL_ALIAS, 'taskHazards'),
 //                'th'
@@ -119,22 +120,22 @@ class DoctrineWorkplaceHazardRepository extends DoctrineBaseRepository implement
 //        }
 
         //subquery1
-        if(!empty($filter->filterByNotHasTaskHazardWithTaskId)){
-            $em = $this->getEntityManager();
-            $subQueryTaskHazard = $em->createQuery(
-                'SELECT subh.id
-                FROM Preventool\Domain\OccupationalRisk\Model\TaskHazard subth
-                JOIN subth.hazard subh
-                where subth.task = :taskId'
-            );
-
-
-            $queryBuilder->setParameter('taskId', $filter->filterByNotHasTaskHazardWithTaskId);
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->notIn(sprintf('%s.%s', self::MODEL_ALIAS,'id'), $subQueryTaskHazard->getDQL())
-            );
-
-        }
+//        if(!empty($filter->filterByNotHasTaskHazardWithTaskId)){
+//            $em = $this->getEntityManager();
+//            $subQueryTaskHazard = $em->createQuery(
+//                'SELECT subh.id
+//                FROM Preventool\Domain\OccupationalRisk\Model\TaskHazard subth
+//                JOIN subth.hazard subh
+//                where subth.task = :taskId'
+//            );
+//
+//
+//            $queryBuilder->setParameter('taskId', $filter->filterByNotHasTaskHazardWithTaskId);
+//            $queryBuilder->andWhere(
+//                $queryBuilder->expr()->notIn(sprintf('%s.%s', self::MODEL_ALIAS,'id'), $subQueryTaskHazard->getDQL())
+//            );
+//
+//        }
 
 
 

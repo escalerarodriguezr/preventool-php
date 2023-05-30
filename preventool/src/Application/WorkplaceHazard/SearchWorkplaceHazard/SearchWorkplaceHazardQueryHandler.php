@@ -42,7 +42,6 @@ class SearchWorkplaceHazardQueryHandler implements QueryHandler
         );
 
 
-
         $workplaceId = !empty($query->filterByWorkplaceId) ? new Uuid($query->filterByWorkplaceId) : null;
 
         return new SearchWorkplaceHazardResponse(

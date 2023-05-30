@@ -45,6 +45,8 @@ class GetTaskHazardsByTaskIdControllerTest extends FunctionalHttpTestBase
 
     public function testGetTaskHazardsSuccessResponse(): void
     {
+
+
         $this->prepareDatabase();
         $this->authenticatedRootClient();
 
@@ -71,6 +73,10 @@ class GetTaskHazardsByTaskIdControllerTest extends FunctionalHttpTestBase
             $responseData[0][TaskHazardResponse::HAZARD_NAME]
         );
 
+        self::assertSame(
+            TaskHazardFixtures::TASK_RISK_TASK_1_NOISES_ID,
+            $responseData[0][TaskHazardResponse::RISK_ID]
+        );
     }
 
 

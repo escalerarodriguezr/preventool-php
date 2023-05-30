@@ -42,3 +42,9 @@ services:
 
   Preventool\Infrastructure\Persistence\Doctrine\Repository\OccupationalRisk\DoctrineTaskHazardRepository: ~
   Preventool\Domain\OccupationalRisk\Repository\TaskHazardRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\OccupationalRisk\DoctrineTaskHazardRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\OccupationalRisk\DoctrineTaskRiskRepository: ~
+  Preventool\Domain\OccupationalRisk\Repository\TaskRiskRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\OccupationalRisk\DoctrineTaskRiskRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\OccupationalRisk\DoctrineTaskRiskAssessmentRepository: ~
+  Preventool\Domain\OccupationalRisk\Repository\TaskRiskAssessmentRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\OccupationalRisk\DoctrineTaskRiskAssessmentRepository'

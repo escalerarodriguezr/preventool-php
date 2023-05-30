@@ -30,11 +30,11 @@
             <join-column name="updater_admin_id" referenced-column-name="id" />
         </many-to-one>
 
-        <one-to-many field="taskHazards" target-entity="Preventool\Domain\OccupationalRisk\Model\TaskHazard" mapped-by="hazard">
-            <cascade>
-                <cascade-remove/>
-            </cascade>
-        </one-to-many>
+<!--        <one-to-many field="taskHazards" target-entity="Preventool\Domain\OccupationalRisk\Model\TaskHazard" mapped-by="hazard">-->
+<!--            <cascade>-->
+<!--                <cascade-remove/>-->
+<!--            </cascade>-->
+<!--        </one-to-many>-->
 
 
         <field name="createdAt" type="datetime_immutable"/>

@@ -7,6 +7,7 @@ use Preventool\Domain\Admin\Repository\AdminRepository;
 use Preventool\Domain\OccupationalRisk\Exception\TaskHazardConflictException;
 use Preventool\Domain\OccupationalRisk\Model\TaskHazard;
 use Preventool\Domain\OccupationalRisk\Repository\TaskHazardRepository;
+use Preventool\Domain\OccupationalRisk\Service\CreateTaskRiskService;
 use Preventool\Domain\Process\Repository\ProcessActivityTaskRepository;
 use Preventool\Domain\Shared\Bus\Command\CommandHandler;
 use Preventool\Domain\Shared\Model\Value\Uuid;
@@ -20,7 +21,8 @@ class CreateTaskHazardCommandHandler implements CommandHandler
         private readonly ProcessActivityTaskRepository $taskRepository,
         private readonly WorkplaceHazardRepository $hazardRepository,
         private readonly AdminRepository $adminRepository,
-        private readonly TaskHazardRepository $taskHazardRepository
+        private readonly TaskHazardRepository $taskHazardRepository,
+        private readonly CreateTaskRiskService $createTaskRiskService
     )
     {
     }
@@ -50,12 +52,15 @@ class CreateTaskHazardCommandHandler implements CommandHandler
         $taskHazard = new TaskHazard(
             new Uuid($command->taskHazardId),
             $task,
-            $hazard,
+            $hazard->getWorkplaceHazardCategory()->getName(),
+            $hazard->getName(),
             $actionAdmin
         );
 
-        $this->taskHazardRepository->save($taskHazard);
+        $taskHazard->setHazardDescription($hazard->getDescription());
 
+        $this->taskHazardRepository->save($taskHazard);
+        $this->createTaskRiskService->__invoke($taskHazard);
     }
 
 
