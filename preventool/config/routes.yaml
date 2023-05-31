@@ -82,6 +82,10 @@ put_company_approve_health_and_safety_policy:
   path: api/v1/company/{id}/approve-health-and-safety-policy
   controller: App\Controller\Company\PutApproveHealthAndSafetyPolicyController
   methods: [PUT]
+put_activate_company:
+  path: /api/v1/company/{id}/activate
+  controller: App\Controller\Company\ActivateCompanyController
+  methods: [PUT]
 
 
 
