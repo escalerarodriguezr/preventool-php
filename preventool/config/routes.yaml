@@ -106,6 +106,10 @@ put_update_workplace:
   path: /api/v1/company/{companyId}/workplace/{id}
   controller: App\Controller\Workplace\UpdateWorkplaceController
   methods: [PUT]
+put_activate_workplace:
+  path: /api/v1/workplace/{id}/activate
+  controller: App\Controller\Workplace\ActivateWorkplaceController
+  methods: [PUT]
 
 #BaselineStudy
 get_base_line_study_indicators:
