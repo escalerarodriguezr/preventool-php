@@ -110,6 +110,10 @@ put_activate_workplace:
   path: /api/v1/workplace/{id}/activate
   controller: App\Controller\Workplace\ActivateWorkplaceController
   methods: [PUT]
+get_workplace_dashboard:
+  path: /api/v1/workplace/{id}/dashboard
+  controller: App\Controller\Workplace\GetWorkplaceDashboardController
+  methods: [GET]
 
 #BaselineStudy
 get_base_line_study_indicators:
