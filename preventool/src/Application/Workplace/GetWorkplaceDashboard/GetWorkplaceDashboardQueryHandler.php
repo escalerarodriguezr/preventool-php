@@ -5,6 +5,7 @@ namespace Preventool\Application\Workplace\GetWorkplaceDashboard;
 
 use Preventool\Application\Workplace\GetWorkplaceDashboard\Response\WorkplaceDashboardResponse;
 use Preventool\Domain\BaselineStudy\Repository\BaselineStudyComplianceRepository;
+use Preventool\Domain\OccupationalRisk\Repository\TaskRiskRepository;
 use Preventool\Domain\Shared\Bus\Query\QueryHandler;
 use Preventool\Domain\Shared\Model\Value\Uuid;
 use Preventool\Domain\Workplace\Repository\WorkplaceRepository;
@@ -12,10 +13,10 @@ use Preventool\Domain\Workplace\Repository\WorkplaceRepository;
 class GetWorkplaceDashboardQueryHandler implements QueryHandler
 {
 
-
     public function __construct(
         private readonly WorkplaceRepository $workplaceRepository,
-        private readonly BaselineStudyComplianceRepository $baselineStudyComplianceRepository
+        private readonly BaselineStudyComplianceRepository $baselineStudyComplianceRepository,
+        private readonly TaskRiskRepository $taskRiskRepository
 
     )
     {
@@ -29,9 +30,14 @@ class GetWorkplaceDashboardQueryHandler implements QueryHandler
 
         $workplace = $this->workplaceRepository->findById($workplaceId);
         $baselineStudyCompliance = $this->baselineStudyComplianceRepository->findByWorkplace($workplace);
+        
+        $taskRiskCountStatus = $this->taskRiskRepository->countOfStatusByWorkplaceQuery(
+            $workplace
+        );
 
-        return WorkplaceDashboardResponse::createFromModels(
-            $baselineStudyCompliance
+        return WorkplaceDashboardResponse::build(
+            $baselineStudyCompliance,
+            $taskRiskCountStatus
         );
 
     }

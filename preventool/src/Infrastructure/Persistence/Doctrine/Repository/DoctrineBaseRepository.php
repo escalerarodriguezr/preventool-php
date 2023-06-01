@@ -74,4 +74,9 @@ abstract class DoctrineBaseRepository
         $this->connection->executeQuery($query, $params);
     }
 
+    public function getConnection(): Connection
+    {
+        return $this->connection;
+    }
+
 }

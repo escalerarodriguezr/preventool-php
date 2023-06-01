@@ -65,6 +65,30 @@ class GetWorkplaceDashboardControllerTest extends FunctionalHttpTestBase
             $responseData
         );
 
+        self::assertArrayHasKey(
+            WorkplaceDashboardResponse::TASK_RISK_TOTAL_NUMBER,
+            $responseData
+        );
+
+        self::assertArrayHasKey(
+            WorkplaceDashboardResponse::TASK_RISK_STATUS_PENDING_NUMBER,
+            $responseData
+        );
+
+        self::assertArrayHasKey(
+            WorkplaceDashboardResponse::TASK_RISK_STATUS_DRAFT_NUMBER,
+            $responseData
+        );
+
+        self::assertArrayHasKey(
+            WorkplaceDashboardResponse::TASK_RISK_STATUS_REVISED_NUMBER,
+            $responseData
+        );
+
+        self::assertArrayHasKey(
+            WorkplaceDashboardResponse::TASK_RISK_STATUS_APPROVED_NUMBER,
+            $responseData
+        );
     }
 
 
