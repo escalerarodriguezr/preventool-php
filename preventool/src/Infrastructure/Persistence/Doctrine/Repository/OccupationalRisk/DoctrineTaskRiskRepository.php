@@ -60,6 +60,7 @@ class DoctrineTaskRiskRepository extends DoctrineBaseRepository implements TaskR
                 INNER JOIN process_activity pa on pat.process_activity_id = pa.id
                 INNER JOIN process p on pa.process_id = p.id
             WHERE p.workplace_id = :workplaceId
+            AND th.deleted_at IS NULL 
         SQL;
 
 
@@ -75,10 +76,10 @@ class DoctrineTaskRiskRepository extends DoctrineBaseRepository implements TaskR
 
         return new CountOfStatusByWorkplaceQueryResponse(
             $response['total'],
-            $response['pending'],
-            $response['draft'],
-            $response['revised'],
-            $response['approved'],
+            $response['pending'] ?? 0,
+            $response['draft'] ?? 0,
+            $response['revised'] ?? 0,
+            $response['approved'] ?? 0,
         );
 
 
