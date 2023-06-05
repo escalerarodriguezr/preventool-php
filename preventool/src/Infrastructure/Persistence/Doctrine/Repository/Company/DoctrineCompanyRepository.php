@@ -35,6 +35,12 @@ class DoctrineCompanyRepository extends DoctrineBaseRepository implements Compan
         }
     }
 
+    public function delete(Company $company): void
+    {
+        $this->removeEntity($company);
+    }
+
+
     public function findByLegalDocumentOrNull(
         LegalDocument $legalDocument
     ): ?Company
