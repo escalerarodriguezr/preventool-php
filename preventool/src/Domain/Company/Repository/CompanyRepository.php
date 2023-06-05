@@ -14,6 +14,7 @@ interface CompanyRepository
 
     public function save(Company $company): void;
     public function findById(Uuid $id): Company;
+    public function delete(Company $company): void;
 
     public function searchPaginated(
         QueryCondition $queryCondition,

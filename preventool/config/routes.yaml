@@ -53,7 +53,6 @@ post_create_company:
   path: /api/v1/company
   controller: App\Controller\Company\CreateCompanyController
   methods: [POST]
-
 get_company:
   path: /api/v1/company/{id}
   controller: App\Controller\Company\GetCompanyByIdController
@@ -66,6 +65,10 @@ put_update_company:
   path: /api/v1/company/{id}
   controller: App\Controller\Company\UpdateCompanyController
   methods: [PUT]
+delete_company:
+  path: /api/v1/company/{id}
+  controller: App\Controller\Company\DeleteCompanyController
+  methods: [DELETE]
 post_upload_health_and_safety_policy_document_of_company:
   path: /api/v1/company/{id}/upload-health-and-safety-policy
   controller: App\Controller\Company\UploadHealthAndSafetyPolicyController
