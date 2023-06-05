@@ -34,6 +34,8 @@ class DeleteCompanyCommandHandler implements CommandHandler
 
         $companyId = new Uuid($command->companyId);
         $company = $this->companyRepository->findById($companyId);
+        $company->setUpdaterAdmin($actionAdmin);
+        $this->companyRepository->save($company);
         $this->companyRepository->delete($company);
     }
 

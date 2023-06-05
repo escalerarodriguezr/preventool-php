@@ -55,6 +55,11 @@ class DoctrineWorkplaceRepository extends DoctrineBaseRepository implements Work
         return $workplace;
     }
 
+    public function delete(Workplace $workplace): void
+    {
+        $this->removeEntity($workplace);
+    }
+
 
     public function searchPaginated(
         QueryCondition $queryCondition,

@@ -12,6 +12,7 @@ interface WorkplaceRepository
 {
     public function save(Workplace $workplace): void;
     public function findById(Uuid $id): Workplace;
+    public function delete(Workplace $workplace): void;
 
     public function searchPaginated(
         QueryCondition $queryCondition,
