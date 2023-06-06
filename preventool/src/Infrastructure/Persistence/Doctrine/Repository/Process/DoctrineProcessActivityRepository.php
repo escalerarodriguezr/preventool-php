@@ -38,6 +38,12 @@ class DoctrineProcessActivityRepository extends DoctrineBaseRepository implement
         }
     }
 
+    public function delete(ProcessActivity $processActivity): void
+    {
+        $this->removeEntity($processActivity);
+    }
+
+
     public function findById(Uuid $id): ProcessActivity
     {
         $citeria = [

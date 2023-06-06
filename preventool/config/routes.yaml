@@ -198,6 +198,10 @@ put_update_process_activity_by_id:
   path: /api/v1/process-activity/{id}
   controller: App\Controller\Process\UpdateProcessActivityByIdController
   methods: [PUT]
+delete_process_activity:
+  path: /api/v1/process-activity/{activityId}
+  controller: App\Controller\Process\DeleteProcessActivityController
+  methods: [DELETE]
 put_reorder_process_activities:
   path: /api/v1/process/{processId}/reorder-activities
   controller: App\Controller\Process\ReorderProcessActivitiesController
