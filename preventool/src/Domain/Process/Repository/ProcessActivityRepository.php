@@ -12,6 +12,7 @@ interface ProcessActivityRepository
 {
     public function save(ProcessActivity $processActivity): void;
     public function findById(Uuid $id): ProcessActivity;
+    public function delete(ProcessActivity $processActivity): void;
 
     public function getAllByProcessId(Uuid $processId): array;
 
