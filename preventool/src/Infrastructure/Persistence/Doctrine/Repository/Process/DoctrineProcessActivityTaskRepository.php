@@ -30,6 +30,12 @@ final class DoctrineProcessActivityTaskRepository extends DoctrineBaseRepository
         }
     }
 
+    public function delete(ProcessActivityTask $processActivityTask): void
+    {
+        $this->removeEntity($processActivityTask);
+    }
+
+
     public function findById(Uuid $id): ProcessActivityTask
     {
         $criteria = [
