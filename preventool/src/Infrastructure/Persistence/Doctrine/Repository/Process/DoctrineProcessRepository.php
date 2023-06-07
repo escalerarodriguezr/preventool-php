@@ -39,6 +39,12 @@ class DoctrineProcessRepository extends DoctrineBaseRepository implements Proces
         }
     }
 
+    public function delete(Process $model): void
+    {
+        $this->removeEntity($model);
+    }
+
+
     public function findById(
         Uuid $id
     ): Process
