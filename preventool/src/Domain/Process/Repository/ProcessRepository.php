@@ -13,6 +13,7 @@ use Preventool\Domain\Workplace\Model\Workplace;
 interface ProcessRepository
 {
     public function save(Process $model): void;
+    public function delete(Process $model): void;
     public function findById(Uuid $id): Process;
     public function findByWorkplaceAndId(Workplace $workplace,Uuid $id): Process;
 

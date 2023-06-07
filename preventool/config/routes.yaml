@@ -171,6 +171,10 @@ update_process:
   path: /api/v1/workplace/{workplaceId}/process/{processId}
   controller: App\Controller\Process\UpdateProcessController
   methods: [PUT]
+delete_process:
+  path: api/v1/workplace/{workplaceId}/process/{processId}
+  controller: App\Controller\Process\DeleteProcessController
+  methods: [DELETE]
 get_process_risk_assessment_report:
   path: /api/v1/process/{processId}/{type}
   controller: App\Controller\Process\GenerateProcessTaskRiskAssessmentReportController
