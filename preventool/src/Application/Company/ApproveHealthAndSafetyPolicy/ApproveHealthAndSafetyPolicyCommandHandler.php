@@ -59,21 +59,15 @@ class ApproveHealthAndSafetyPolicyCommandHandler implements CommandHandler
             );
         }
 
-        $policy->setStatus(
-            new DocumentStatus(
-                DocumentStatus::APPROVED
-            )
-        );
+        if ($policy->getStatus()->value === DocumentStatus::APPROVED){
+            $newStatus = new DocumentStatus(DocumentStatus::DRAFT);
+        }else{
+            $newStatus = new DocumentStatus(DocumentStatus::APPROVED);
+        }
 
-        $policy->setApprovedAdmin(
-            $actionAdmin
-        );
+        $policy->setStatus($newStatus);
+        $policy->setApprovedAdmin($actionAdmin);
 
-        $this->healthAndSafetyPolicyRepository->save(
-            $policy
-        );
-
+        $this->healthAndSafetyPolicyRepository->save($policy);
     }
-
-
 }
