@@ -30,6 +30,9 @@
             <cascade>
                 <cascade-remove/>
             </cascade>
+            <order-by>
+                <order-by-field name="taskOrder" direction="ASC" />
+            </order-by>
         </one-to-many>
 
 

@@ -33,6 +33,9 @@
             <cascade>
                 <cascade-remove/>
             </cascade>
+            <order-by>
+                <order-by-field name="activityOrder" direction="ASC" />
+            </order-by>
         </one-to-many>
 
 
