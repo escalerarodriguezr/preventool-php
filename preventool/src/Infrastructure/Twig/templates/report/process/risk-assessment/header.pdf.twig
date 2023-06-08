@@ -30,7 +30,7 @@
     "
     >
 {#        <div><b>Revisión:</b>{{ processRevision }}</div>#}
-        <div><b>Fecha Impresión: </b>{{ reportDate }}</div>
+        <div><b>Fecha Impresión: </b>{{ reportDate |date("m/d/Y H:i:s", "America/Lima") }}</div>
     </div>
 
 

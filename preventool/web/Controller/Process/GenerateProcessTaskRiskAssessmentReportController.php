@@ -45,9 +45,11 @@ class GenerateProcessTaskRiskAssessmentReportController
 
 
 
-        $reportDate = new \DateTime();
-        //TimeZone de la impresión
-        $reportDate->setTimezone(new DateTimeZone('America/Lima'));
+//        $reportDate = new \DateTime();
+//        //TimeZone de la impresión
+//        $reportDate->setTimezone(new DateTimeZone('America/Lima'));
+
+        $reportDate = new \DateTimeImmutable();
 
         $header = 'report/process/risk-assessment/header.pdf.twig';
         $footer = 'report/process/risk-assessment/footer.pdf.twig';
