@@ -17,6 +17,7 @@ class TaskHazardResponse
     const RISK_ID = 'riskId';
     const RISK_NAME = 'riskName';
     const ACTIVE = 'active';
+    const STATUS = 'status';
     const CREATOR_ID = 'creatorId';
     const UPDATER_ID = 'updaterId';
     const CREATED_AT = 'createdAt';
@@ -30,6 +31,7 @@ class TaskHazardResponse
         public readonly string $riskId,
         public readonly string $riskName,
         public readonly bool $active,
+        public readonly string $status,
         public readonly ?string $creatorId,
         public readonly ?string $updaterId,
         public readonly \DateTimeImmutable $createdAt,
@@ -49,6 +51,7 @@ class TaskHazardResponse
             $model->getTaskRisk()->getId()->value,
             $model->getTaskRisk()->getName()->value,
             $model->isActive(),
+            $model->getTaskRisk()->getStatus()->value,
             $model->getCreatorAdmin()?->getId()->value,
             $model->getUpdaterAdmin()?->getId()->value,
             $model->getCreatedAt(),
@@ -66,6 +69,7 @@ class TaskHazardResponse
             self::RISK_ID => $this->riskId,
             self::RISK_NAME => $this->riskName,
             self::ACTIVE => $this->active,
+            self::STATUS => $this->status,
             self::CREATOR_ID => $this->creatorId,
             self::UPDATER_ID => $this->updaterId,
             self::CREATED_AT => $this->createdAt->format(DateTimeInterface::RFC3339),

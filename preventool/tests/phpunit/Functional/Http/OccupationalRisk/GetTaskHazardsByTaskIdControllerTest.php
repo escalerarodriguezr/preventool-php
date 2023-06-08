@@ -77,6 +77,12 @@ class GetTaskHazardsByTaskIdControllerTest extends FunctionalHttpTestBase
             TaskHazardFixtures::TASK_RISK_TASK_1_NOISES_ID,
             $responseData[0][TaskHazardResponse::RISK_ID]
         );
+
+       self::assertArrayHasKey(
+           TaskHazardResponse::STATUS,
+           $responseData[0]
+       );
+
     }
 
 
