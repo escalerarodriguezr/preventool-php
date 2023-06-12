@@ -71,11 +71,11 @@
 
                                 <div style="margin-left: 5mm;"
                                 >
-                                    <p>La tarea tiene asignada un total de {{ numberOfTasks }} tareas.</p>
+                                    <p>La tarea tiene asignadas un total de {{ numberOfTasks }} tareas.</p>
                                     <p>Las tareas son:</p>
                                     <ul style="list-style-type: none">
                                         {% for task in activity.getActivityTasks %}
-                                            <li>{{ loop.index }}.-{{ task.getName.value }}</li>
+                                            <li>{{ loop.index }}.-{{ task.getName.value }}.</li>
                                         {% endfor %}
                                     </ul>
                                 </div>
