@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Process;
 
 
+use DateTimeZone;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use Preventool\Domain\Process\Repository\ProcessRepository;
@@ -13,7 +14,6 @@ use Twig\Environment;
 
 class GenerateProcessTaskRiskAssessmentReportController
 {
-
 
     public function __construct(
         private readonly Pdf $knpSnappyPdf,
@@ -43,13 +43,23 @@ class GenerateProcessTaskRiskAssessmentReportController
 ////        $hazards = $tasks[0]->ge
 
 
+
+
+//        $reportDate = new \DateTime();
+//        //TimeZone de la impresión
+//        $reportDate->setTimezone(new DateTimeZone('America/Lima'));
+
+        $reportDate = new \DateTimeImmutable();
+
         $header = 'report/process/risk-assessment/header.pdf.twig';
         $footer = 'report/process/risk-assessment/footer.pdf.twig';
 
         $header = $this->engine->render($header,[
                 'companyName' => $company->getName()->value,
                 'workplaceName' => $workplace->getName()->value,
-                'processRevision' => $process->getRevisionNumber()]
+                'processRevision' => $process->getRevisionNumber(),
+                'reportDate' => $reportDate->format('Y-m-d H:i:s')
+            ]
         );
         $footer = $this->engine->render($footer);
 
@@ -57,10 +67,15 @@ class GenerateProcessTaskRiskAssessmentReportController
             $template = 'report/process/risk-assessment/report-general.pdf.twig';
         }
 
+        if ($type === 'process-resume'){
+            $template = 'report/process/risk-assessment/report-process-resume.pdf.twig';
+        }
+
 
         $html = $this->engine->render($template,[
             'processName' => $process->getName()->value,
             'processDescription' => $process->getDescription()?->decodeValue(),
+            'numberOfActivities' => $activities->count(),
             'activities' => $activities
         ]);
 

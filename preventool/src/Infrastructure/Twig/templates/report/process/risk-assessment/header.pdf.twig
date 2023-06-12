@@ -29,7 +29,8 @@
     right: 0;
     "
     >
-        <div><b>Revisión:</b>{{ processRevision }}</div>
+{#        <div><b>Revisión:</b>{{ processRevision }}</div>#}
+        <div><b>Fecha Impresión: </b>{{ reportDate |date("m/d/Y H:i:s", "America/Lima") }}</div>
     </div>
 
 
